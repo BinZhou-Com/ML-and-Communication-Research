@@ -1,0 +1,111 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{1.45.2.1 }
+
+\bibitem[Arystides e Medeiros 1995]{Arystides1994}
+\abntrefinfo{Arystides e Medeiros}{ARYSTIDES; MEDEIROS}{1995}
+{ARYSTIDES, B.; MEDEIROS, C.~S. de. Incorporação de tempo em {SGBD} orientado a
+  objeto. In:  SIMPóSIO BRASILEIRO DE BANCO DE DADOS, 13., 1996, Petrolina.
+  \textbf{Anais...} Petrolina: EMBRAPA, 1995. p. 90--98.}
+
+\bibitem[Assenmacher \textit{et al.} 1993]{Assenmacher1993}
+\abntrefinfo{Assenmacher \textit{et al.}}{ASSENMACHER \textit{et al.}}{1993}
+{ASSENMACHER, H.; BREITBACH, T.; BUHLER, P.; H{\"U}BSCH, V.; SCHWARZ, R.
+  {P}anda: supporting distributed programming in {L}++. In:  EUROPEAN
+  CONFERENCE ON OBJECT-ORIENTED PROGRAMMING, 7., 1993, Kaiserslautern.
+  \textbf{Proceedings...} Berlin: Springer, 1993. p. 361--383. (Lecture Notes
+  in Computer Science, v. 707).}
+
+\bibitem[Callaghan \textit{et al.} 1995]{Callaghan1995}
+\abntrefinfo{Callaghan \textit{et al.}}{CALLAGHAN \textit{et al.}}{1995}
+{CALLAGHAN, B.; PAWLOWSKI, B.; STAUBACH, P. \textbf{{NFS} version 3 protocol
+  specification}: {RFC} 1831.
+London, 1995. 68~p.}
+
+\bibitem[Caromel \textit{et al.} 1998]{Caromel1998}
+\abntrefinfo{Caromel \textit{et al.}}{CAROMEL \textit{et al.}}{1998}
+{CAROMEL, D.; KLAUSER, W.; VAYSSIERE, J. Towards seamless computing and
+  metacomputing in {J}ava.
+\textbf{Concurrency in Practice and Experience}, v.~10, n. 11--13, p.
+  1043--1061, set./nov. 1998.
+Dispon{\'\i}vel em:
+  \htmladdnormallink{$<$http:\-/\-/www-sop\-.inria\-.fr\-/{\textbackslash}\~{}{}sloop\-/javall\-/index\-.ht$>$}{http://www-sop.inria.fr/\~{}sloop/javall/index.ht}.
+  Acesso em: 20 fev. 2000.}
+
+\bibitem[Conference on Coffee Importance 2000]{COFFEE2000}
+\abntrefinfo{Conference on Coffee Importance}{CONFERENCE ON COFFEE
+  IMPORTANCE}{2000}
+{CONFERENCE ON COFFEE IMPORTANCE, 1., 2000, Java Island.
+  \textbf{Proceedings...} Java Island: Java Island Press, 2000.}
+
+\bibitem[Furmento \textit{et al.} 1995]{Furmento1995}
+\abntrefinfo{Furmento \textit{et al.}}{FURMENTO \textit{et al.}}{1995}
+{FURMENTO, N.; ROUDIER, Y.; SIEGEL, G. \textbf{Parall{\'e}lisme et distribution
+  en {C}++}: une revue des langages existants.
+Valbonne, 1995. (RR~95-02). Dispon{\'\i}vel em:
+  \htmladdnormallink{$<$http:\-/\-/www-sop\-.inria\-.br\-/science\-/skd\-.gz$>$}{http://www-sop.inria.br/science/skd.gz}.
+  Acesso em: 29 fev. 2003.}
+
+\bibitem[ITALUS 2004]{ITALUS2004}
+\abntrefinfo{ITALUS}{ITALUS}{2004}
+{ITALUS: grupo de usu{\'a}rios {\LaTeX} do {ITA}. 2004.
+Dispon{\'\i}vel em:
+  \htmladdnormallink{$<$http:\-/\-/www\-.comp\-.ita\-.br\-/italus\-/$>$}{http://www.comp.ita.br/italus/}.
+  Acesso em: 22 jul. 2004.}
+
+\bibitem[Joea e John 2003]{Joea2003}
+\abntrefinfo{Joea e John}{JOEA; JOHN}{2003}
+{JOEA, J.~G.; JOHN, J.~G. Importance of coffee in computer sciences. In:
+  CONFERENCE ON COFFEE IMPORTANCE, 1., 2000, Java Island.
+  \textbf{Proceedings...} Java Island: Java Island Press, 2003. p. 99--100.}
+
+\bibitem[Morgado 2003]{Morgado2003}
+\abntrefinfo{Morgado}{MORGADO}{2003}
+{MORGADO, M. L.~C.
+\textbf{Reimplante dentário}.
+Trabalho de Conclusão de Curso (Especialização do curso) --- Faculdade de
+  Odontologia, Universidade Federal do Nananana, São Paulo, 2003.}
+
+\bibitem[Nascimento 1971]{Nascimento1970}
+\abntrefinfo{Nascimento}{NASCIMENTO}{1971}
+{NASCIMENTO, E.~A. do.
+\textbf{An{\'a}lise de curvas curvil{\'\i}neas da trajet{\'o}ria da bola}.
+1970. 36~f. Dissertação (Mestrado em Ci{\^e}ncia do Futebol) --- Cosmos
+  University, Cidade do Cabo, 1971.}
+
+\bibitem[Patagonios 2001]{Patagonios2001}
+\abntrefinfo{Patagonios}{PATAGONIOS}{2001}
+{PATAGONIOS, J.
+\textbf{Um exemplo de TG}.
+98~p. Trabalho de Conclus{\~a}o de Curso (Gradua{\c{c}}{\~a}o em Engenharia de
+  Computa{\c{c}}{\~a}o) --- Instituto Te{\'o}rico Aeroglifo, Santa
+  Pindamonhangaba, 2001.}
+
+\bibitem[Sbornian 2002]{Sbornian2002}
+\abntrefinfo{Sbornian}{SBORNIAN}{2002}
+{SBORNIAN, W.
+\textbf{Um exemplo de disserta{\c{c}}{\~a}o de mestrado}.
+2002. 98~f. Dissertação (Mestrado em Ci{\^e}ncia da Computa{\c{c}}{\~a}o) ---
+  Instituto de Alguma Coisa, Universidade Sei L{\'a} de Onde, Santa
+  Pindamonhangaba, 2002.
+Dispon{\'\i}vel em:
+  \htmladdnormallink{$<$http:\-/\-/www\-.santapinda\-.edu\-/{\textbackslash}\~{}{}sbor\-/dissert\-.p$>$}{http://www.santapinda.edu/\~{}sbor/dissert.p}.
+  Acesso em: 25 fev. 2002.}
+
+\bibitem[Sbornian 2004]{Sbornian2004}
+\abntrefinfo{Sbornian}{SBORNIAN}{2004}
+{SBORNIAN, W.
+\textbf{Um exemplo de tese de doutorado}.
+2004. 169~f. Tese (Doutorado em Aeron{\'a}utica) --- Instituto de Alguma Coisa,
+  Universidade Sei L{\'a} de Onde, Santo Ant{\^o}nio da Patrulha, 2004. 1
+  CD--ROM.}
+
+\bibitem[Silberschatz \textit{et al.} 1991]{Silberschatz1991}
+\abntrefinfo{Silberschatz \textit{et al.}}{SILBERSCHATZ \textit{et al.}}{1991}
+{SILBERSCHATZ, A.; PETERSON, J.~L.; GALVIN, P.~B. \textbf{Operating system
+  concepts}. 3rd. ed. New York: Springer, 1991.}
+
+\end{thebibliography}

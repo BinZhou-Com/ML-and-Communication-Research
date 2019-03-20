@@ -1,0 +1,223 @@
+%%% Exemplo de utilização da classe ITA
+%%%
+%%%   por        Fábio Fagundes Silveira   -  ffs [at] ita [dot] br
+%%%              Benedito C. O. Maciel     -  bcmaciel [at] ita [dot] br
+%%%              Giovani Volnei Meinertz   -  giovani [at] ita [dot] br
+%%%    	         Hudson Alberto Bode       -  bode [at] ita [dot]br
+%%%    	         P. I. Braga de Queiroz    -  pi [at] ita [dot] br
+%%%    	         Jorge A. B. Gripp         -  gripp [at] ita [dot] br
+%%%    	         Juliano Monte-Mor         -  jamontemor [at] yahoo [dot] com [dot] br
+%%%    	         Tarcisio A. B. Gripp      -  tarcisio.gripp [at] gmail [dot] com
+%%%    	         
+%%%
+%%%  IMPORTANTE: O texto contido neste exemplo nao significa absolutamente nada.  :-)
+%%%              O intuito aqui eh demonstrar os comandos criados na classe e suas
+%%%              respectivas utilizacoes.
+%%%
+%%%  Tese.tex 17 2015-03-03
+%%%  $HeadURL: http://www.apgita.org.br/apgita/teses-e-latex.php $
+%%%
+%%% ITALUS
+%%% Instituto Tecnológico de Aeronáutica --- ITA, Sao Jose dos Campos, Brasil
+%%%                   http://groups.yahoo.com/group/italus/
+%%% Discussion list: italus {at} yahoogroups.com
+%%%
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Parametros da classe ITA para inserir em \documentclass[?]{?}
+%   tg       = Trabalho de Graduacao
+%   tgfem    = Para Engenheiras
+%   msc      = Dissertacao de Mestrado
+%   mscfem   = Para Mestras
+%   dsc      = Tese de Doutorado
+%   dscfem   = Para Doutoras
+%   quali    = Exame de Qualificacao
+%   qualifem = Exame de Qualificacao para Doutoras
+%   dv       = 'Draft Version'     --> imprime 'Versao Preliminar + data no rodape
+%   eng      = para teses em inglês
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%se fosse em inglês: \documentclass[dsc, eng]{ita}
+%para ``draft version'': \documentclass[dsc, dv]{ita} ou \documentclass[dsc, eng, dv]{ita}
+
+% TODA VEZ QUE VOCÊ ALTERAR A CLASSE (EX.: DE [tg] PARA [tg, eng]) RODE MAIS DE UMA VEZ O BOTÃO BUILD OUTPUT CASO HAJA ERRO!!!
+\documentclass[tgfem]{ita}    % ITA.cls based on standard book.cls 
+\usepackage{ae}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amssymb} 
+\usepackage{subfig}
+\usepackage{multirow}
+\usepackage{float}
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Espaçamento padrão de todo o documento
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\onehalfspacing
+
+%singlespacing Para um espaçamento simples
+%onehalfspacing Para um espaçamento de 1,5
+%doublespacing Para um espaçamento duplo
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Identificacoes (se o trabalho for em inglês, insira os dados em inglês)
+% Para entradas abreviadas de Professora (Profa.) em português escreva: Prof$^\textnormal{a}$.
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\course{Engenharia Aeronáutica e Mecânica} % Programa de PG ou Curso de Graduação
+\area{Sistemas Aeroespaciais e Mecatrônica} % Área de concentração na PG (Não utilizado no caso de TG)
+\dept{Engenharia Mecânica} % Divisão Acadêmica no ITA
+
+% Autor do trabalho: Nome Sobrenome
+\authorgender{fem}                     %sexo: masc ou fem
+\author{Maria das Graças}{Silva}
+\itaauthoraddress{Av. Cidade Jardim, 679}{12.233-066}{São José dos Campos--SP}
+
+% Titulo da Tese/Dissertação
+\title{Uma Abordagem Sobre o Dilema do Cupim Frente ao Concreto Armado Utilizando Diferentes Composições Ciment\'{i}sticas}
+
+% Orientador
+\advisorgender{masc}                    % masc ou fem
+\advisor{Prof.~Dr.}{Adalberto Santos Dupont}{ITA}
+
+% Coorientador (Caso não haja coorientador, colocar ambas as variáveis \coadvisorgender e \coadvisor comentadas, com um % na frente)
+\coadvisorgender{fem}									% masc ou fem
+\coadvisor{Prof$^\textnormal{a}$.~Dr$^\textnormal{a}$.}{Doralice Serra}{OVNI}
+
+% Pró-reitor da Pós-graduação
+\bossgender{masc}												% masc ou fem
+\boss{Prof.~Dr.}{John von Neumann}
+
+%Coordenador do curso no caso de TG
+\bosscoursegender{masc}									% masc ou fem
+\bosscourse{Prof.~Dr.}{John Walker}
+
+% Palavras-Chaves informadas pela Biblioteca -> utilizada na CIP
+\kwcip{Cupim}
+\kwcip{Dilema}
+\kwcip{Construção}
+
+% membros da banca examinadora
+
+\examiner{Prof. Dr.}{Alan Turing}{Presidente}{ITA}
+\examiner{Prof. Dr.}{Linus Torwald}{}{UXXX}
+\examiner{Prof. Dr.}{Richard Stallman}{}{UYYY}
+\examiner{Prof. Dr.}{Donald Duck}{}{DYSNEY}
+\examiner{Prof. Dr.}{Mickey Mouse}{}{DISNEY}
+
+% Data da defesa (mês em maiúsculo, se trabalho em inglês, e minúsculo se trabalho em português) 
+\date{5}{março}{2015}
+
+% Número CDU - (somente para TG)
+\cdu{621.38}
+
+% Glossario
+\makeglossary
+\frontmatter
+
+\begin{document}
+% Folha de Rosto e Capa para o caso do TG
+\maketitle
+
+% Dedicatoria: Nao esqueca essa secao  ... :-)
+\begin{itadedication}
+Aos amigos da Graduação e Pós-Graduação do ITA por motivarem tanto a criação deste template pelo Fábio Fagundes Silveira quanto por motivarem a mim e outras pessoas a atualizarem e aprimorarem este excelente trabalho.
+\end{itadedication}
+
+% Agradecimentos
+\begin{itathanks}
+\input{Cap0/agradecimentos}
+\end{itathanks}
+
+% Epígrafe
+\thispagestyle{empty}
+\ifhyperref\pdfbookmark[0]{\nameepigraphe}{epigrafe}\fi
+\begin{flushright}
+\begin{spacing}{1}
+\mbox{}\vfill
+{\sffamily\itshape
+``If I have seen farther than others,\\
+it is because I stood on the shoulders of giants.''\\}
+--- \textsc{Sir~Isaac Newton}
+\end{spacing}
+\end{flushright}
+
+% Resumo
+\begin{abstract}
+\input{Cap0/resumo}
+\end{abstract}
+
+% Abstract
+\begin{englishabstract}
+\input{Cap0/abstract}
+\end{englishabstract}
+
+% Lista de figuras
+\listoffigures %opcional
+
+% Lista de tabelas
+\listoftables %opcional
+
+% Lista de abreviaturas
+\listofabbreviations
+\input{Cap0/listaabreviaturas} %opcional
+
+% Lista de simbolos
+\listofsymbols
+\input{Cap0/listasimbolos} %opcional
+
+% Sumario
+\tableofcontents
+
+\mainmatter
+% Os capitulos comecam aqui
+
+\chapter{Introdução}
+\input{Cap1/cap1}
+
+\chapter{Modelagem Dinâmica de Cupins Cibernéticos}
+\input{Cap2/cap2}
+
+\chapter{Controle Robusto de Concretos Caóticos}
+\input{Cap3/cap3}
+
+\chapter{Conclusão}
+\input{Cap4/cap4}
+
+% REFERENCIAS BIBLIOGRAFICAS
+\renewcommand\bibname{\itareferencesnamebabel} %renomear título do capítulo referências
+\bibliography{Referencias/referencias}
+
+% Apendices
+\appendix
+\chapter{Tópicos de Dilema Linear} %opcional
+\input{ApeA/apendiceA}
+
+% Anexos
+\annex
+\chapter{Exemplo de um Primeiro Anexo} %opcional
+\input{AneA/anexoA}
+
+% Glossario
+%\itaglossary
+%\printglossary
+
+% Folha de Registro do Documento
+% Valores dos campos do formulario
+\FRDitadata{25 de março de 2015}
+\FRDitadocnro{DCTA/ITA/TC-018/2015} %(o número de registro você solicita a biblioteca)
+\FRDitaorgaointerno{Instituto Tecnológico de Aeronáutica -- Divisão de Engenharia Mecânica -- ITA/IEM}
+%Exemplo no caso de pós-graduação: Instituto Tecnol{\'o}gico de Aeron{\'a}utica -- ITA
+\FRDitapalavrasautor{Cupim; Cimento; Estruturas}
+\FRDitapalavrasresult{Cupim; Dilema; Construção}
+%Exemplo no caso de graduação (TG):
+\FRDitapalavraapresentacao{Trabalho de Graduação, ITA, São José dos Campos, 2015. \NumPenultimaPagina\ páginas.}
+%Exemplo no caso de pós-graduação (msc, dsc):
+%\FRDitapalavraapresentacao{ITA, São José dos Campos. Curso de Doutorado. Programa de Pós-Graduação em Engenharia Aeronáutica e Mecânica. Área de Sistemas Aeroespaciais e Mecatrônica. Orientador: Prof.~Dr. Adalberto Santos Dupont. Coorientadora: Prof$^\textnormal{a}$.~Dr$^\textnormal{a}$. Doralice Serra. Defesa em 05/03/2015. Publicada em 25/03/2015.}
+\FRDitaresumo{\input{Cap0/resumo}}
+%  Primeiro Parametro: Nacional ou Internacional -- N/I
+%  Segundo parametro: Ostensivo, Reservado, Confidencial ou Secreto -- O/R/C/S
+\FRDitaOpcoes{N}{O}
+% Cria o formulario
+\itaFRD
+
+\end{document}
+% Fim do Documento. O massacre acabou!!! :-)
