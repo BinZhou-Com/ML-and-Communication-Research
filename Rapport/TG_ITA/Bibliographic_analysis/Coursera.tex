@@ -1,4 +1,5 @@
 \documentclass[12pt,a4paper]{report}
+\newcommand{\dd}[1]{\mathrm{d}#1}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{amsmath}
@@ -19,7 +20,7 @@ Supervised Learning
 	Regression problem: predict continuous valued output (price)
 	Classification problem: output value of 0 or 1
 	%% COURSERA TEXT
-	To describe the supervised learning problem slightly more formally, our goal is, given a training set, to learn a function h : X → Y so that h(x) is a “good” predictor for the corresponding value of y. For historical reasons, this function h is called a hypothesis. Seen pictorially, the process is therefore like this:
+	To describe the supervised learning problem slightly more formally, our goal is, given a training set, to learn a function h : X -> Y so that h(x) is a good predictor for the corresponding value of y. For historical reasons, this function h is called a hypothesis. Seen pictorially, the process is therefore like this:
 %%%%
 	
 Unsupervised Learning
@@ -43,6 +44,60 @@ Cost Function
 	Cost Function measures the accuracy of our hypothesis function.
 		
 
+Gradient descent Algorithm
+	Optimize parameters in hypothesis function to minimize the cost function
+	Convex functions has only a global optima, no local optima (good for working with)
+	"Batch" gradient descent: each step of gradient descent uses all the training examples
+	
+	
+Learning rate
+	Controls how big the step is in the optimization process
+	
+	
+\subsubsection{Week 2}
+Fix a notation thorughout the work
+	m -> the number of training examples i
+	n -> the number of features j\\
+	$ x^{(i)}_{j} $\\
+	$ i = 1,...,m $\\
+	$ j = 0,...,n $
+	i are the lines and j the columns.
+Gradient descent for multiple variables
+	
+Feature scale
+	mean normalize data to converge faster (do not apply to inserted $ x_{0} $ that equals 1 for example). Adjust input values as shown in this formula.
+	\begin{equation}
+	x_{i} := \frac{x_{i}-\mu_{i}}{s_{i}}
+	\end{equation}
+	
+	where $ \mu_{i} $ is the average of all values for feature (i) and $ s_{i} $ is the range of values ($ max(x_{i})-min(x_{i}) $) or the standard deviation of a given feature $ i $.
+	get all features between -1 and 1 range or 0 and 1
+	
+Gradient descent $\mathcal{O}(n^{2})$
+	\begin{equation}
+	\theta_{j} := \theta_{j} - \alpha \frac{\partial}{\partial \theta_{j}}J(\theta)
+	\end{equation}
+	works well when n is large
+	
+Learning rate
+	how to choose: look graph min J vs No. of iterations. It should decrease at every iteration.
 
+Polynomial regression
+	Create new features to fit a polynomial regression to a linear regression.
+	E.g.
+	
+	\begin{equation}
+	x_{0} = (feature)
+	\end{equation}
+	\begin{equation}
+	x_{1} = (feature)^{2}
+	\end{equation}
+	
+	
+Analytic solution (faster convergence)
+	The value of $ \theta = (X^{T}X)^{-1}X^{T}y $ (normal equation) gives the optimal value of $\theta$ that minimizes $ J(\theta) $
+	Don't need to iterate nor choose $\alpha$.
+	Compute the inverse costs a lot $\mathcal{O}(n^{3})$. So it is preferably to use if n is small over the iterative method.
+	Noninvertibility: pinv -> pseudo inverse: calculates the value of the inverse even if it is non inversible. 
 	
 \end{document}
