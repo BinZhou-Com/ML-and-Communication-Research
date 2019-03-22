@@ -95,7 +95,7 @@ Polynomial regression
 	
 	
 Analytic solution (faster convergence)
-	The value of $ \theta = (X^{T}X)^{-1}X^{T}y $ (normal equation) gives the optimal value of $\theta$ that minimizes $ J(\theta) $
+	The value of $ \theta = (X^{T}X)^{-1}X^{T}y $ (normal equation) gives the optimal value of $\theta$ that minimizes $ J(\theta) $ and doesn't need feature scaling.
 	Don't need to iterate nor choose $\alpha$.
 	Compute the inverse costs a lot $\mathcal{O}(n^{3})$. So it is preferably to use if n is small over the iterative method.
 	Noninvertibility: pinv -> pseudo inverse: calculates the value of the inverse even if it is non inversible. 
