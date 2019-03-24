@@ -79,6 +79,10 @@ Gradient descent $\mathcal{O}(n^{2})$
 	\end{equation}
 	works well when n is large
 	
+Vectorized implementation of Gradient descent $\mathcal{O}(n^{2})$
+	\begin{equation}
+	\theta := \theta - \frac{\alpha}{m} X^{T}(g(X\theta)-Y)	
+		\end{equation}
 Learning rate
 	how to choose: look graph min J vs No. of iterations. It should decrease at every iteration.
 
@@ -100,4 +104,71 @@ Analytic solution (faster convergence)
 	Compute the inverse costs a lot $\mathcal{O}(n^{3})$. So it is preferably to use if n is small over the iterative method.
 	Noninvertibility: pinv -> pseudo inverse: calculates the value of the inverse even if it is non inversible. 
 	
+	\subsubsection{Week 3}
+	
+Classification problem: take a bunch of data and outputs discrete  values
+	multi class: several discrete outcomes
+	binary class: 2 outputs (0,1)
+		
+Logistic regression (classification algorithm): output is always between 0 and 1. sigmoid function or logistic function: $g(z) = \frac{1}{1+e^{-z}}$. Hypothesis: $h(x)=g(\theta^{T}x)$ maps any real number to the (0,l) interval. $h(x)$ will give the probability that our output is 1.
+
+
+Decision boundary: line where the hypothesis equals to 0.5. Separates 2 regions, greater than and less than 0.5 to the hypothesis function. The decision boundaries can be linear or not.
+	The decision boundary is a property of the hypothesis function. The greater the order of the polynomial, the more complex is the shape.
+	
+Cost function: find a function that is convex to arrive in a global minimum.
+
+Optimization algorithms:
+	\begin{itemize}
+	\item Gradient descent
+	\item Conjugate gradient
+	\item BFGS
+	\item L-BFGS
+	\end{itemize}
+
+No need to manually pick $\alpha$ in the 3 last algorithms. They are fasten than gradient descent. However, they are more complex
+
+
+Multiclass classification
+	One vs all (one vs rest)
+ 
+
+	
+Avoid overfitting: doesn't add too much features, otherwise the training data will not predict well values.	The cost function is almost zero to the training example.
+	To fight this problem: reduce the number of features (select which features to keep), regularization (keep all features but reduce the magnitude of parameters theta), Regularization works well when we have a lot of slightly useful features.
+	Add a regularization term in the end of the cost function. A regularization parameter is set to make a trade off between how well the data is fitted and weakening the parameters theta.
+	
+In the end we have a regularized linear regression that works much better than the regular one. It even avoid that the normal equation is non-reversible. The calculus is the same, but we add an extra term to the cost function.	To calculate the gradient descent, one must actualize the value of theta 0 and of others thetas, since the added sum takes from indexes 1 to n. The value of theta 0 is known as bias.
+
+\begin{equation}
+J(\theta) = \frac{1}{2m} \sum_{n=1}^{m} (h(x^{(i)})-y^{(i)})^{2} + \lambda\sum_{n=1}^{n} \theta_{j}^{2}
+\end{equation}
+
+Cost Function in logistic regression
+
+\begin{equation}
+J(\theta) = \frac{1}{m} \sum_{n=1}^{m} [-y^{(i)}}\log(h(x^{(i)}))-(1-y^{(i)})\log(1-h(x^{(i)})]
+\end{equation}
+	
+	
+	
+	
+	
+	
+	
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

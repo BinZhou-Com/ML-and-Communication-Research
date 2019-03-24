@@ -17,23 +17,20 @@ for iter = 1:num_iters
     %       of the cost function (computeCostMulti) and gradient here.
     %
 
+%   Noob code
+%    thetaTemp = zeros(length(theta),1);
+% 
+%     for j = 1:length(theta)
+%         for i = 1:m
+%             thetaTemp(j) = thetaTemp(j) - alpha*1/m*(theta'*X(i,:)'-y(i))*X(i,j);
+%         end
+%     end
+%     for j = 1:length(theta)
+%        theta(j) = theta(j)+thetaTemp(j); 
+%     end
 
-   thetaTemp = zeros(length(theta),1);
-
-    for j = 1:length(theta)
-        for i = 1:m
-            thetaTemp(j) = thetaTemp(j) - alpha*1/m*(theta'*X(i,:)'-y(i))*X(i,j);
-        end
-    end
-    for j = 1:length(theta)
-       theta(j) = theta(j)+thetaTemp(j); 
-    end
-
-
-
-
-
-
+    % Vectorization:
+    theta = theta - alpha/m*(((theta'*X')'-y)'*X)';
 
 
 
