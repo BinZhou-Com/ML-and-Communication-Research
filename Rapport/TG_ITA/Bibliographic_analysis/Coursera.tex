@@ -82,7 +82,7 @@ Gradient descent $\mathcal{O}(n^{2})$
 Vectorized implementation of Gradient descent $\mathcal{O}(n^{2})$
 	\begin{equation}
 	\theta := \theta - \frac{\alpha}{m} X^{T}(g(X\theta)-Y)	
-		\end{equation}
+	\end{equation}
 Learning rate
 	how to choose: look graph min J vs No. of iterations. It should decrease at every iteration.
 
@@ -93,6 +93,7 @@ Polynomial regression
 	\begin{equation}
 	x_{0} = (feature)
 	\end{equation}
+	
 	\begin{equation}
 	x_{1} = (feature)^{2}
 	\end{equation}
@@ -140,22 +141,58 @@ Avoid overfitting: doesn't add too much features, otherwise the training data wi
 	
 In the end we have a regularized linear regression that works much better than the regular one. It even avoid that the normal equation is non-reversible. The calculus is the same, but we add an extra term to the cost function.	To calculate the gradient descent, one must actualize the value of theta 0 and of others thetas, since the added sum takes from indexes 1 to n. The value of theta 0 is known as bias.
 
+Regularized cost function:
 \begin{equation}
 J(\theta) = \frac{1}{2m} \sum_{n=1}^{m} (h(x^{(i)})-y^{(i)})^{2} + \lambda\sum_{n=1}^{n} \theta_{j}^{2}
 \end{equation}
 
 Cost Function in logistic regression
 
-\begin{equation}
-J(\theta) = \frac{1}{m} \sum_{n=1}^{m} [-y^{(i)}}\log(h(x^{(i)}))-(1-y^{(i)})\log(1-h(x^{(i)})]
-\end{equation}
+...	
 	
+\subsubsection{Week 4 - Neural Networks}
 	
+	Neural network: more efficient way to learn complex hypothesis.
 	
+	\textbf{Model 1 representation: }
+	\begin{itemize}
+	\item Dendrite: input wires
+	\item Axon: output wire
+	\item Cell body: do computations
+	\item axon send info to another neuron
+	\end{itemize}
 	
+	Hypothesis function = activation function
 	
+	$\theta$ = parameters = weights
 	
+	Layers: first layer: input layer, last layer: output layer, hidden layer: values you don't observe between the input and output.
 	
+	Notation: $\Theta^{j}$ - matrix of weights controlling function mapping from layer $j$ to layer $j+1$. The dimension is equal to $s_{j+1} \times (s_{j}+1)$. The index +1 takes into account the bias added to the inputs and to the computed layer.; $a_{i}^{(j)}$ - activation of unit $i$ in layer $j$; 
+	
+	\textbf{Model Representation II}
+	Vectorized: forward propagation:
+	
+	\begin{align}\label{eq:my_eq}
+	z^{(j)} = & \Theta^{(j-1)}a^{j-1} \\
+	a^{(j)} = & g(z^{(j)})
+	\end{align}
+	
+Last layer: 	
+\begin{align}\label{eq:my_eq}
+	z^{(j+1)} = & \Theta^{(j)}a^{j} \\
+	a^{(j+1)} = & g(z^{(j+1)}) = h_{\Theta}(x)
+	\end{align}
+	
+	The away a NN is connected is called an architecture.	
+	The first layers computes task of a certain complexity that increases when we go deeper into the network. The last layer usually computes the most demanding task.
+	
+	Multiclass Classification
+	To classify data into multiple classes, we let our hypothesis function return a vector of values. 
+	
+	Task 3: Multi-class Classification and Neural Networks (matlab)
+	
+	\subsubsection{Week 5}
 \end{document}
 
 
