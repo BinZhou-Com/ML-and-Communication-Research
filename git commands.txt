@@ -2,6 +2,8 @@ Git commands
 
 git clone https://github.com/edadaltocg/PIR.git
 
-git push origin master
+git add "filename.txt"
 
 git commit -a -m "Text"
+
+git push origin master
