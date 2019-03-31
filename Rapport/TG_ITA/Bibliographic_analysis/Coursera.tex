@@ -5,6 +5,8 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{tabto}
+\usepackage{xcolor}
 \begin{document}
 \section{Coursera}
 \subsubsection{Week 1}
@@ -195,7 +197,60 @@ Last layer:
 	The training examples of a training set must be independent!
 	\subsubsection{Week 5}
 	
-	Backpropagation	
+	Backpropagation. "Backpropagation" is neural-network terminology for minimizing our cost function
+	
+	Generalized linear regression for neural networks
+	
+	 \begin{multline}
+	 J(\Theta) = -\frac{1}{m} \left[ \sum_{i = 1}^{m}\sum_{k = 1}^{K} y_{k}^{(i)} log(h_{\Theta}(x^{(i)}))_{k} + (1-y_{k}^{(i)})log(1-h_{\Theta}(x^{(i)}))_{k}\right]\\
+	  + \frac{\lambda}{2m} \sum_{l = 1}^{L-1} \sum_{i = 1}^{s_{l}} \sum_{j = 1}^{s_{l+1}} (\Theta_{ij}^{(j)})^{2}
+	 \end{multline}
+	where L = total number of layers in the network, sl = number of units (not counting bias unit) in layer l, K = number of output units/classes.
+	
+	We denote $h_{\Theta}(x)_{k}$ as being a hypothesis that results in the $k^{th}$ output.
+	
+	We have added a few nested summations to account for our multiple output nodes. 
+	
+	The number of columns in our current theta matrix is equal to the number of nodes in our current layer (including the bias unit). The number of rows in our current theta matrix is equal to the number of nodes in the next layer (excluding the bias unit).
+	
+	\begin{itemize}
+	\item the double sum simply adds up the logistic regression costs calculated for each cell in the output layer
+\item the triple sum simply adds up the squares of all the individual $\Theta$s in the entire network.
+\item the i in the triple sum does not refer to training example i
+	\end{itemize}
+	
+	The back-propagation algorithm is used to minimize J. So we need to compute J and the partial derivatives of J.
+	We compute the delta error for each layer (but the input layer because we set $a^{(1)} = x^{(i)}$), beginning in the last layer, where: $\delta_{j}^{L} = a_{L}^{l}-y_{j}$, $\delta_{j}^{l-1} = (\Theta^{l-1}) ^{T}\delta^{(l+1)}.*g'(z^{(l-1)})$, $g'(z^{(l-1)}) = a^{(l-1)}.*(1-a^{(l-1)}) $. Step by step
+	\begin{enumerate}
+	\item Training set $\left\lbrace  (x^{1},y^{(1)}), ..., (x^{m},y^{(m)})\right\rbrace $.
+	
+	\item $\Delta_{ij}^{l} = 0$ for all $l,i,j$. (Useful to compute $\frac{\partial}{\partial \Theta^{(l)}_{ij}} J(\Theta)$)
+	
+	\item $\delta_{j}^{l-1} = (\Theta^{l-1}) ^{T}\delta^{(l)}.*g'(z^{(l-1)})$
+	
+	\item $g'(z^{(l-1)}) = a^{(l-1)}.*(1-a^{(l-1)}) $ 
+	\end{enumerate}
+	\begin{enumerate}
+	\item For $i = 1$ to $m$\hspace{10mm}\\
+	\textcolor{white}{.} \hspace{10mm}	 Set $a^{(1)} = x^{(i)}$\\
+	\textcolor{white}{.} \hspace{10mm} Perform forward propagation to compute $a^{(l)}$ for $l = 2, 3, ..., L$\\
+	\textcolor{white}{.} \hspace{10mm} Using $y^{(i)}$, compute  $\delta^{(L)} = a^{(L)}-y^{(i)}$\\
+	\textcolor{white}{.} \hspace{10mm} Compute $\delta^{(L-1)},..., \delta^{(2)}$ where $\delta_{j}^{l-1} = (\Theta^{(l-1)}) ^{T}\delta^{(l)}.*g'(z^{(l-1)})$.\\
+	\textcolor{white}{.} \hspace{10mm} Compute $\Delta^{(l)}:=\Delta^{(l)}+\delta^{(l+1)}(a^{(l)})^{T}$. Contribution of each training set to the gradient that is calculated with the general Theta for the NN.
+	
+	\item Compute $D^{(l)}:=\frac{1}{m}(\Delta^{(l)}+\lambda\Theta^{(l)})$ if $j\neq 0$.
+	
+	\item Compute $D^{(l)}:=\frac{1}{m}\Delta^{(l)}$ if $j = 0$ (bias term).
+	
+	\item $\frac{\partial}{\partial \Theta^{(l)}_{ij}} J(\Theta) = D^{(l)}_{ij}$
+	\end{enumerate}
+	
+	So in general you do a forward propagation with a training example, than a back propagation with the same training example, than changes the training example and repeats.
+	
+	Implement gradient checking for make sure that forward and backpropagation are working correctly. After you know they are working, comment the code.
+	
+	The neural network used to check back-propagation is usually small, that's why it is important to code general functions.
+	
 	
 	
 	
