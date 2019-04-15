@@ -251,7 +251,89 @@ Last layer:
 	
 	The neural network used to check back-propagation is usually small, that's why it is important to code general functions.
 	
+	\subsubsection{Week 6}
+Improving the Learning Algorithm:
+
 	
+	
+	\begin{itemize}
+	\item Get more training examples
+	\item Try smaller setof features
+	\item Try getting additional features
+	\item Try adding polynomial features
+	\item Try decreasing $\lambda$
+	\item Try increasing $\lambda$
+	\end{itemize}
+	
+	Diagnostic: show what is working well and what is not in the algorithm. Show what is more fruitful to try to improve next.
+	
+	Evaluating a hypothesis: split the dataset in trining set (80\%), cross validation set (20\%) and test set (20\%). Each set must be randomly distributed. You can try several hypothesis models and generate several $\theta$ and test on the cross validation set to find the best degree d of the polynomial used to estimate $\theta$. Then, estimate the generalization error using the test set with $J_{test}(\Theta^{(d)})$.
+	
+	Missclassification error: 
+\begin{equation}
+	err(h_\theta(x),y) = 
+	\begin{cases}
+      1 & $ if $ h_\theta(x) \geq 0.5$ and $y=0$ or $h_\theta(x) < 0.5$ and $y = 1 \\
+      0 & $otherwise$ 
+   \end{cases}
+
+\end{equation}	
+
+Classification Test error = $1/m_{test}\sum_{i=1}^ {m_{test}}err(h_\theta(x_{test}^{(i)}, y_{test}^{(i)})$
+
+Cross validation error: $J_{cv}(\theta) = \frac{1}{2m_{cv}}\sum_{i=1}^ {m_{cv}}(h_\theta(x_{cv}^{(i)}) - y_{cv})^{2}$
+
+Usually a learning algorithm may have a variance problem or a bias problem.
+
+If Jtest is high, you are facing a bias error (underfit) Jcv approx Jtest. If Jcv is high, you are facing a variance error (overfitting) Jcv $>>$ Jtrain.
+	
+	We can observe this phenomena with the help of the graph Cost ($J(\theta)$ vs $d$ (polynomial degree))
+	
+	Choose a good value for $\lambda$ to solve these problems. 
+\begin{enumerate}
+\item Try several values.
+\item minimize $J(\theta)$
+\item calculates Jcv
+\item Take the smalles Jcv
+\item Evaluate Jtest of the chosen set
+\item plot the errors in function of $\lambda$
+\end{enumerate}	
+	
+	Overfittin the data  = low $\lambda$
+	\begin{enumerate}
+	\item Create a list of lambdas (i.e. λ∈{0,0.01,0.02,0.04,0.08,0.16,0.32,0.64,1.28,2.56,5.12,10.24});
+\item Create a set of models with different degrees or any other variants.
+\item Iterate through the $\lambda$ and for each $\lambda$ go through all the models to learn some $\Theta$.
+\item Compute the cross validation error using the learned $\Theta$ (computed with $\lambda$) on the $J_{cv}(\Theta)$ without regularization or $\lambda = 0$.
+\item Select the best combo that produces the lowest error on the cross validation set.
+\item Using the best combo $\Theta$ and $\lambda$, apply it on $J_{test}(\Theta)$ to see if it has a good generalization of the problem.
+	\end{enumerate}	
+	
+	
+	\textbf{Learning curves}	
+	
+	Error vs training size. We can find out if the algorithm suffers from variance or bias. If the learning algorithm suffers from variance, adding training examples may help. Adding more layers doesnt help with high variance error.
+	
+	Resume:
+	
+	\begin{enumerate}
+	\item Getting more training examples: Fixes high variance
+\item Trying smaller sets of features: Fixes high variance
+\item Adding features: Fixes high bias
+\item Adding polynomial features: Fixes high bias
+\item Decreasing λ: Fixes high bias
+\item Increasing λ: Fixes high variance.
+	\end{enumerate}
+	
+	A neural network with fewer parameters is prone to underfitting. It is also computationally cheaper.
+	
+A large neural network with more parameters is prone to overfitting. It is also computationally expensive. In this case you can use regularization (increase λ) to address the overfitting.
+
+Lower-order polynomials (low model complexity) have high bias and low variance. In this case, the model fits poorly consistently.
+
+Higher-order polynomials (high model complexity) fit the training data extremely well and the test data extremely poorly. These have low bias on the training data, but very high variance.
+
+In reality, we would want to choose a model somewhere in between, that can generalize well but also fits the data reasonably well.
 	
 	
 \end{document}

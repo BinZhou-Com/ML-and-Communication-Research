@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.3.25)  29 MAR 2019 19:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.3.25)  12 APR 2019 14:30
 entering extended mode
 **./Coursera.tex
 (Coursera.tex
@@ -201,19 +201,152 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 126.
  [3] [4] [5] [6]
-(Coursera.aux)
+! Missing $ inserted.
+<inserted text> 
+                $
+l.279 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Display math should end with $$.
+<to be read again> 
+                   \par 
+l.279 
+      
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.280 \end{equation}
+                    	
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! You can't use `\eqno' in vertical mode.
+\endmathdisplay@a ...\df@tag \@empty \else \veqno 
+                                                  \alt@tag \df@tag \fi \ifx ...
+l.280 \end{equation}
+                    	
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.280 \end{equation}
+                    	
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.280 \end{equation}
+                    	
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+
+! Package inputenc Error: Unicode character λ (U+03BB)
+(inputenc)                not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.304 	\item Create a list of lambdas (i.e. λ
+                                              ∈{0,0.01,0.02,0.04,0.08,0.16...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! Package inputenc Error: Unicode character ∈ (U+2208)
+(inputenc)                not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.304 	\item Create a list of lambdas (i.e. λ∈
+                                                 {0,0.01,0.02,0.04,0.08,0.16...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+Overfull \hbox (69.57254pt too wide) in paragraph at lines 304--305
+[]\OT1/cmr/m/n/12 Create a list of lamb-das (i.e. 0,0.01,0.02,0.04,0.08,0.16,0.
+32,0.64,1.28,2.56,5.12,10.24); 
+ []
+
+[7]
+
+! Package inputenc Error: Unicode character λ (U+03BB)
+(inputenc)                not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.324 \item Decreasing λ
+                         : Fixes high bias
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! Package inputenc Error: Unicode character λ (U+03BB)
+(inputenc)                not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.325 \item Increasing λ
+                         : Fixes high variance.
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! Package inputenc Error: Unicode character λ (U+03BB)
+(inputenc)                not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.330 ...e you can use regularization (increase λ
+                                                  ) to address the overfitting.
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+[8] (Coursera.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 2668 strings out of 492946
- 32493 string characters out of 3135513
+ 2670 strings out of 492946
+ 32504 string characters out of 3135513
  111575 words of memory out of 3000000
- 6557 multiletter control sequences out of 15000+200000
+ 6559 multiletter control sequences out of 15000+200000
  9198 words of font info for 35 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 27i,8n,35p,427b,192s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,8n,35p,438b,192s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKT
@@ -224,9 +357,9 @@ msfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Pro
 gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on Coursera.pdf (6 pages, 135846 bytes).
+Output written on Coursera.pdf (8 pages, 145143 bytes).
 PDF statistics:
- 65 PDF objects out of 1000 (max. 8388607)
+ 73 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
