@@ -270,14 +270,14 @@ Improving the Learning Algorithm:
 	Evaluating a hypothesis: split the dataset in trining set (80\%), cross validation set (20\%) and test set (20\%). Each set must be randomly distributed. You can try several hypothesis models and generate several $\theta$ and test on the cross validation set to find the best degree d of the polynomial used to estimate $\theta$. Then, estimate the generalization error using the test set with $J_{test}(\Theta^{(d)})$.
 	
 	Missclassification error: 
-\begin{equation}
-	err(h_\theta(x),y) = 
-	\begin{cases}
-      1 & $ if $ h_\theta(x) \geq 0.5$ and $y=0$ or $h_\theta(x) < 0.5$ and $y = 1 \\
-      0 & $otherwise$ 
-   \end{cases}
+%\begin{equation}
+%	err(h_\theta(x),y) = 
+%	\begin{cases}
+%      1 & \  if \  h_\theta(x) \geq 0.5 \  and \  y=0 \  or\ h_\theta(x) < 0.5 \  and  \  y = 1 \\
+%      0 & \ otherwise
+%   \end{cases}
 
-\end{equation}	
+%\end{equation}	
 
 Classification Test error = $1/m_{test}\sum_{i=1}^ {m_{test}}err(h_\theta(x_{test}^{(i)}, y_{test}^{(i)})$
 
@@ -301,7 +301,7 @@ If Jtest is high, you are facing a bias error (underfit) Jcv approx Jtest. If Jc
 	
 	Overfittin the data  = low $\lambda$
 	\begin{enumerate}
-	\item Create a list of lambdas (i.e. λ∈{0,0.01,0.02,0.04,0.08,0.16,0.32,0.64,1.28,2.56,5.12,10.24});
+	\item Create a list of lambdas (i.e. $\lambda\in {0,0.01,0.02,0.04,0.08,0.16,0.32,0.64,1.28,2.56,5.12,10.24}$);
 \item Create a set of models with different degrees or any other variants.
 \item Iterate through the $\lambda$ and for each $\lambda$ go through all the models to learn some $\Theta$.
 \item Compute the cross validation error using the learned $\Theta$ (computed with $\lambda$) on the $J_{cv}(\Theta)$ without regularization or $\lambda = 0$.
@@ -321,13 +321,13 @@ If Jtest is high, you are facing a bias error (underfit) Jcv approx Jtest. If Jc
 \item Trying smaller sets of features: Fixes high variance
 \item Adding features: Fixes high bias
 \item Adding polynomial features: Fixes high bias
-\item Decreasing λ: Fixes high bias
-\item Increasing λ: Fixes high variance.
+\item Decreasing $\lambda$: Fixes high bias
+\item Increasing $\lambda$: Fixes high variance.
 	\end{enumerate}
 	
 	A neural network with fewer parameters is prone to underfitting. It is also computationally cheaper.
 	
-A large neural network with more parameters is prone to overfitting. It is also computationally expensive. In this case you can use regularization (increase λ) to address the overfitting.
+A large neural network with more parameters is prone to overfitting. It is also computationally expensive. In this case you can use regularization (increase $\lambda$) to address the overfitting.
 
 Lower-order polynomials (low model complexity) have high bias and low variance. In this case, the model fits poorly consistently.
 
@@ -335,6 +335,80 @@ Higher-order polynomials (high model complexity) fit the training data extremely
 
 In reality, we would want to choose a model somewhere in between, that can generalize well but also fits the data reasonably well.
 	
+	Skewed classes: events that are rare in a given set. Example: 0.5 \% of people have cancer.
+	
+	The metrics to measure skewed classes are called precision and recall.
+	
+	Precision is defined as: 
+	\begin{equation}
+	precision = \frac{true \ positives}{true \ positives + false \ positives}
+	\end{equation}
+	
+	Recall is defined as:
+	\begin{equation}
+	precision = \frac{true \ positives}{true \ positives + false \ negatives}
+	\end{equation}	
+	
+	We can change the threshold value for h for classifying y = 1 or y = 0. if our threshold value is > 0.5, we are valuing confidence, so high \textbf{precision}, lower recall.
+	
+	However, the opposite means the false negatives are important and should NOT happen. So, when in doubt, y = 1. You end up with higher recall and lower precision.
+	
+	You want precision and recall to be both elevated.
+	
+	How to choose the threshold? You can compute the F1 score $2\frac{PR}{P+R}$. There are others too.
+	
+	\subsubsection{Week 7}
+
+	Large margin calssifiers
+
+	We can rewrite the cost function to optimize the calculations, choose functions that are very close to the optimal but are easier to calculate.
+	
+	For example, the logistic regression cost with Support Vector  Machine (SVM) is known as: SVM hypothesis and is written as follows for the logistic regression problem: 
+	\begin{equation}
+	min_{\theta} C \sum_{i=1}^{m} [y^{(i)}cost_1(\theta^Tx^{(i)}) + (1- y^{(i)})cost_0(\theta^Tx^{(i)})] + \frac{1}{2}\sum_{j=1}^{n}\theta_j^2
+	\end{equation}
+	Cost1 and Cost0 are  the linearization of the cost curve.
+	
+	The parameter C plays with bias and variance. Large C means lower bias and high variance. While small C means higher bias and low variance.	
+	
+	So in the end you want to predict the value of y juist basing over the value of $\theta^Tx$.	
+	
+	\textbf{Kernels: }
+			
+	Suppose you have a non-linear decision boundary. Given x, compute new features based on the distance with given landmarks. The functions that calculate is called a similarity function (kernel function) and may be, for example, a gaussian kernel, where:
+	\begin{equation}
+	f_1=exp(-\frac{||x-l^{(k)}||^2}{2\sigma^2})
+	\end{equation}
+	
+	Landmark: $l^{(k)}$	. Kernel Function: andmark: $f^{(k)}(x)$.	
+	
+	With them, we can define new features and make complex boundary curves. Instead of basing ourselves in the product of $\theta^Tx$, we compute $\theta^Tf(x)$ to make our decisions. 
+	
+	The variance of the kernel plays over bias and variance. 
+	
+	Large $\sigma^2$: features $f_i$ vary more smoothly, high bias, lower variance.
+	
+	Small $\sigma^2$: features $f_i$ vary less smoothly, lower bias, higher variance.
+	
+	If SVM is overfittinf your data, it is good to DECREASE C and INCREASE $\sigma^2$.
+	
+	There are libraries to solve SVM optimization problems. DO NOT  implement code to optimize stuff, like minimizing for theta.
+	
+	To use the algorithms, you should:
+	\begin{enumerate}
+	\item Choose C.
+	\item Choose Kernel (similarity function). If you have lots of features but small training set, than don't use kernels and just use logistic regression).
+	\item Choose $\sigma^2$.
+	\item Implement the kernel function (DO PERFORM feature scaling before using the Kernel, otherwise one feature will take over).
+	\item The choice of a Kernel shoul satisfy "Mercer's Theorem".
+	\item Fix the parameter in the ones that gives the best cross validation error.
+	\end{enumerate}
+	
+	Available Kernels: Polynomial, Gaussian, String, chi-squared, etc. SVM is a convex optimization problem.
+	
+	If the number of features is small and the number of training examples is large, create features and then use logistic regression, or a linear Kernel, because PCs struggle to calculate a Gaussian Kernel for example.
+	
+	Neural Network should work in all conditions, but should be slower to train.
 	
 \end{document}
 
