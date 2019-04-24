@@ -85,7 +85,6 @@ y = sign(x)
 # find erroneous symbols
 
 
-
 #plt.semilogy(Eb_No_dB, Pe,'r',Eb_No_dB, BER,'s')
 plt.semilogy(Eb_No_dB, A_BER,'r',linewidth=2)
 plt.semilogy(Eb_No_dB, A_BER,'-s')

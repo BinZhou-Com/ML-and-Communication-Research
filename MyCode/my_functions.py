@@ -65,12 +65,18 @@ def PSK2 (b, V):
             
     return um
 
-def pulsesignal(A, d): 
+def pulseSignal(A, d): 
     # d is the discretization of the pulse
     pulse1 = A*ones(int(d/2))
     pulse2 = zeros(int(d/2))
     
     return concatenate((pulse1, pulse2), axis = None)
+    
+def constantSignal(A, d): 
+    # d is the discretization of the pulse
+    pulse1 = A*ones(int(d))
+    return pulse1
+    
     
 def pulses2waveform (N,d,p,uk):
     uwv = empty(N*d)
@@ -91,5 +97,14 @@ def fourriertransform(x, interval, fc, BB):
     
     return concatenate((freq, xhat), axis=0)
     
+    
+def Q(x):
+    return 0.5*erfc(x/sqrt(2))
+
+def MPSK_BER(M,Eb,No):
+    n = log2(8)
+    Es = n*Eb # energy per symbol: nEb where 2^n = M
+    gamma_s = Es/No
+    return 2*Q(sqrt(2*gamma_s)*sin(pi/M))/n
     
     

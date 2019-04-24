@@ -1,0 +1,27 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+\usepackage[charter]{mathdesign}
+\begin{document}
+\begin{tikzpicture}[declare function = {step(\x,\s,\t) = 0.5*sign(\x-\s)-0.5*sign(\x-\t);}]
+	\begin{axis}[colormap={justred}{rgb255=(255,127,127);rgb255=(127,31,31)},grid=major,width=5cm,height=6cm,view={-15}{10},xlabel={$x$},ylabel={$y$},zlabel={Output},title={Many towers},zmin=0,zmax=1,xtick={0,1},ytick={0,1},zmajorticks=false]
+		\addplot3[surf,domain=0:1, samples=43, shader=faceted]{%
+		0.1*step(x,0.1,0.3)*step(y,0.1,0.3)+%
+		0.2*step(x,0.1,0.3)*step(y,0.3,0.5)+%
+		0.25*step(x,0.1,0.3)*step(y,0.5,0.7)+%
+		0.3*step(x,0.1,0.3)*step(y,0.7,0.9)+%
+		0.2*step(x,0.29,0.49)*step(y,0.11,0.31)+%
+		0.4*step(x,0.29,0.49)*step(y,0.31,0.51)+%
+		0.48*step(x,0.29,0.49)*step(y,0.51,0.71)+%
+		0.55*step(x,0.29,0.49)*step(y,0.71,0.91)+%
+		0.35*step(x,0.49,0.69)*step(y,0.12,0.32)+%
+		0.42*step(x,0.49,0.69)*step(y,0.32,0.52)+%
+		0.50*step(x,0.49,0.69)*step(y,0.52,0.72)+%
+		0.6*step(x,0.49,0.69)*step(y,0.72,0.92)+%
+		0.45*step(x,0.69,0.9)*step(y,0.13,0.33)+%
+		0.5*step(x,0.69,0.9)*step(y,0.33,0.53)+%
+		0.55*step(x,0.69,0.9)*step(y,0.53,0.73)+%
+		0.7*step(x,0.69,0.9)*step(y,0.73,0.93)};
+	\end{axis}
+\end{tikzpicture}
+\end{document}
+		
