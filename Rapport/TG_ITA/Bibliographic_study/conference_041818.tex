@@ -29,27 +29,27 @@ Email: edadaltocg@gmail.com}}
 
 \begin{abstract}
 
-write in the end.
+Communication channel error correction is key to enable digital critical digital communication systems to works efficiently. Although noisy channels has already a mathematically proven optimal solution for error error rate minimization: the maximum a posteriori (MAP) decoder; it`s implementation cripples  system`s applicability, since it introduces a large delay for large codewords. In this context, a deep neural network (DNN) is proposed to optimize the channel with an end-to-end autoencoder. The DNN autoencoder outperforms MAP decoder in terms of delay, because of its \textit{one-shot} capability when it is trained. Moreover, it has similar BER compared to MAP for a range of signal to noise ratio (SNR). 
 
 \end{abstract}
 
 \begin{IEEEkeywords}
-communication system, machine learning, autoencoder,channel decoding, maximum a posteriori (MAP) decoder 
+communication system, machine learning,  autoencoder, channel decoding, maximum a posteriori (MAP) decoder 
 \end{IEEEkeywords}
 
 \section{Introduction}
 \subsection{Motivation}
-Communication systems are widely present in  everyday life and have different structures. These designs are less or more complex; nevertheless, they share a common core. The simpler real communication architecture defines the system as an exchange of information between two terminals through a noisy channel. As a result of imperfections, Shannon theorized \cite{b1} in 1948 the ultimate reliable data rate that can be transmitted through a communication systems of this kind. 
+Communication systems are present in everyday life and have different forms. These designs are less or more complex; nevertheless, they share a common core. The simpler architecture defines the system as an exchange of information between two terminals through a noisy channel. As a result of channel imperfections, Shannon theorized \cite{b1} in 1948 the ultimate reliable data rate that can be transmitted through a communication system.
 
-Since then, the research community in digital communication developed a series of algorithms to minimize bit error rate (BER) over a channel. However, the challenge of finding an \textit{efficient} solution  (i.e., at same time low latency and with low error probability) for low signal to noise ratio (SNR) channels, remains. Based on this vision, Tim O'Shea and Jakob Hoydis \cite{b2} pertinently noted that traditional algorithms in the field have foundations in probability theory (e.g. maximum a posteriori (MAP) estimation used as a channel decoder), hence they are usually built on top of mathematically convenient models. Often, these models does not account for all the real system's imperfections, what leads to intrinsic errors in practice, even though they are theoretically optimal error corrector machines. 
+Since then, the research community in digital communication developed a series of algorithms to minimize bit error rate (BER) over a channel. However, the challenge of finding an \textit{efficient} solution  (i.e., at same time low latency and with low error probability) for low signal to noise ratio (SNR) channels, remains. Based on this vision, Tim O'Shea and Jakob Hoydis \cite{b2} pertinently noted that traditional algorithms in the field have foundations in probability theory (e.g. maximum a posteriori (MAP) estimation used as a channel decoder). Hence, they are usually built on top of mathematically convenient models. Even though they are theoretically optimal error corrector machines, these models oftenly does not account for all the real system's imperfections, what leads to errors when in practice.
 
-Accordingly, machine learning (ML) algorithms does not require rigidly designed models and can take effortlessly account for non-linearities. These characteristics suits them well for being used as bit error correctors. Moreover, with ML based channel encoder and channel decoder, the design of communication systems as independently working blocks becomes obsolete, as a deep neural network (DNN) is able to actuate in an end-to-end optimization of the system. As a result, an optimized autoencoder with a stochastic layer that models channel's imperfections can substitute the block based representation. Therefore, ML based communication systems could be a better representation of realistic systems and could optimize information transmission of different blocklengths and with low decoding latency, resulting ultimately in gain of bandwidth over standard methods. 
+Accordingly, machine learning (ML) algorithms does not require rigidly designed models and can take non-linearities effortlessly into account. These characteristics make these algorithms candidates for being used as bit error corrector. Moreover, with ML based channel encoder and channel decoder, the design of communication systems as independently working blocks becomes obsolete, as a deep neural network (DNN) is able to actuate end-to-end in the system. As a result, an optimized autoencoder with a stochastic layer that models channel's imperfections can substitute the block based representation. Therefore, ML based communication systems could be a better representation of realistic systems and could optimize information transmission of different blocklengths and with low decoding latency, resulting ultimately in gain of bandwidth over standard methods. 
 
-Low latency and high bandwidth wireless communication are key to critical systems, such as airplanes, satellites, cellular communication and 5G operations. The latter was studied by F. D. Calabrese et al. in \cite{b3} which  demonstrated that individual based radio resource management (RRM) algorithms were outperformed by a general learning framework, resulting in significant expense reductions, while increasing performance of a network. Thereby, ML algorithms are cardinal for future state of the art communication applications.
+Low latency and high bandwidth wireless communication are key to critical systems, such as airplanes, satellites, cellular communication and 5G operations. The latter was studied by F. D. Calabrese et al. in \cite{b3} which  demonstrated that individual based radio resource management (RRM) algorithms were outperformed by a general learning framework, resulting in significant expense reductions, while increasing performance of the network. Thereby, ML algorithms are cardinal for state of the art communication applications.
   
 \subsection{Related work}
 
-Recently, a significant amount of work in radio communication theory has emerged, introducing ML elements to the communication system. O'Shea et al. in \cite{osheaautoencoder} developed a channel autoencoder with optimized impairment and regularization layers to emulate channel impairments. They studied this architecture over a BSC and other channels, founding ``some promising initial capacity" for this schema. In their research, results in terms of BER over SNR of a DNN based autoencoder and a convolutional neural network (CNN) based autoencoder were treated. They used a range of SNR from $-10\text{dB}$ to $15\text{dB}$ with QPSK and QAM16 theoretical capacity as benchmarks. This analysis was conducted for a binary input message.
+Recently, a significant amount of work in radio communication theory has emerged, introducing ML elements to the communication system. O'Shea et al. in \cite{osheaautoencoder} developed a channel autoencoder with optimized impairment and regularization layers to emulate channel impairments. They studied this architecture over a binary symmetric channel (BSC) and others, founding ``some promising initial capacity" for this schema. In their research, results in terms of BER over SNR for a DNN based autoencoder and for a convolutional neural network (CNN) based autoencoder were treated. They used a range of SNR - from $-10 \text{dB}$ to $15 \text{dB}$ - with QPSK and QAM16 modulation as benchmarks. This analysis was conducted for a binary input message.
 
     
 T. Gruber et. al. in a 2017 paper \cite{2018} proved that a deep learning-based channel decoder could actually learn a decoding algorithm rather than just being a simple classifier. They introduced codewords that were not been used in the training set, and the trained NN was able to correctly decode it. They also observed that structured codes are easier to learn than unstructured ones. NN for structured codes are able to generalize to the full codebook even if they have not seen all the training examples. They trained the NN for very short blocklengths ($N \leq 64$) in order to compare with MAP decoding performance.
@@ -57,7 +57,7 @@ T. Gruber et. al. in a 2017 paper \cite{2018} proved that a deep learning-based 
 
 \subsection{Problem statement}
 
-This research will implement a ML autoencoder for BSC that outperforms the MAP decoder for a range of SNR. In its most simple form, a channel autoencoder includes an encoder, a noisy channel and an decoder. Using state-of-the art DNN algorithms to find the best solution of the problem, this work hopes to contribe to set up a higher standard in terms of performance in bit-error correction and reduced delay for digital communication applications. In a near future, this disruptive methodology for error correction using ML could replace mathematically optimal decoders which are the current guideline.
+This research will implement a ML autoencoder for a  BSC that performs similar to the MAP decoder in real applications for a range of SNR from $-10 \text{dB}$ to $10 \text{dB}$. In its most simple form, a channel autoencoder includes an encoder, a noisy channel and an decoder. Using state-of-the art DNN algorithms to find the best solution of the problem, this work hopes to contribe to set up a higher standard in terms of performance in bit-error correction and reduced delay for digital communication applications. In a near future, this disruptive methodology for error correction using ML could replace mathematically optimal decoders which are the current guideline.
 
 
 %\subsection{Notation}
@@ -69,11 +69,11 @@ This research will implement a ML autoencoder for BSC that outperforms the MAP d
 \subsection{Maximum a posteriori decoder}
 
 
-The concept of a MAP decoder or Bahl-Cocke-Jelinek-Raviv (BCJR) algorithm is choosing a message which maximizes the MAP probability of the corrupted information received  by the decoder \cite{b4}. This algorithm is known for its optimality in error correction for white noise interference. MAP decoding algorithms and it's variants: Log-MAP and Max-Log-MAP, are widely used as decoders for turbo codes \cite{b7}. 
+The concept of a MAP decoder or Bahl-Cocke-Jelinek-Raviv (BCJR) algorithm is choosing a message which maximizes the MAP probability of the corrupted information received  by the decoder \cite{b4}. This algorithm is known for its optimality in error correction for white noise interference and it's variants: Log-MAP and Max-Log-MAP, are widely used as decoders for turbo codes \cite{b7}. 
 
-The MAP decoder is practically nonviable to implement \cite{b6}. Thus, for the purpose of implementation, its variants cited in the paragraph above are better suited. The Log-MAP is an optimal decoder, having equivalent performance to the MAP decoder. The Max-Log-MAP is a suboptimal decoder and will not be treated in this paper. Refer to \cite{b6} for specific details in the derivation of the Log-MAP algorithm.
+The MAP decoder is practically nonviable to implement \cite{b6}. Thus, its variants cited in the paragraph above are better suited for practical cases. The Log-MAP is an optimal decoder, having equivalent performance to the MAP decoder. While the Max-Log-MAP is a suboptimal decoder and will not be treated in this paper. Refer to \cite{b6} for specific details in the derivation of the Log-MAP algorithm.
 
-Turbo decoding using Log-MAP decoder for an additive white Gaussian noise (AWGN) channel and for a binary symmetric channel (BSC) was studied in \cite{b5}. They analyzed the BER for small SNR and concluded that the results are sensible to SNR estimation of the real channel, since the estimation of this parameter is required for the metric calculation of the algorithm \cite{b6}. It means that if the real SNR is smaller, the decoder will not perform well. Hence, for channel characteristics that change over time, the application of a MAP algorithm is debatable. This conclusion serve as motivation for ML autoencoders, which could adapt to different SNR conditions, outperforming the MAP decoder for realistic applications.
+Turbo decoding using Log-MAP decoder for an additive white Gaussian noise (AWGN) channel and for a BSC was studied in \cite{b5}. They analyzed the BER for small SNR and concluded that the results are sensible to SNR estimation of the real channel, since the estimation of this parameter is required for the metric calculation of the algorithm \cite{b6}. It means that if the real SNR is smaller, the decoder will not perform well. Hence, for channel characteristics that change over time, the application of a MAP algorithm is debatable. This conclusion serve as motivation for ML autoencoders, which could adapt to different SNR conditions, outperforming the MAP decoder for realistic applications.
 
 \subsection{Neural network basics}
 
@@ -137,7 +137,7 @@ Neural networks (NN) are a set of connected \textit{neurons} able to approximate
 
 In the context of learning algorithms implemented by a NN, the key issue is to find a suitable architecture that delivers the best results. To define and build this infrastructure, the activation function, the loss function and the structure must be decided.  M. Nielson \cite{b8} in his book explores a vast amount of NN architectures and how they work. 
 
-Multi-layer feed forward neural network (MLNN) as shown in Fig. \ref{fig:NN} will be applied in this work. They are known for the universal approximation property \cite{b9} and for the versatility of increasing the number of layers, creating a DNN able to undertake complex classification problems with low classification error and low dimensionality. In more general terms, a MLNN with $L$ layers, also called \textit{depth}, and parameter $\theta$ is a mapping of an input $\textbf{r}_0 \in \mathbb{R}^{N_0}$ to an output $\textbf{r}_L \in \mathbb{R}^{N_L}$ through $L$ iterative steps. For a fully-connected network, each layer vector is calculated in an iterative forward propagation, where each neuron is composed of a linear combinator and an activation function defined as 
+Multi-layer feed forward neural network (MLNN) as shown in Fig. \ref{fig:NN} will be applied in this work. They are known for the universal approximation property \cite{b9} and for the versatility of increasing the number of layers, creating a DNN able to undertake complex classification problems with low classification error and low dimensionality. In more general terms, a MLNN with $L$ layers, also called \textit{depth}, and parameter $\theta$ is a mapping of an input $\textbf{r}_0 \in \mathbb{R}^{N_0}$ to an output $\textbf{r}_L \in \mathbb{R}^{N_L}$ through $L$ iterative steps. For a fully-connected network, each layer vector is calculated iteratively in the forward propagation. Each neuron is composed of a linear combinator and an activation function defined as 
 
 \begin{equation}\label{eq:eqFP}
 	f_{l}\left( \textbf{r}_{l-1};\theta _{l}\right) = \sigma \left( \textbf{W}_{l}\textbf{r}_{l-1}+\textbf{b}_{l}\right)
@@ -158,13 +158,13 @@ L\left( \theta \right) =\dfrac {1}{S}\sum ^{S}_{i=1}l\left( \textbf{p}_{L,i},\te
 
 This problem is an optimization problem and can be solved through different algorithms. For NN, an efficient way of computing this minimization is implementing the back-propagation (BP) algorithm. 	BP is classified as a supervised learning algorithm that is able to optimize a function based on some parameter and is highly parallelizable in computational terms \cite{b8}\cite{b9}.
 
-The great advantage of NN is its ability do generalize the training set, delivering the right results even for data not contained in the training set. With the weight matrix trained, the NN find the correct putputs for unseen inputs . In order to validate this principle, a \textit{validation data set} is used and the loss is mesured. Based on this value, we can evaluate the NN overall accuracy.
+One of the greatest advantage of NN is its ability do generalize the training set, delivering the right results even for input data not contained in the training set. With the weight matrix trained, the NN find the correct output values for unseen inputs. In order to validate this principle, a \textit{validation data set} is used and the loss is mesured. Based on this value, we can evaluate the NN overall accuracy.
 
 For implementing all the algorithms, Keras, a high-level python API for ML, will be used together with TensorFlow 1.13.1, a ML python friendly open-source library \cite{b11} \cite{b12}. Both are available for free.
 
 
 
-
+\begin{comment}
 \subsection{Autoencoders}
 TO PARAPHRASE: The parallel computing
 capabilities of NNs allow us to solve or, at least, approximate
@@ -190,6 +190,7 @@ of NNs, new NND ideas emerge
 
 The curse of dimensionality
 
+\end{comment}
 %\section{Procedure and methods}
 %Explain what I Should do to achieve my goal
 \begin{comment}
