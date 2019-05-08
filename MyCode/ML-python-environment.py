@@ -24,4 +24,3 @@ import tensorflow
 print('tensorflow: %s' % tensorflow.__version__)
 
 
-
