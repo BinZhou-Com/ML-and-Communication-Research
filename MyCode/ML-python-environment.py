@@ -16,9 +16,10 @@ print('statsmodels: %s' % statsmodels.__version__)
 # scikit-learn
 import sklearn
 print('sklearn: %s' % sklearn.__version__)
-# tensorflow
-import tensorflow
-print('tensorflow: %s' % tensorflow.__version__)
 # keras
 import keras
 print('keras: %s' % keras.__version__)
+# tensorflow
+#import tensorflow
+#print('tensorflow: %s' % tensorflow.__version__)
+
