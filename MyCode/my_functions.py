@@ -8,6 +8,8 @@ Created on Fri Apr  5 17:28:03 2019
 from numpy import *
 import matplotlib.pyplot as plt
 from scipy.special import erfc # complementary error function
+import pyldpc
+import itertools
 
 def plotit(t, u, title="Title", X="time (s)", Y="Amplitude"):
     plt.figure()
@@ -19,6 +21,7 @@ def plotit(t, u, title="Title", X="time (s)", Y="Amplitude"):
     plt.xlabel(X)
     plt.ylabel(Y)
     plt.show()
+    return
 
 def scatterit(t, u, title="Title", X="time (s)", Y="Amplitude"):
     plt.figure()
@@ -30,6 +33,7 @@ def scatterit(t, u, title="Title", X="time (s)", Y="Amplitude"):
     plt.xlabel(X)
     plt.ylabel(Y)
     plt.show()
+    return
 
 def sineWave(t, mean, amplitude, f):
     omega = 2 * pi * f # fs > 2f
@@ -106,5 +110,90 @@ def MPSK_BER(M,Eb,No):
     Es = n*Eb # energy per symbol: nEb where 2^n = M
     gamma_s = Es/No
     return 2*Q(sqrt(2*gamma_s)*sin(pi/M))/n
+
+def empiricBER(u,uhat):
+    n = len(u)
+    indicatrice = u!=uhat
+    P = sum(indicatrice)/n
+    return P
+
+def binarySignalPower(u):
+    n = len(u)
+    return sum(u**2)/n
+
+def BSC(b, p):
+    decision = random.rand(len(b))
+    change = decision < p
+    bchanged = b.copy()
+    for i in range(len(b)):
+        if(change[i]==True):
+            bchanged[i] = (b[i]+1) # complement mod 2
+          
+    return bchanged%2
+    
+def bitEnergy(Eb, N0):
+    return Eb/N0
+        
+def Hb(p):
+    return -p*log2(p)-(1-p)*log2(1-p)
+
+def matrixGenerator(H, name):
+    n = name[0]
+    k = name[1]
+    Ik = eye(k)
+    P = H[:,:n-(n-k)].T
+    G = concatenate((Ik, P), axis = 1)
+    return G 
+
+def parityMatrix(name): # arbitrary rule
+    n = name[0]
+    k = name[1]
+    n_p = n-k # number of parity bits
+    limit = k-n_p+1
+    e = eye(k) # message generator
+    P = empty([k,n-k])
+    for l in range(0,k):
+        b = e[l]
+        p = empty(n_p)
+        for j in range(0,n_p):
+            aux = b[j:limit+j]
+            p[j] = sum(aux)%2
+        P[l] = p
+    return P
+
+def parityCheckMatrix(name):
+    n = name[0]
+    k = name[1]
+    m = n-k
+    tuples = asarray(list(itertools.product(*[(0, 1)] * m)))
+    H = tuples[1:].T
+    soma = sum(H,0)
+    counter = size(H,1)
+    i = 0
+    while i < counter:
+        if(soma[i]<=1):
+            H = delete(H,i,1)
+            counter-=1
+            i-=1
+            soma = sum(H,0)
+        i+=1
+    return concatenate((H,eye(m)),axis=1)
+    
+        
+def parityCheck(G):
+    k = size(G, 0)
+    n = size(G,1)
+    I = eye(n-k)
+    P = G[:k,k:]
+   
+    H = concatenate((-P.T%2,I), axis = 1)
+    C = dot(G,H.T)
+    return print('Parity check: \n', sum(C))
+    
+    
+              
+              
+       
+       
     
     
