@@ -45,14 +45,14 @@ print("Parity check: \n",dot(G,H.T)%2)
 dmin = 3
 
 # input
-N = 10 # number of messages sent
+N = 100 # number of messages sent
 
 # Channel
 CTYPE = "BSC"
-p = 0.1 # cross probability of BSC
+p = 0.01 # cross probability of BSC
 e = stats.bernoulli.rvs(p, size=n) # BSC noise
 He = fn.Hb(p)# binary entropy function
-C = 1- H# channel capacity
+C = 1- He # channel capacity
 #%% 
 '''
        Generate channel Input
@@ -91,22 +91,19 @@ S = empty([N,n-k]) # identify if there are errors - syndrome
 # k stored syndromes
 for i in range(N):
     S[i] = dot(y[i],H.T)%2 # syndrome row vector
-paux = arange(m)[::-1]
-Hindex = size(H,1) - sum(power(S*2,paux),axis=1) # index of H where there is a bit error
-
 
 D = y # error corrected codewords
 e = zeros([N,n])# bit error location
 # single error correction
 for i in range(N):
     if(sum(S[i,:])!=0):
-        e[i,int(Hindex[i])] += 1
+        print(i)
+        index = sum(S[i,:] == H.T,1).argmax() # Find position where H matrix says there is an error
+        e[i,int(index)] += 1
 e = e%2
 D = (D+e)%2 # decoded codewords
 
 E2cw = sum(D != x) # Codeword Error without hamming decoding
 uhat = D[:,:k]
 E2b = sum(uhat != u)
-
-    
 
