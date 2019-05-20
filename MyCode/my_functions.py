@@ -123,13 +123,8 @@ def binarySignalPower(u):
 
 def BSC(b, p):
     decision = random.rand(len(b))
-    change = decision < p
-    bchanged = b.copy()
-    for i in range(len(b)):
-        if(change[i]==True):
-            bchanged[i] = (b[i]+1) # complement mod 2
-          
-    return bchanged%2
+    noise = decision < p      
+    return (noise+b)%2
     
 def bitEnergy(Eb, N0):
     return Eb/N0
