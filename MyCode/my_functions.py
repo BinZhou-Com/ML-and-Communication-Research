@@ -189,6 +189,47 @@ def parityCheck(G):
     H = concatenate((-P.T%2,I), axis = 1)
     C = dot(G,H.T)
     return print('Parity check: \n', sum(C))
+
+def hammingDistance(a,b):
+    return sum(a!=b)
+
+def possibleCodewords(name):
+    n = name[0]
+    k = name[1]
+    H = parityCheckMatrix(name)
+    tuples = asarray(list(itertools.product(*[(0, 1)] * n)))
+    
+    counter = size(tuples,0)
+    i = 0
+    while i < counter:
+        if(sum(dot(tuples[i],H.T)%2)!=0):
+            tuples = delete(tuples,i,0)
+            counter-=1
+            i-=1
+        i+=1
+    return tuples
+
+def syndrome(y, H, name):
+    n = name[0]
+    k = name[1]
+    N = size(y,0)
+    S = empty([N,n-k]) # identify if there are errors - syndrome
+    # k stored syndromes
+    for i in range(N):
+        S[i] = dot(y[i],H.T)%2 # syndrome row vector
+    return S
+            
+    
+def errorFunction(a, x, u, name):
+    n = name[0]
+    k = name[1]
+    Ecw = sum(a != x) # Codeword Error with hamming decoding
+    uhat = a[:,:k]
+    Eb = sum(uhat != u)
+    return array([Ecw, Eb])
+    
+    
+    
     
     
               

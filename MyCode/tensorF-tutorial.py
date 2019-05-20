@@ -135,17 +135,243 @@ writer = tf.summary.FileWriter("/log")
 
 # use summaries to generate outputs for tensorboard
 
+#%%
+'''
+    Book tutorial
+'''
+
+# Definitions of the graph (called Tensors)
+a = tf.constant(5, name="input_a")
+b = tf.constant(3, name="input_b")
+c = tf.multiply(a,b, name="mul_c")
+d = tf.add(a,b, name="add_d")
+e = tf.add(c,d, name="add_e")
+
+# Session that will actually do something
+# Session objects are in charge of supervising graphs as they run, and are the 
+# primary interface for running graphs
+sess = tf.Session() #= tf.Session(graph=tf.get_default_graph())
+# Performs the computations needed to initialize Variables, but returns `None`
+sess.run(tf.global_variables_initializer())
+output1=sess.run(e) # calculates the value of a desired tensor
 
 
+# Loading tensorboard
+# SummaryWriter object
+# line of code to run in cmd: tensorboard --logdir="my_graph"
+# then go to: localhost:6006
+writer = tf.summary.FileWriter('./my_graph', sess.graph)
+
+writer.close()
+sess.close()
 
 
+a = tf.constant([5,3], name="input_a")
+b = tf.reduce_prod(a, name="prod_b")
+c = tf.reduce_sum(a, name="sum_c")
+d = tf.add(b,c, name="add_d")
 
+# Data types: numpy is recommended for specifying tensors by hand
+# 0-D Tensor with 32-bit integer data type
+t_0 = np.array(50, dtype=np.int32)
+# 1-D Tensor with byte string data type
+# Note: don't explicitly specify dtype when using strings in NumPy
+t_1 = np.array([b"apple", b"peach", b"grape"])
+# 1-D Tensor with boolean data type
+t_2 = np.array([[True, False, False],
+                [False, False, True],
+                [False, True, False]],
+                dtype=np.bool)
+# 3-D Tensor with 64-bit integer data type
+t_3 = np.array([[ [0, 0], [0, 1], [0, 2] ],
+                [ [1, 0], [1, 1], [1, 2] ],
+                [ [2, 0], [2, 1], [2, 2] ]],
+                dtype=np.int64)
+test = np.array([0, 1, 0], dtype=np.int8)
 
+# Tensor shapes
+# Shapes that specify a 0-D Tensor (scalar)
+# e.g. any single number: 7, 1, 3, 4, etc.
+s_0_list = []
+s_0_tuple = ()
+# Shape that describes a vector of length 3
+# e.g. [1, 2, 3]
+s_1 = [3]
+# Shape that describes a 3-by-2 matrix
+# e.g [[1 ,2],
+# [3, 4],
+# [5, 6]]
+s_2 = (3, 2)
+# Shape for a vector of any length:
+s_1_flex = [None]
+# Shape for a matrix that is any amount of rows tall, and 3 columns wide:
+s_2_flex = (None, 3)
+# Shape of a 3-D Tensor with length 2 in its first dimension, and variable-
+# length in its second and third dimensions:
+s_3_flex = [2, None, None]
+# Shape that could be any Tensor
+s_any = None
+mystery_tensor = np.array([[1],[3],[[[[[[345]]]]]]])
+# Find the shape of the mystery tensor
+#shape = tf.shape(mystery_tensor, name="mystery_shape")
 
+# Create a new graph, constructor doesnt have any parameter
+g = tf.Graph()
 
-
-
-
+# add operations to a specific graph
+with g.as_default():
+    # Create Operations as usual; they will be added to graph `g`
+    a = tf.multiply(2, 3)
        
 
+# Feed dictionary
+    # Create Operations, Tensors, etc (using the default graph)
+a = tf.add(2, 5)
+b = tf.multiply(a, 3)
+# Start up a `Session` using the default graph
+sess = tf.Session()
+# Define a dictionary that says to replace the value of `a` with 15
+replace_dict = {a: 15}
+# Run the session, passing in `replace_dict` as the value to `feed_dict`
+sess.run(b, feed_dict=replace_dict) # returns 45
+
+sess.close()
+
+# Other use of session
+with tf.Session() as sess:
+    # Run graph, write summary statistics, etc.
+    sess.run(b)
+# The Session closes automatically
+    
+# placeholder operation
+# Creates a placeholder vector of length any with data type int32
+a = tf.placeholder(tf.int32, shape=[None], name="my_input")
+# Use the placeholder as if it were any other Tensor object
+b = tf.reduce_prod(a, name="prod_b")
+c = tf.reduce_sum(a, name="sum_c")
+# Finish off the graph
+d = tf.add(b, c, name="add_d")
+
+# Open a TensorFlow Session
+sess = tf.Session()
+# Create a dictionary to pass into `feed_dict`
+# Key: `a`, the handle to the placeholder's output Tensor
+# Value: A vector with value [5, 3] and int32 data type
+input_dict = {a: np.array([5, 3], dtype=np.int32)}
+# Fetch the value of `d`, feeding the values of `input_vector` into `a`
+sess.run(d, feed_dict=input_dict)
+
+
+# Variables and useful vectors
+# Pass in a starting value of three for the variable
+my_var = tf.Variable(3, name="my_variable")
+add = tf.add(5, my_var)
+init = tf.global_variables_initializer()
+sess.run(init)
+my_var.assign(10) # change the value of the variable
+
+# 2x2 matrix of zeros
+zeros = tf.zeros([2, 2])
+# vector of length 6 of ones
+ones = tf.ones([6])
+# 3x3x3 Tensor of random uniform values between 0 and 10
+uniform = tf.random_uniform([3, 3, 3], minval=0, maxval=10)
+# 3x3x3 Tensor of normally distributed numbers; mean 0 and standard deviation 2
+normal = tf.random_normal([3, 3, 3], mean=0.0, stddev=2.0)
+# No values below 3.0 or above 7.0 will be returned in this Tensor (cuts 2 stddev from the mean)
+trunc = tf.truncated_normal([2, 2], mean=5.0, stddev=1.0)
+sess.run(trunc)
+
+
+# Name scope: used to organize your graph
+with tf.name_scope("Scope_A"):
+    a = tf.add(1, 2, name="A_add")
+    b = tf.multiply(a, 3, name="A_mul")
+with tf.name_scope("Scope_B"):
+    c = tf.add(4, 5, name="B_add")
+    d = tf.multiply(c, 6, name="B_mul")
+e = tf.add(b, d, name="output")
+sess2 = tf.Session()
+sess2.run(e)
+writer2 = tf.summary.FileWriter('./name_scope_1', graph=tf.get_default_graph())
+writer2.close()
+
+#%%
+## CREATING THE GRAPH
+graph = tf.Graph()
+with graph.as_default():
+    
+    with tf.name_scope("variables"):
+            # Variable to keep track of how many times the graph has been run
+           global_step = tf.Variable(0, dtype=tf.int32, trainable=False, name="global_step")
+            # Variable that keeps track of the sum of all output values over time:
+           total_output = tf.Variable(0.0, dtype=tf.float32, trainable=False, name="total_output")
+    
+    with tf.name_scope("Transformation"):
+       # Separate input layer
+        with tf.name_scope("input"):
+           # Create input placeholder- takes in a Vector
+            a = tf.placeholder(tf.float32, shape=[None], name="input_placeholder_a")
+      
+        # Separate middle layer
+        with tf.name_scope("intermediate_layer"):
+            b = tf.reduce_prod(a, name="product_b")
+            c = tf.reduce_sum(a, name="sum_c")
+       # Separate output layer
+       
+        with tf.name_scope("output"):
+            output = tf.add(b, c, name="output")
+            
+    with tf.name_scope("update"):
+        # Increments the total_output Variable by the latest output
+        update_total = total_output.assign_add(output)
+        # Increments the above `global_step` Variable, should be run whenever the graph is run
+        increment_step = global_step.assign_add(1)
+        
+    with tf.name_scope("summaries"):
+        avg = tf.div(update_total, tf.cast(increment_step, tf.float32), name="average")
+        # Creates summaries for output node
+        tf.summary.scalar('Output', output)
+        tf.summary.scalar('Sum_of_outputs_over_time', update_total)
+        tf.summary.scalar('Average_of_outputs_over_time', avg)
+       
+    with tf.name_scope("global_ops"):
+        # Initialization Op
+        init = tf.initialize_all_variables()
+        # Merge all summaries into one Operation
+        merged_summaries = tf.summary.merge_all()
+    
+## RUNNING THE GRAPH    
+sess = tf.Session(graph=graph)
+writer = tf.summary.FileWriter('./improved_graph', graph=graph)
+# initialize our variables
+sess.run(init)
+
+# helper function to run our graph
+def run_graph(input_tensor):
+    """
+    Helper function; runs the graph with given input tensor and saves summaries
+    """
+    feed_dict = {a: input_tensor}
+    # _ ignores the value of output and create variables step and summary
+    _, step, summary = sess.run([output, increment_step, merged_summaries], 
+    feed_dict=feed_dict)
+    writer.add_summary(summary, global_step=step)
+
+# running graph with various inputs
+run_graph([2,8])
+run_graph([3,1,3,3])
+run_graph([8])
+run_graph([1,2,3])
+run_graph([11,4])
+run_graph([4,1])
+run_graph([7,3,1])
+run_graph([6,3])
+run_graph([0,2])
+run_graph([4,5,6])
+
+# saving to disk:
+writer.flush()
+writer.close()
+sess.close()
 
