@@ -8,8 +8,8 @@ Created on Fri Apr  5 17:28:03 2019
 from numpy import *
 import matplotlib.pyplot as plt
 from scipy.special import erfc # complementary error function
-import pyldpc
 import itertools
+from scipy import stats
 
 def plotit(t, u, title="Title", X="time (s)", Y="Amplitude"):
     plt.figure()
@@ -211,8 +211,7 @@ def possibleCodewordsG(name, G):
     words = empty([size(tuples,0), n])
     for i in range(size(tuples,0)):
         words[i] = dot(tuples[i], G)%2
-    
-    return words
+    return tuples, words
 
 def syndrome(y, H, name):
     n = name[0]
@@ -225,20 +224,26 @@ def syndrome(y, H, name):
     return S
             
     
-def errorFunction(a, x, u, name):
+def codeErrorFunction(y, x, name):
     n = name[0]
     k = name[1]
-    Ecw = sum(a != x) # Codeword Error with hamming decoding
-    #uhat = a[:,:k]
-    #Eb = sum(uhat != u)
-    #return array([Ecw, Eb])
+    Ecw = sum(y != x) # Codeword Error with hamming decoding
     return Ecw/size(x)
+
+def bitErrorFunction(uhat, u, name):
+    n = name[0]
+    k = name[1]
+    Eb = sum(uhat != u) # Codeword Error with hamming decoding
+    return Eb/size(u)
     
-    
-    
-    
-              
-              
+def generateU(N,k):
+    return stats.bernoulli.rvs(0.5,size=[N,k]) # input message matrix
+
+def generteCodeWord(N, n, u, G):
+    x = empty([N,n]) # code words
+    for i in range(N):
+        x[i] = dot(u[i],G)%2 # codeword row vector         
+    return x
        
        
     

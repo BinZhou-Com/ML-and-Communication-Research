@@ -432,14 +432,72 @@ with tf.Session() as sess:
     
 #%%%
 ''' 
-    Tensor flow models as classes?
+    Tensor flow own class
 '''
 
+from keras.layers import Layer
 
+class MyLayer(Layer):
 
+    def __init__(self, output_dim, **kwargs):
+        self.output_dim = output_dim
+        super(MyLayer, self).__init__(**kwargs)
 
+    def build(self, input_shape):
+        # Create a trainable weight variable for this layer.
+        self.kernel = self.add_weight(name='kernel', 
+                                      shape=(input_shape[1], self.output_dim),
+                                      initializer='uniform',
+                                      trainable=True)
+        super(MyLayer, self).build(input_shape)  # Be sure to call this at the end
 
+    def call(self, x):
+        return K.dot(x, self.kernel)
 
+    def compute_output_shape(self, input_shape):
+        return (input_shape[0], self.output_dim)
+   
+# Non trainable
+class ComputeSum(layers.Layer):
 
+    def __init__(self, input_dim):
+        super(ComputeSum, self).__init__()
+        self.total = tf.Variable(initial_value=np.random.binomial(1, 0.5, size=input_dim),
+                             trainable=False, dtype=float32)
+
+    def call(self, inputs):
+        self.total.assign_add(inputs, self.total)
+        return self.total
+
+sess = tf.Session()
+
+my_sum = ComputeSum(2)
+init = tf.initialize_all_variables()
+
+sess.run(init)
+x = tf.ones(2)
+y = my_sum(x)
+sess.run(y)
+
+#%%
+from keras import backend as K
+import numpy as np
+
+def tensorBSC(x,p):
+    noise = K.variable(value = np.random.rand(x.get_shape().as_list()[0])<p, dtype=np.float32)    
+    result = tf.add(noise, x)%2
+    return result
+
+def func_output_shape(input_shape):
+    shape = list(input_shape)
+    return tuple(shape)
+    
+inputTensor = K.variable(np.random.binomial(1, 0.5, size=8), dtype=float32)
+outputTensor = tensorBSC(inputTensor, 1);
+
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+print(sess.run(inputTensor))
+print(sess.run(outputTensor))
 
 
