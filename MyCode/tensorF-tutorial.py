@@ -46,7 +46,7 @@ MLNN = tf.keras.Sequential([ # Array to define layers
               layers.Dense(10, activation='softmax')
 ])
 
-#%%
+
 ''' 
        Training model
 '''
@@ -55,7 +55,7 @@ MLNN.compile(optimizer=tf.train.AdamOptimizer(0.001),
              loss='categorical_crossentropy',
              metrics=['categorical_accuracy'])
 
-#%%
+
 '''
     Import data from numpy and TRAIN the model
 '''
@@ -72,7 +72,7 @@ MLNN.fit(data, labels, epochs=10, batch_size=32,
 
 plt.plot(history.history['loss'])
 
-#%% Import datasets using Datasets API
+
 '''
     Import datasets using Datasets API
 '''
@@ -91,7 +91,7 @@ MLNN.fit(dataset, epochs=10, steps_per_epoch=30,
           validation_data=val_dataset,
           validation_steps=3)
 
-#%% Evaluate and predict
+
 '''
         evaluate the inference-mode 
 ''' 
@@ -374,4 +374,72 @@ run_graph([4,5,6])
 writer.flush()
 writer.close()
 sess.close()
+
+#%%%
+'''
+    Machine Learning
+'''
+## BASIC INFERENCE MODEL
+
+# initialize variables/model parameters
+# define the training loop operations
+def inference(X):
+# compute inference model over data X and return the result
+def loss(X, Y):
+# compute loss over training data X and expected outputs Y
+def inputs():
+# read/generate input training data X and expected outputs Y
+def train(total_loss):
+# train / adjust model parameters according to computed total loss
+def evaluate(sess, X, Y):
+# evaluate the resulting trained model
+
+# Create a saver - Checkpoint file.
+saver = tf.train.Saver()
+    
+# Launch the graph in a session, setup boilerplate
+with tf.Session() as sess:
+    tf.initialize_all_variables().run()
+    X, Y = inputs()
+    total_loss = loss(X, Y)
+    train_op = train(total_loss)
+    coord = tf.train.Coordinator()
+    threads = tf.train.start_queue_runners(sess=sess, coord=coord)
+    # actual training loop
+    training_steps = 1000
+    
+    initial_step = 0
+    # verify if we don't have a checkpoint saved already
+    ckpt = tf.train.get_checkpoint_state(os.path.dirname(__file__))
+    if ckpt and ckpt.model_checkpoint_path:
+        # Restores from checkpoint
+        saver.restore(sess, ckpt.model_checkpoint_path)
+        initial_step = int(ckpt.model_checkpoint_path.rsplit('-', 1)[1])
+    
+    for step in range(initial_step, training_steps):
+        sess.run([train_op])
+        # for debugging and learning purposes, see how the loss gets decremented thru training steps
+        if step % 10 == 0:
+            print "loss: ", sess.run([total_loss])
+        if step % 1000 == 0:
+            saver.save(sess, 'my-model', global_step=step)
+    
+    evaluate(sess, X, Y)
+    coord.request_stop()
+    coord.join(threads)
+    saver.save(sess, 'my-model', global_step=training_steps)
+    sess.close()
+    
+#%%%
+''' 
+    Tensor flow models as classes?
+'''
+
+
+
+
+
+
+
+
 
