@@ -17,14 +17,24 @@ from scipy.special import erfc  # complementary error function
 
 import tensorflow as tf
 from tensorflow.keras import layers
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
+from keras import backend as K
 
 import sys
 sys.path.append('C:\\Users\\user\\Desktop\\GitHub\\PIR\\MyCode')
 import my_functions as fn
 
 import time
+
+#Plot setup
+#plt.rcParams['mathtext.fontset'] = 'dejavuserif'
+plt.rcParams["font.family"] = "Times New Roman"
+plt.rcParams.update({'font.weight':'normal',
+                     'font.size': 12})
+
+
+#import matplotlib
+#del matplotlib.font_manager.weight_dict['roman']
+#matplotlib.font_manager._rebuild()
 
 #%%
 ''' 
@@ -121,6 +131,25 @@ for i_global in range(globalReps):
         globalError[i_global][i_p] = fn.codeErrorFunction(y, x)
         globalErrorMAP[i_global][i_p] = fn.bitErrorFunction(MAP, u)
 
+#%% plot
+        
+avgGlobalError = np.average(globalError, 0)
+avgGlobalErrorMAP = np.average(globalErrorMAP, 0)
+
+fig = plt.figure(figsize=(8, 6), dpi=100)
+
+plt.plot(pOptions,avgGlobalError, color='b')
+plt.plot(pOptions,avgGlobalErrorMAP, color='r')
+
+plt.grid(True, which="both")
+plt.xlabel('$p$')
+plt.ylabel('BER')
+plt.yscale('log')
+plt.legend(['No Decoding', 'MAP'])
+plt.show()
+
+#timestr = time.strftime("%Y%m%d-%H%M%S")
+fig.savefig('images/MAP'+timestr+ '.png', bbox_inches='tight')
 #%% Neural Networ decoder
 '''
     DNN Decoder
@@ -128,23 +157,33 @@ for i_global in range(globalReps):
 '''
     Training and validation data
 '''
-p = 0.07
-from sklearn.utils import shuffle
-train_Size = np.size(messages,0) # all possible tuples
-u_train_labels, x_train = shuffle(messages.copy(), possibleCodewords.copy())
+u_train_labels = messages.copy()
+x_train_data = possibleCodewords.copy()
+
+u_train_labels = np.repeat(u_train_labels, 1, axis=0)
+x_train_data = np.repeat(x_train_data, 1, axis=0)
+
+train_Size = np.size(x_train_data,0)
 
 #TEST
-x_train_flat = np.reshape(x_train, [-1])
-y_train_flat = fn.BSC(x_train_flat,p)
-y_train = y_train_flat.reshape(256,n) # noisy codewords
+#x_train_flat = np.reshape(x_train, [-1])
+#y_train_flat = fn.BSC(x_train_flat,p)
+#y_train = y_train_flat.reshape(256,n) # noisy codewords
+####
 
 test_Size = 100
 u_val_labels = fn.generateU(test_Size,k)
 x_val = fn.generteCodeWord(test_Size, n, u_val_labels, G)
 '''
-    Custom Layer
+    Constants
 '''
-from keras import backend as K
+
+numEpochs = 2**18  #2**16 approx 65000
+batchSize = 2 # Mini batch size
+
+'''
+    Custom Layer and Metric
+'''
 
 def tensorBSC(x):
     # value of p: optimal training statistics for neural based channel decoders (paper)
@@ -158,54 +197,64 @@ def tensorBSC(x):
 def func_output_shape(x):
     shape = x.get_shape().as_list()[1]
     return shape
+
+def metricBER(y_true, y_pred):
+    return K.mean(K.not_equal(y_true,y_pred))
     
 '''
     Sequential Model: most simple tf MLNN model
+'''
 '''
 MLNN = tf.keras.Sequential([ # Array to define layers
               # Noise Layer
               layers.Lambda(tensorBSC,input_shape=(n,), output_shape=(n,)),
               # Adds a densely-connected layer with n units to the model: L1
-              layers.Dense(128, activation='relu', input_shape=(n,)),
+              layers.Dense(128, activation='softplus', input_shape=(n,)),
               # Add another: L2
-              layers.Dense(64, activation='relu'),
+              layers.Dense(64, activation='softplus'),
               # Add another: L3
-              layers.Dense(32, activation='relu'),
+              layers.Dense(32, activation='softplus'),
               # Add layer with k output units:
               layers.Dense(k, activation='sigmoid')
 ])
+    '''
+MLNN = tf.keras.Sequential()
+MLNN.add(layers.Lambda(tensorBSC,input_shape=(n,), output_shape=(n,)))
+MLNN.add(layers.Dense(128, activation='relu', input_shape=(n,)))
+MLNN.add(layers.Dense(64, activation='relu'))
+MLNN.add(layers.Dense(32, activation='relu'))
+MLNN.add(layers.Dense(k, activation='sigmoid'))
+
     
 '''
-    Overall Settings
+    Overall Settings/ Compilation
 '''
-
-MLNN.compile(loss='binary_crossentropy' ,
-              optimizer=tf.keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False) # change accuracy to a BER function
-              )
+MLNN.compile(loss='mse' ,
+              #optimizer=tf.keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False), # change accuracy to a BER function
+              optimizer='adam',
+              metrics=[metricBER])
 '''
     Summaries (to do)
 '''
-summary = MLNN.summary()
+#summary = MLNN.summary()
 
 ''' 
     Training
 '''
-
-numEpochs = 2**12  #2**16 aprprox 65000
-batchSize = train_Size
-history = MLNN.fit(x_train, u_train_labels, epochs=numEpochs, batch_size=batchSize)
+history = MLNN.fit(x_train_data, u_train_labels, epochs=numEpochs, batch_size=batchSize, shuffle=True, verbose=0)
 #history = MLNN.fit(x_train, u_train_labels, epochs=numEpochs, batch_size=batchSize,
 #          validation_data=(x_val, u_val_labels))
 
 # summarize history for loss
-trainingFig = plt.figure()
+trainingFig = plt.figure(figsize=(8, 6), dpi=80)
+plt.title('Batch size = '+str(batchSize))
 plt.plot(history.history['loss']) # all outputs: ['acc', 'loss', 'val_acc', 'val_loss']
+plt.plot(history.history['metricBER'])
+plt.grid(True, which='both')
 #plt.plot(history.history['val_loss'])
-plt.title('model loss')
-plt.ylabel('loss')
-plt.xlabel('epoch')
+plt.xlabel('$M_{ep}$')
 plt.xscale('log')
-plt.legend(['train', 'test'], loc='upper left')
+plt.legend(['Train_loss', 'BER'])
 plt.show()
 
 timestr = time.strftime("%Y%m%d-%H%M%S")
@@ -214,19 +263,27 @@ trainingFig.savefig('training_history/train'+timestr+ '.png', bbox_inches='tight
     evaluate the inference-model
 ''' 
 
-evaluation = MLNN.evaluate(x_val, u_val_labels, batch_size=batchSize)
+evaluation = MLNN.evaluate(x_val, u_val_labels)
+
+'''
+    Saving model
+'''
+MLNN.save('Trained_NN/MLNN_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'_'+timestr+'.h5')  # creates a HDF5 file 'my_model.h5'
 #%%
 '''
     Prediction
 '''
+globalReps = 1000
 globalErrorMLNN = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
         p = pOptions[i_p]
         u = fn.generateU(N,k)
         x = fn.generteCodeWord(N, n, u, G)
-        
-        prediction = MLNN.predict(x, batch_size=batchSize)
+        xflat = np.reshape(x, [-1])
+        yflat = fn.BSC(xflat,p)
+        y = yflat.reshape(N,n) # noisy codewords
+        prediction = MLNN.predict(y)
         # round predictions
         rounded = np.round(prediction)
 
@@ -245,13 +302,13 @@ plt.plot(pOptions,avgGlobalErrorMAP, color='r')
 avgGlobalErrorMLNN = np.average(globalErrorMLNN,0)
 plt.scatter(pOptions,avgGlobalErrorMLNN, color='g')
 
-plt.grid(True)
-plt.title('Error Analysis')
-plt.xlabel('p')
+plt.grid(True, which='both')
+plt.title('Batch size = '+str(batchSize))
+plt.xlabel('$p$')
 plt.ylabel('BER')
 plt.yscale('log')
-plt.legend(['No Decoding', 'MAP', 'DNN Decoder'])
+plt.legend(['No Decoding', 'MAP', 'DNN Decoder, $M_{ep}=$'+str(numEpochs)])
 plt.show()
 
-timestr = time.strftime("%Y%m%d-%H%M%S")
-fig.savefig('images/test'+timestr+ '.png', bbox_inches='tight')
+#timestr = time.strftime("%Y%m%d-%H%M%S")
+fig.savefig('images/MAP_MLNN_Mep_'+str(numEpochs)+'_'+timestr+ '.png', bbox_inches='tight')

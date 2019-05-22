@@ -500,14 +500,47 @@ inputTensor = tf.Variable(np.random.binomial(1, 0.5, size=16), dtype=np.float32)
 outputTensor = tensorBSC(inputTensor);
 shapeTest = func_output_shape(inputTensor)
 
+
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
 #print(sess.run(inputTensor))
 #print(sess.run(noise))
 print(sess.run(outputTensor))
 print(sess.run(inputTensor))
+sess.close()
+
+#%%
+
+x = tf.Variable(np.random.binomial(1, 0.5, size=1600), dtype=np.float32)
+p = K.constant(0.35,dtype=tf.float32)
+var = K.random_uniform(shape=(1600,), minval = 0.0, maxval=1.0)
+noise = K.less(var, p)
+noiseFloat = K.cast(noise, dtype=tf.float32)
+result = tf.math.add(noiseFloat, x)%2
+
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+print(sess.run(x))
+print(sess.run(result))
+print(sess.run(metricBER(result, x)))
 
 
-print(inputTensor.shape)
+sess.close()
+
+#%%
+def metricBER(y_true, y_pred):
+    return K.mean(K.not_equal(y_true,y_pred))
+
+y_true = K.variable(np.random.binomial(1, 0.5, size=16), dtype=np.float32)
+y_pred = K.variable(np.random.binomial(1, 0.5, size=16), dtype=np.float32)
+result = metricBER(y_true, y_pred)
+
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+print(sess.run(y_true))
+print(sess.run(y_pred))
+print(sess.run(result))
+
+
 sess.close()
 
