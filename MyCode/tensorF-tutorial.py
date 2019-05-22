@@ -483,21 +483,31 @@ sess.run(y)
 from keras import backend as K
 import numpy as np
 
-def tensorBSC(x,p):
-    noise = K.variable(value = np.random.rand(x.get_shape().as_list()[0])<p, dtype=np.float32)    
-    result = tf.add(noise, x)%2
+def tensorBSC(x):
+    # value of p: optimal training statistics for neural based channel decoders (paper)
+    p = K.constant(0.07,dtype=tf.float32)
+    var = K.random_uniform(shape=(func_output_shape(x),), minval = 0.0, maxval=1.0)
+    noise = K.less(var, p)
+    noiseFloat = K.cast(noise, dtype=tf.float32)
+    result = tf.math.add(noiseFloat, x)%2
     return result
 
-def func_output_shape(input_shape):
-    shape = list(input_shape)
-    return tuple(shape)
+def func_output_shape(x):
+    shape = x.get_shape().as_list()[0]
+    return shape
     
-inputTensor = K.variable(np.random.binomial(1, 0.5, size=8), dtype=float32)
-outputTensor = tensorBSC(inputTensor, 1);
+inputTensor = tf.Variable(np.random.binomial(1, 0.5, size=16), dtype=np.float32)
+outputTensor = tensorBSC(inputTensor);
+shapeTest = func_output_shape(inputTensor)
 
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
-print(sess.run(inputTensor))
+#print(sess.run(inputTensor))
+#print(sess.run(noise))
 print(sess.run(outputTensor))
+print(sess.run(inputTensor))
 
+
+print(inputTensor.shape)
+sess.close()
 

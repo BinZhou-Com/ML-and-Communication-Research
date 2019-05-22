@@ -224,15 +224,11 @@ def syndrome(y, H, name):
     return S
             
     
-def codeErrorFunction(y, x, name):
-    n = name[0]
-    k = name[1]
+def codeErrorFunction(y, x):
     Ecw = sum(y != x) # Codeword Error with hamming decoding
     return Ecw/size(x)
 
-def bitErrorFunction(uhat, u, name):
-    n = name[0]
-    k = name[1]
+def bitErrorFunction(uhat, u):
     Eb = sum(uhat != u) # Codeword Error with hamming decoding
     return Eb/size(u)
     

@@ -24,6 +24,8 @@ import sys
 sys.path.append('C:\\Users\\user\\Desktop\\GitHub\\PIR\\MyCode')
 import my_functions as fn
 
+import time
+
 #%%
 ''' 
     Classes
@@ -75,7 +77,7 @@ He = fn.Hb(pOptions)# binary entropy function
 C = 1-He # channel capacity (R<C)
 
 # Simulation
-globalReps = 1000
+globalReps = 10
 globalError = np.empty([globalReps, len(pOptions)])
 globalErrorHamming = np.empty([globalReps, len(pOptions)])
 globalErrorMAP = np.empty([globalReps, len(pOptions)])
@@ -110,15 +112,14 @@ for i_global in range(globalReps):
 
         MAP = np.empty([N,k])
         for i in range(N):
-            minDistWord = np.argmin(sum(possibleCodewords!=y[i], 1), 0)
+            minDistWord = np.argmin(np.sum(possibleCodewords!=y[i], 1), 0)
             MAP[i] = messages[minDistWord]
         
         '''
             Error Calculation
         '''
-        globalError[i_global][i_p] = fn.codeErrorFunction(y, x, name)
-        globalErrorMAP[i_global][i_p] = fn.bitErrorFunction(MAP, u, name)
-      
+        globalError[i_global][i_p] = fn.codeErrorFunction(y, x)
+        globalErrorMAP[i_global][i_p] = fn.bitErrorFunction(MAP, u)
 
 #%% Neural Networ decoder
 '''
@@ -127,10 +128,15 @@ for i_global in range(globalReps):
 '''
     Training and validation data
 '''
+p = 0.07
+from sklearn.utils import shuffle
+train_Size = np.size(messages,0) # all possible tuples
+u_train_labels, x_train = shuffle(messages.copy(), possibleCodewords.copy())
 
-train_Size = 100 # all possible tuples
-u_train_labels = fn.generateU(train_Size,k)
-x_train = fn.generteCodeWord(train_Size, n, u_train_labels, G)
+#TEST
+x_train_flat = np.reshape(x_train, [-1])
+y_train_flat = fn.BSC(x_train_flat,p)
+y_train = y_train_flat.reshape(256,n) # noisy codewords
 
 test_Size = 100
 u_val_labels = fn.generateU(test_Size,k)
@@ -138,29 +144,27 @@ x_val = fn.generteCodeWord(test_Size, n, u_val_labels, G)
 '''
     Custom Layer
 '''
-# value of p: optimal training statistics for neural based channel decoders (paper)
 from keras import backend as K
 
-def tensorBSC(x,p):
-    noise = K.variable(value = np.random.rand(len(x))<p, dtype=np.float32)    
-    result = K.add(noise, x)%2
+def tensorBSC(x):
+    # value of p: optimal training statistics for neural based channel decoders (paper)
+    p = K.constant(0.07,dtype=tf.float32)
+    var = K.random_uniform(shape=(func_output_shape(x),), minval = 0.0, maxval=1.0)
+    noise = K.less(var, p)
+    noiseFloat = K.cast(noise, dtype=tf.float32)
+    result = tf.math.add(noiseFloat, x)%2
     return result
 
-def func_output_shape(input_shape):
-    shape = list(input_shape)
-    return tuple(shape)
+def func_output_shape(x):
+    shape = x.get_shape().as_list()[1]
+    return shape
     
 '''
     Sequential Model: most simple tf MLNN model
 '''
 MLNN = tf.keras.Sequential([ # Array to define layers
               # Noise Layer
-              layers.Lambda(tensorBSC,arguments = ['x',x, 'p',p],input_shape=(n,), output_shape=func_output_shape),
-                      
-                      '''
-                      lambda x: 
-                  (x + (np.random.rand(n) < np.random.uniform(low=0, high=0.5, size=1)).astype(dtype=np.float32))%2, 
-                      '''
+              layers.Lambda(tensorBSC,input_shape=(n,), output_shape=(n,)),
               # Adds a densely-connected layer with n units to the model: L1
               layers.Dense(128, activation='relu', input_shape=(n,)),
               # Add another: L2
@@ -174,25 +178,38 @@ MLNN = tf.keras.Sequential([ # Array to define layers
 '''
     Overall Settings
 '''
-MLNN.compile(loss='binary_crossentropy',
-              optimizer='adam',
-              metrics=['accuracy'])
+
+MLNN.compile(loss='binary_crossentropy' ,
+              optimizer=tf.keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False) # change accuracy to a BER function
+              )
 '''
     Summaries (to do)
 '''
-MLNN.summary()
+summary = MLNN.summary()
 
 ''' 
     Training
 '''
 
-numEpochs = 10000 #65000
+numEpochs = 2**12  #2**16 aprprox 65000
 batchSize = train_Size
-history = MLNN.fit(x_train, u_train_labels, epochs=numEpochs, batch_size=batchSize,
-          validation_data=(x_val, u_val_labels))
+history = MLNN.fit(x_train, u_train_labels, epochs=numEpochs, batch_size=batchSize)
+#history = MLNN.fit(x_train, u_train_labels, epochs=numEpochs, batch_size=batchSize,
+#          validation_data=(x_val, u_val_labels))
 
-plt.plot(history.history['loss'])
+# summarize history for loss
+trainingFig = plt.figure()
+plt.plot(history.history['loss']) # all outputs: ['acc', 'loss', 'val_acc', 'val_loss']
+#plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.xscale('log')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
 
+timestr = time.strftime("%Y%m%d-%H%M%S")
+trainingFig.savefig('training_history/train'+timestr+ '.png', bbox_inches='tight')
 '''
     evaluate the inference-model
 ''' 
@@ -207,12 +224,13 @@ for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
         p = pOptions[i_p]
         u = fn.generateU(N,k)
-        x = fn.generteCodeWord(N, n, u, G,)
+        x = fn.generteCodeWord(N, n, u, G)
+        
         prediction = MLNN.predict(x, batch_size=batchSize)
         # round predictions
         rounded = np.round(prediction)
 
-        globalErrorMLNN[i_global][i_p] = fn.bitErrorFunction(rounded, u, name)
+        globalErrorMLNN[i_global][i_p] = fn.bitErrorFunction(rounded, u)
 
 #%% plot
         
@@ -220,18 +238,12 @@ avgGlobalError = np.average(globalError, 0)
 avgGlobalErrorMAP = np.average(globalErrorMAP, 0)
 
 fig = plt.figure(figsize=(8, 6), dpi=80)
-'''
-for i in range(np.size(globalError,0)):
-    plt.scatter(pOptions,globalError[i], color='b')
-    plt.scatter(pOptions,globalErrorMAP[i], color='r')
-'''
+
 plt.plot(pOptions,avgGlobalError, color='b')
 plt.plot(pOptions,avgGlobalErrorMAP, color='r')
 
-
-#avgGlobalErrorMLNN = np.average(globalErrorMLNN,0)
-#plt.scatter(pOptions,avgGlobalErrorMLNN, color='g')
-
+avgGlobalErrorMLNN = np.average(globalErrorMLNN,0)
+plt.scatter(pOptions,avgGlobalErrorMLNN, color='g')
 
 plt.grid(True)
 plt.title('Error Analysis')
@@ -241,6 +253,5 @@ plt.yscale('log')
 plt.legend(['No Decoding', 'MAP', 'DNN Decoder'])
 plt.show()
 
-import time
 timestr = time.strftime("%Y%m%d-%H%M%S")
 fig.savefig('images/test'+timestr+ '.png', bbox_inches='tight')
