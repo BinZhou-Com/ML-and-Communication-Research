@@ -531,16 +531,96 @@ sess.close()
 def metricBER(y_true, y_pred):
     return K.mean(K.not_equal(y_true,y_pred))
 
+def metricBER1H(y_true, y_pred):
+    return K.mean(K.not_equal(y_true,K.round(y_pred)))
+
+def tensorOnehot2singleMessage(h):
+    #index = K.cast(K.argmax(h), dtype=tf.int32)
+    index = K.argmax(h)
+    aux = K.constant(index, dtype=tf.int32)
+    a_bin = tf.mod(tf.bitwise.right_shift(tf.expand_dims(aux,1), tf.range(8)), 2)
+    return a_bin
+
 y_true = K.variable(np.random.binomial(1, 0.5, size=16), dtype=np.float32)
 y_pred = K.variable(np.random.binomial(1, 0.5, size=16), dtype=np.float32)
 result = metricBER(y_true, y_pred)
 
+y_pred1H = K.variable(K.round(prediction[0]))
+y_true1H = K.variable(u[0])
+index = tensorOnehot2singleMessage(y_pred1H)
+
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
-print(sess.run(y_true))
-print(sess.run(y_pred))
-print(sess.run(result))
+#print(sess.run(y_true))
+#print(sess.run(y_pred))
+#print(sess.run(result))
+print('============')
+print(sess.run(y_true1H))
+print(sess.run(y_pred1H))
+print(sess.run(index))
 
-
+#%%
 sess.close()
 
+sess = tf.Session()
+with sess.as_default():
+    tensor = tf.constant([10,100])
+    index = K.argmax(tensor)
+    print('rola', index.eval())
+    aux = K.constant([2], dtype=tf.int32)
+    #a_dec = tf.constant([aux], dtype=tf.int32)
+    a_bin = tf.mod(tf.bitwise.right_shift(tf.expand_dims(aux,1), tf.range(8)), 2)
+    formatted = tf.strings.format("{}", tensor)
+    out0 = sess.run(tensor)
+    out1 = sess.run(index)
+    out2 = sess.run(a_bin)
+
+print(out0)
+print(out1)
+print(out2)
+
+#%% Stack overflow question
+sess = tf.Session()
+with sess.as_default():
+    a_dec = K.constant([0,1,2], dtype=tf.int32)
+    index = K.constant([K.argmax(a_dec)], dtype=tf.int32)
+    a_bin = tf.mod(tf.bitwise.right_shift(index, tf.range(8)), 2)
+    out = sess.run(a_bin)
+print(out)
+    
+#%% 
+'''
+    Encode data to one-hot
+'''
+data = np.array([[0,0],[0 ,1], [1,0], [1,1]])
+dataSingle = np.array([1, 0])
+encoded = tf.keras.utils.to_categorical(data)
+encodedSingle = tf.keras.utils.to_categorical(dataSingle)
+print(data)
+#print(encoded)
+print(encodedSingle)
+
+decoded = np.argmax(encodedSingle, axis=1)
+print(decoded)
+
+#%%
+#binary_string = tf.constant([1, 0, 0, 1, 1])
+binary_string = np.array([1, 0, 0, 1, 1])
+
+result = tf.reduce_sum(
+    tf.cast(tf.reverse(tensor=binary_string, axis=[0]), dtype=tf.int64)
+    * 2 ** tf.range(tf.cast(tf.size(binary_string), dtype=tf.int64)))
+
+
+with tf.Session():
+    print(K.round(result).eval())
+    
+    #%%
+
+
+
+
+with tf.Session():
+    run(tf.global_variables_initializer())
+    print('true: ', y_true.eval())
+    print('pred: ', y_pred.eval())
