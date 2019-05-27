@@ -14,8 +14,7 @@ Created on Fri May 24 14:12:38 2019
 
 def tensorBSC(x):
     # value of p: optimal training statistics for neural based channel decoders (paper)
-    val = 0.0
-    p = K.constant(val,dtype=tf.float32)
+    p = K.constant(train_p,dtype=tf.float32)
     var = K.random_uniform(shape=(func_output_shape(x),), minval = 0.0, maxval=1.0)
     noise = K.less(var, p)
     noiseFloat = K.cast(noise, dtype=tf.float32)
@@ -116,14 +115,14 @@ x_val = fn.generteCodeWord(test_Size, n, u_val_labels, G)
 
 numEpochs = 2**14  #2**16 approx 65000
 batchSize = 256 # Mini batch size
-
+val_p = 0.07
     
 '''
     Sequential Model: most simple tf MLNN model
 '''
 MLNN = tf.keras.Sequential([ # Array to define layers
               # Noise Layer
-              layers.Lambda(tensorBSC,input_shape=(n,), output_shape=(n,)),
+              layers.Lambda(tensorBSC(val_p),input_shape=(n,), output_shape=(n,)),
               # Adds a densely-connected layer with n units to the model: L1
               layers.Dense(128, activation='relu', input_shape=(n,)),
               # Add another: L2
@@ -206,14 +205,14 @@ u_val_labels = fn.generateU(test_Size,k)
 x_val = fn.generteCodeWord(test_Size, n, u_val_labels, G)
 u_val_labels = messages2onehot(u_val_labels)
 
-
-#%%
 '''
     Constants
 '''
-numEpochs = 2**12  #2**16 approx 65000
+numEpochs = 2**11  #2**16 approx 65000
 #batchSize = trainSize 
 batchSize = 256  
+train_p = 0.0
+timestr = time.strftime("%Y%m%d-%H%M%S")
 '''
     Sequential Model: most simple tf MLNN model
 '''
@@ -242,7 +241,10 @@ MLNN1H.compile(loss=lossFunc ,
     Summaries and checkpoints (to do)
 '''
 summary = MLNN1H.summary()
-callbacks_list = []
+checkpoint = tf.keras.callbacks.ModelCheckpoint(
+        'Checkpoints/'+timestr+'weights.{epoch:02d}-{loss:.2f}.hdf5', monitor='loss', 
+        verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=2**11)
+callbacks_list = [checkpoint]
 ''' 
     Training
 '''
@@ -263,7 +265,6 @@ plt.xscale('log')
 plt.legend([lossFunc + ' loss', 'BER'])
 plt.show()
 
-timestr = time.strftime("%Y%m%d-%H%M%S")
 trainingFig.savefig('training_history/'+timestr + '_train.png', bbox_inches='tight')
 '''
     evaluate the inference-model
@@ -281,7 +282,7 @@ predictedMessage = onehot2singleMessage(prediction)
 '''
 MLNN1H.save('Trained_NN_1H/'+timestr+'MLNN1H_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5')  # creates a HDF5 file
 
-#%%
+
 '''
     Prediction
 '''
@@ -291,7 +292,10 @@ for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
         p = pOptions[i_p]
         u = fn.generateU(N,k)
-        y = fn.generteCodeWord(N, n, u, G)
+        x = fn.generteCodeWord(N, n, u, G)
+        xflat = np.reshape(x, [-1])
+        yflat = fn.BSC(xflat,p)
+        y = yflat.reshape(N,n) # noisy codewords
         prediction = MLNN1H.predict(y)
         predictedMessages = multipleOneshot2messages(prediction)
 
@@ -300,17 +304,16 @@ for i_global in range(globalReps):
 #% Plotting
 avgGlobalError = np.average(globalError, 0)
 avgGlobalErrorMAP = np.average(globalErrorMAP, 0)
+avgGlobalErrorMLNN1H = np.average(globalErrorMLNN1H,0)
 
 fig = plt.figure(figsize=(8, 6), dpi=80)
 
 plt.plot(pOptions,avgGlobalError, color='b')
 plt.plot(pOptions,avgGlobalErrorMAP, color='r')
-
-avgGlobalErrorMLNN1H = np.average(globalErrorMLNN1H,0)
 plt.scatter(pOptions,avgGlobalErrorMLNN1H, color='g')
 
 plt.grid(True, which='both')
-plt.title('Batch size = '+str(batchSize))
+plt.title('Batch size = '+str(batchSize)+', train_p = ' + str(train_p))
 plt.xlabel('$p$')
 plt.ylabel('BER')
 plt.yscale('log')
