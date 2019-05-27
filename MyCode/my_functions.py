@@ -6,10 +6,14 @@ Created on Fri Apr  5 17:28:03 2019
 """
 
 from numpy import *
+import numpy as np
 import matplotlib.pyplot as plt
 from scipy.special import erfc # complementary error function
 import itertools
 from scipy import stats
+import tensorflow as tf
+from tensorflow.keras import layers
+from keras import backend as K
 
 def plotit(t, u, title="Title", X="time (s)", Y="Amplitude"):
     plt.figure()
@@ -240,7 +244,74 @@ def generteCodeWord(N, n, u, G):
     for i in range(N):
         x[i] = dot(u[i],G)%2 # codeword row vector         
     return x
-       
+
+###################
+'''
+    NN Functions
+'''
+def func_output_shape(x):
+    shape = x.get_shape().as_list()[1]
+    return shape
+
+def metricBER(y_true, y_pred):
+    return K.mean(K.not_equal(y_true,y_pred))
+
+def metricBER1H(y_true, y_pred):
+    return K.mean(K.not_equal(y_true,K.round(y_pred)))
+
+'''
+    Plot training curve
+'''
+def plotTraining(history):
+    #todo
+    return
+
+'''
+    One hot message encoding
+'''
+def messages2onehot(u):
+    n = u.shape[0]
+    k = u.shape[1]
+    N = 2**k
+    index=np.zeros(N)
+    encoded = np.zeros([n,N])
+    for j in range(n):
+        for i in range(k-1, -1, -1):
+            index[j] = index[j] + u[j][i]*2**(k-1-i)
+        encoded[j][int(index[j])] = 1
+    return encoded
+
+def singleMessage2onehot(m):
+    k = m.shape[0]
+    n = 2**k
+    encoded = np.zeros(n)
+    index = 0
+    for i in range(k-1, -1, -1):
+        index = index + m[i]*2**(k-1-i)
+    encoded[int(index)] = 1
+    return encoded
+
+def onehot2singleMessage(h, messages):
+    index = np.argmax(h)
+    return messages[index]
+    '''n = h.shape[0]
+    k = int(np.log2(n))
+    return np.asarray([int(x) for x in list(('{0:0'+str(k)+'b}').format(index))])
+'''
+def multipleOneshot2messages(h, messages):
+    indexes = np.argmax(h,1)
+    n = h.shape[1]
+    k = int(np.log2(n))
+    N = len(indexes)
+    out = np.zeros([N, k])
+    for i in range(N):
+        out[i] = messages[indexes[i]]
+    return out
+    
+
+def TensorOnehot2singleMessage(h):
+    index = tf.argmax(h)
+    return np.asarray([int(x) for x in list('{0:08b}'.format(index))])
        
     
     

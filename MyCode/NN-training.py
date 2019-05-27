@@ -4,14 +4,7 @@ Created on Fri May 24 14:12:38 2019
 
 @author: user
 """
-#%% Common functions
-'''
-    Functions
-'''
-'''
-    Custom Layer and Metric
-'''
-
+#%% Functions
 def tensorBSC(x):
     # value of p: optimal training statistics for neural based channel decoders (paper)
     p = K.constant(train_p,dtype=tf.float32)
@@ -20,69 +13,6 @@ def tensorBSC(x):
     noiseFloat = K.cast(noise, dtype=tf.float32)
     result = tf.math.add(noiseFloat, x)%2
     return result
-
-def func_output_shape(x):
-    shape = x.get_shape().as_list()[1]
-    return shape
-
-def metricBER(y_true, y_pred):
-    return K.mean(K.not_equal(y_true,y_pred))
-
-def metricBER1H(y_true, y_pred):
-    return K.mean(K.not_equal(y_true,K.round(y_pred)))
-
-'''
-    Plot training curve
-'''
-def plotTraining(history):
-    #todo
-    return
-
-'''
-    One hot message encoding
-'''
-def messages2onehot(u):
-    n = u.shape[0]
-    k = u.shape[1]
-    N = 2**k
-    index=np.zeros(N)
-    encoded = np.zeros([n,N])
-    for j in range(n):
-        for i in range(k-1, -1, -1):
-            index[j] = index[j] + u[j][i]*2**(k-1-i)
-        encoded[j][int(index[j])] = 1
-    return encoded
-
-def singleMessage2onehot(m):
-    k = m.shape[0]
-    n = 2**k
-    encoded = np.zeros(n)
-    index = 0
-    for i in range(k-1, -1, -1):
-        index = index + m[i]*2**(k-1-i)
-    encoded[int(index)] = 1
-    return encoded
-
-def onehot2singleMessage(h):
-    index = np.argmax(h)
-    n = h.shape[0]
-    k = int(np.log2(n))
-    return np.asarray([int(x) for x in list(('{0:0'+str(k)+'b}').format(index))])
-
-def multipleOneshot2messages(h):
-    indexes = np.argmax(h,1)
-    n = h.shape[1]
-    k = int(np.log2(n))
-    N = len(indexes)
-    messages = np.zeros([N, k])
-    for i in range(N):
-        messages[i] = np.asarray([int(x) for x in list(('{0:0'+str(k)+'b}').format(indexes[i]))])
-    return messages
-    
-
-def TensorOnehot2singleMessage(h):
-    index = tf.argmax(h)
-    return np.asarray([int(x) for x in list('{0:08b}'.format(index))])
     
 #%% Neural Networ decoder
 '''
@@ -115,14 +45,14 @@ x_val = fn.generteCodeWord(test_Size, n, u_val_labels, G)
 
 numEpochs = 2**14  #2**16 approx 65000
 batchSize = 256 # Mini batch size
-val_p = 0.07
+train_p = 0.07
     
 '''
     Sequential Model: most simple tf MLNN model
 '''
 MLNN = tf.keras.Sequential([ # Array to define layers
               # Noise Layer
-              layers.Lambda(tensorBSC(val_p),input_shape=(n,), output_shape=(n,)),
+              layers.Lambda(fn.tensorBSC(train_p),input_shape=(n,), output_shape=(n,)),
               # Adds a densely-connected layer with n units to the model: L1
               layers.Dense(128, activation='relu', input_shape=(n,)),
               # Add another: L2
@@ -138,18 +68,10 @@ MLNN = tf.keras.Sequential([ # Array to define layers
 '''
 lossFunc = 'mse'
 MLNN.compile(loss=lossFunc ,
-              #optimizer=tf.keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False), # change accuracy to a BER function
               optimizer='adam',
-              metrics=[metricBER])
+              metrics=[fn.metricBER])
 '''
-    Summaries and checkpoints (to do)
-'''
-'''
-summary = MLNN.summary()
-filepath="Checkpoints/MLNN-Checkpoint-{epoch:02d}-{metricBER:.2f}.hdf5"
-checkpoint = tf.keras.callbacks.ModelCheckpoint(
-        filepath, monitor=metricBER, verbose=1, save_best_only=True, mode='max')
-callbacks_list = [checkpoint]
+    Summaries and checkpoints 
 '''
 callbacks_list = []
 ''' 
@@ -185,6 +107,49 @@ evaluation = MLNN.evaluate(x_val, u_val_labels)
 '''
 MLNN.save('Trained_NN/'+timestr+'MLNN_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5')  # creates a HDF5 file
 
+#%%
+'''
+    Prediction
+'''
+globalReps = 100
+globalErrorMLNN = np.empty([globalReps, len(pOptions)])
+for i_global in range(globalReps):
+    for i_p in range(np.size(pOptions)):
+        p = pOptions[i_p]
+        u = fn.generateU(N,k)
+        x = fn.generteCodeWord(N, n, u, G)
+        xflat = np.reshape(x, [-1])
+        yflat = fn.BSC(xflat,p)
+        y = yflat.reshape(N,n) # noisy codewords
+        prediction = MLNN.predict(y)
+        # round predictions
+        rounded = np.round(prediction)
+
+        globalErrorMLNN[i_global][i_p] = fn.bitErrorFunction(rounded, u)
+
+
+#%%     
+avgGlobalError = np.average(globalError, 0)
+avgGlobalErrorMAP = np.average(globalErrorMAP, 0)
+
+fig = plt.figure(figsize=(8, 6), dpi=80)
+
+plt.plot(pOptions,avgGlobalError, color='b')
+plt.plot(pOptions,avgGlobalErrorMAP, color='r')
+
+avgGlobalErrorMLNN = np.average(globalErrorMLNN,0)
+plt.scatter(pOptions,avgGlobalErrorMLNN, color='g')
+
+plt.grid(True, which='both')
+plt.title('Batch size = '+str(batchSize))
+plt.xlabel('$p$')
+plt.ylabel('BER')
+plt.yscale('log')
+plt.legend(['No Decoding', 'MAP', 'DNN Decoder, $M_{ep}=$'+str(numEpochs)])
+plt.show()
+
+fig.savefig('images/'+timestr+'MAP_MLNN_Mep_'+str(numEpochs)+'.png', bbox_inches='tight')
+
 #%% One hot training
 
 '''
@@ -193,7 +158,7 @@ MLNN.save('Trained_NN/'+timestr+'MLNN_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)
 '''
     Training and validation data
 '''
-u_train_labels = messages2onehot(messages.copy())
+u_train_labels = fn.messages2onehot(messages.copy())
 x_train_data = possibleCodewords.copy()
 
 u_train_labels = np.repeat(u_train_labels, 8, axis=0)
@@ -203,7 +168,7 @@ trainSize = np.size(x_train_data, 0)
 test_Size = 100
 u_val_labels = fn.generateU(test_Size,k)
 x_val = fn.generteCodeWord(test_Size, n, u_val_labels, G)
-u_val_labels = messages2onehot(u_val_labels)
+u_val_labels = fn.messages2onehot(u_val_labels)
 
 '''
     Constants
@@ -218,7 +183,7 @@ timestr = time.strftime("%Y%m%d-%H%M%S")
 '''
 MLNN1H = tf.keras.Sequential([ # Array to define layers
               # Noise Layer
-              layers.Lambda(tensorBSC,input_shape=(n,), output_shape=(n,)),
+              layers.Lambda(fn.tensorBSC,input_shape=(n,), output_shape=(n,)),
               # Adds a densely-connected layer with n units to the model: L1
               #layers.Dense(32, activation='relu', input_shape=(n,)),
               # Add another: L2
@@ -236,13 +201,13 @@ lossFunc = 'binary_crossentropy'
 #lossFunc = 'mse'
 MLNN1H.compile(loss=lossFunc ,
               optimizer='adam',
-              metrics=[metricBER1H])
+              metrics=[fn.metricBER1H])
 '''
     Summaries and checkpoints (to do)
 '''
 summary = MLNN1H.summary()
 checkpoint = tf.keras.callbacks.ModelCheckpoint(
-        'Checkpoints/'+timestr+'weights.{epoch:02d}-{loss:.2f}.hdf5', monitor='loss', 
+        'Checkpoints/'+timestr+'weights.{epoch:02d}-{loss:.6f}.hdf5', monitor='loss', 
         verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=2**11)
 callbacks_list = [checkpoint]
 ''' 
@@ -275,14 +240,14 @@ evaluation = MLNN1H.evaluate(x_val, u_val_labels)
 u = fn.generateU(1,k)
 y = fn.generteCodeWord(1, n, u, G)
 prediction = MLNN1H.predict(y)
-predictedMessage = onehot2singleMessage(prediction)
+predictedMessage = fn.onehot2singleMessage(prediction, messages)
 
 '''
     Saving model
 '''
 MLNN1H.save('Trained_NN_1H/'+timestr+'MLNN1H_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5')  # creates a HDF5 file
 
-
+#%%
 '''
     Prediction
 '''
@@ -297,7 +262,7 @@ for i_global in range(globalReps):
         yflat = fn.BSC(xflat,p)
         y = yflat.reshape(N,n) # noisy codewords
         prediction = MLNN1H.predict(y)
-        predictedMessages = multipleOneshot2messages(prediction)
+        predictedMessages = fn.multipleOneshot2messages(prediction, messages)
 
         globalErrorMLNN1H[i_global][i_p] = fn.bitErrorFunction(predictedMessages, u)
 
