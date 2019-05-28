@@ -257,7 +257,15 @@ def metricBER(y_true, y_pred):
     return K.mean(K.not_equal(y_true,y_pred))
 
 def metricBER1H(y_true, y_pred):
+    #return K.mean(K.not_equal(K.argmax(y_true),K.argmax(y_pred)))
     return K.mean(K.not_equal(y_true,K.round(y_pred)))
+
+def tensorPossibleMessages(name):
+    n = name[0]
+    k = name[1]
+    nptuples = asarray(list(itertools.product(*[(0, 1)] * k)))
+    ttuples = K.variable(nptuples)
+    return ttuples
 
 '''
     Plot training curve
@@ -308,10 +316,11 @@ def multipleOneshot2messages(h, messages):
         out[i] = messages[indexes[i]]
     return out
     
-
 def TensorOnehot2singleMessage(h):
+    #todo
     index = tf.argmax(h)
     return np.asarray([int(x) for x in list('{0:08b}'.format(index))])
+
        
     
     

@@ -4,15 +4,7 @@ Created on Fri May 24 14:12:38 2019
 
 @author: user
 """
-#%% Functions
-def tensorBSC(x):
-    # value of p: optimal training statistics for neural based channel decoders (paper)
-    p = K.constant(train_p,dtype=tf.float32)
-    var = K.random_uniform(shape=(func_output_shape(x),), minval = 0.0, maxval=1.0)
-    noise = K.less(var, p)
-    noiseFloat = K.cast(noise, dtype=tf.float32)
-    result = tf.math.add(noiseFloat, x)%2
-    return result
+
     
 #%% Neural Networ decoder
 '''
@@ -37,42 +29,49 @@ x_val = fn.generteCodeWord(test_Size, n, u_val_labels, G)
 
 
 '''
-    Array Decodingg
+    Array Decoding
 '''
 '''
     Constants
 '''
 
-numEpochs = 2**14  #2**16 approx 65000
+numEpochs = 2**16  #2**16 approx 65000
 batchSize = 256 # Mini batch size
 train_p = 0.07
+timestr = time.strftime("%Y%m%d-%H%M%S")
+title = 'MLNN'
     
 '''
     Sequential Model: most simple tf MLNN model
 '''
-MLNN = tf.keras.Sequential([ # Array to define layers
-              # Noise Layer
-              layers.Lambda(fn.tensorBSC(train_p),input_shape=(n,), output_shape=(n,)),
+NoiseL = tf.keras.Sequential([
+        # Noise Layer
+        layers.Lambda(tensorBSC,input_shape=(n,), output_shape=(n,), name='Noise'),
+        ], name='Noise')
+MLNNDecoder = tf.keras.Sequential([ # Array to define layers
               # Adds a densely-connected layer with n units to the model: L1
-              layers.Dense(128, activation='relu', input_shape=(n,)),
+              layers.Dense(128, activation='relu', input_shape=(n,), name='HL1'),
               # Add another: L2
-              layers.Dense(64, activation='relu'),
+              layers.Dense(64, activation='relu', name='HL2'),
               # Add another: L3
-              layers.Dense(32, activation='relu'),
+              layers.Dense(32, activation='relu', name='HL3'),
               # Add layer with k output units:
-              layers.Dense(k, activation='sigmoid')
-])
+              layers.Dense(k, activation='sigmoid', name='Output')
+              ], name='Array_Decoder')
+MLNN = tf.keras.Sequential([NoiseL, MLNNDecoder])
+plot_model(MLNN,to_file='GraphNN/'+title+'/'+timestr+'_'+title+'.pdf',show_shapes=True)
     
 '''
     Overall Settings/ Compilation
 '''
-lossFunc = 'mse'
+lossFunc = 'binary_crossentropy'
 MLNN.compile(loss=lossFunc ,
               optimizer='adam',
               metrics=[fn.metricBER])
 '''
     Summaries and checkpoints 
 '''
+summary = MLNN.summary()
 callbacks_list = []
 ''' 
     Training
@@ -111,7 +110,7 @@ MLNN.save('Trained_NN/'+timestr+'MLNN_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)
 '''
     Prediction
 '''
-globalReps = 100
+globalReps = 1000
 globalErrorMLNN = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
@@ -121,34 +120,13 @@ for i_global in range(globalReps):
         xflat = np.reshape(x, [-1])
         yflat = fn.BSC(xflat,p)
         y = yflat.reshape(N,n) # noisy codewords
-        prediction = MLNN.predict(y)
+        prediction = MLNNDecoder.predict(y)
         # round predictions
         rounded = np.round(prediction)
 
         globalErrorMLNN[i_global][i_p] = fn.bitErrorFunction(rounded, u)
 
-
-#%%     
-avgGlobalError = np.average(globalError, 0)
-avgGlobalErrorMAP = np.average(globalErrorMAP, 0)
-
-fig = plt.figure(figsize=(8, 6), dpi=80)
-
-plt.plot(pOptions,avgGlobalError, color='b')
-plt.plot(pOptions,avgGlobalErrorMAP, color='r')
-
-avgGlobalErrorMLNN = np.average(globalErrorMLNN,0)
-plt.scatter(pOptions,avgGlobalErrorMLNN, color='g')
-
-plt.grid(True, which='both')
-plt.title('Batch size = '+str(batchSize))
-plt.xlabel('$p$')
-plt.ylabel('BER')
-plt.yscale('log')
-plt.legend(['No Decoding', 'MAP', 'DNN Decoder, $M_{ep}=$'+str(numEpochs)])
-plt.show()
-
-fig.savefig('images/'+timestr+'MAP_MLNN_Mep_'+str(numEpochs)+'.png', bbox_inches='tight')
+plotBERp(globalErrorMLNN, 'Array Decoder')
 
 #%% One hot training
 
@@ -161,8 +139,8 @@ fig.savefig('images/'+timestr+'MAP_MLNN_Mep_'+str(numEpochs)+'.png', bbox_inches
 u_train_labels = fn.messages2onehot(messages.copy())
 x_train_data = possibleCodewords.copy()
 
-u_train_labels = np.repeat(u_train_labels, 8, axis=0)
-x_train_data = np.repeat(x_train_data, 8, axis=0)
+u_train_labels = np.repeat(u_train_labels, 1, axis=0)
+x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
 test_Size = 100
@@ -174,31 +152,31 @@ u_val_labels = fn.messages2onehot(u_val_labels)
     Constants
 '''
 numEpochs = 2**11  #2**16 approx 65000
-#batchSize = trainSize 
-batchSize = 256  
+batchSize = trainSize 
 train_p = 0.0
 timestr = time.strftime("%Y%m%d-%H%M%S")
+title ='MLNN1H'
 '''
     Sequential Model: most simple tf MLNN model
 '''
+
 MLNN1H = tf.keras.Sequential([ # Array to define layers
-              # Noise Layer
-              layers.Lambda(fn.tensorBSC,input_shape=(n,), output_shape=(n,)),
               # Adds a densely-connected layer with n units to the model: L1
-              #layers.Dense(32, activation='relu', input_shape=(n,)),
+              #layers.Dense(32, activation='relu', input_shape=(n,), name='HL1'),
               # Add another: L2
-              layers.Dense(64, activation='relu'),
+              layers.Dense(64, activation='relu', input_shape=(n,), name='HL1'),
               # Add another: L3
-              layers.Dense(128, activation='relu'),
+              #layers.Dense(128, activation='relu',input_shape=(n,), name='HL1'),
               # Add layer with k output units:
-              layers.Dense(256, activation='softmax')
+              layers.Dense(256, activation='softmax', name='Output')
 ])
+
+plot_model(MLNN1H,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',show_shapes=True)
     
 '''
     Overall Settings/ Compilation
 '''
 lossFunc = 'binary_crossentropy'
-#lossFunc = 'mse'
 MLNN1H.compile(loss=lossFunc ,
               optimizer='adam',
               metrics=[fn.metricBER1H])
@@ -207,7 +185,7 @@ MLNN1H.compile(loss=lossFunc ,
 '''
 summary = MLNN1H.summary()
 checkpoint = tf.keras.callbacks.ModelCheckpoint(
-        'Checkpoints/'+timestr+'weights.{epoch:02d}-{loss:.6f}.hdf5', monitor='loss', 
+        'Checkpoints/'+timestr+'_'+title+'_weights.{epoch:02d}-{loss:.6f}.hdf5', monitor='loss', 
         verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=2**11)
 callbacks_list = [checkpoint]
 ''' 
@@ -222,15 +200,15 @@ history = MLNN1H.fit(x_train_data, u_train_labels, epochs=numEpochs,
 trainingFig = plt.figure(figsize=(8, 6), dpi=80)
 plt.title('Batch size = '+str(batchSize))
 plt.plot(history.history['loss']) # all outputs: ['acc', 'loss', 'val_acc', 'val_loss']
-plt.plot(history.history['metricBER1H'])
+#plt.plot(history.history['metricBER1H'])
 plt.grid(True, which='both')
 #plt.plot(history.history['val_loss'])
 plt.xlabel('$M_{ep}$')
 plt.xscale('log')
 plt.legend([lossFunc + ' loss', 'BER'])
 plt.show()
-
-trainingFig.savefig('training_history/'+timestr + '_train.png', bbox_inches='tight')
+trainingFig.set_size_inches(width, height)
+trainingFig.savefig('training_history/'+timestr + '_'+title+'_train.png', bbox_inches='tight', dpi=300)
 '''
     evaluate the inference-model
 ''' 
@@ -245,7 +223,7 @@ predictedMessage = fn.onehot2singleMessage(prediction, messages)
 '''
     Saving model
 '''
-MLNN1H.save('Trained_NN_1H/'+timestr+'MLNN1H_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5')  # creates a HDF5 file
+MLNN1H.save('Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5')  # creates a HDF5 file
 
 #%%
 '''
@@ -267,23 +245,4 @@ for i_global in range(globalReps):
         globalErrorMLNN1H[i_global][i_p] = fn.bitErrorFunction(predictedMessages, u)
 
 #% Plotting
-avgGlobalError = np.average(globalError, 0)
-avgGlobalErrorMAP = np.average(globalErrorMAP, 0)
-avgGlobalErrorMLNN1H = np.average(globalErrorMLNN1H,0)
-
-fig = plt.figure(figsize=(8, 6), dpi=80)
-
-plt.plot(pOptions,avgGlobalError, color='b')
-plt.plot(pOptions,avgGlobalErrorMAP, color='r')
-plt.scatter(pOptions,avgGlobalErrorMLNN1H, color='g')
-
-plt.grid(True, which='both')
-plt.title('Batch size = '+str(batchSize)+', train_p = ' + str(train_p))
-plt.xlabel('$p$')
-plt.ylabel('BER')
-plt.yscale('log')
-plt.legend(['No Decoding', 'MAP', 'DNN Decoder, $M_{ep}=$'+str(numEpochs)])
-plt.show()
-
-#timestr = time.strftime("%Y%m%d-%H%M%S")
-fig.savefig('images/'+timestr+'MAP_MLNN1H_Mep_'+str(numEpochs)+'.png', bbox_inches='tight')
+plotBERp(globalErrorMLNN1H, 'One-hot Decoder')

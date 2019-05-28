@@ -615,12 +615,23 @@ result = tf.reduce_sum(
 with tf.Session():
     print(K.round(result).eval())
     
-    #%%
+#%%
+def testBER(y_true, y_pred):
+    index1 = K.argmax(y_true)
+    index2 = K.argmax(y_pred)
+    return K.mean(K.not_equal(index1,index2))
+
+sess = tf.Session()
+with sess.as_default():
+    y_true = K.variable(np.array([0, 1, 0, 0, 0]))
+    y_pred = K.variable(np.array([0.023, 0.23423, 0.988899, 0.123, 0.1]))
+   
+    test = testBER(y_true, y_pred)
+    messages = fn.tensorPossibleMessages(name)
+    sess.run(tf.global_variables_initializer())
+    out1 = sess.run(messages)
+    out2 = sess.run(test)
+print(out2)
 
 
 
-
-with tf.Session():
-    run(tf.global_variables_initializer())
-    print('true: ', y_true.eval())
-    print('pred: ', y_pred.eval())

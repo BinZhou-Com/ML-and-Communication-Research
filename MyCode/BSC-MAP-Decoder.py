@@ -9,7 +9,6 @@ globalError = np.empty([globalReps, len(pOptions)])
 globalErrorHamming = np.empty([globalReps, len(pOptions)])
 globalErrorMAP = np.empty([globalReps, len(pOptions)])
 
-#%% 
 for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
         p = pOptions[i_p]
@@ -53,10 +52,10 @@ for i_global in range(globalReps):
 avgGlobalError = np.average(globalError, 0)
 avgGlobalErrorMAP = np.average(globalErrorMAP, 0)
 
-fig = plt.figure(figsize=(8, 6), dpi=100)
+fig = plt.figure(figsize=(8, 6), dpi=80)
 
-plt.plot(pOptions,avgGlobalError, color='b')
-plt.plot(pOptions,avgGlobalErrorMAP, color='r')
+plt.plot(pOptions,avgGlobalError, color='b', linewidth=1)
+plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=1)
 
 plt.grid(True, which="both")
 plt.xlabel('$p$')
@@ -66,5 +65,6 @@ plt.legend(['No Decoding', 'MAP'])
 plt.show()
 
 timestr = time.strftime("%Y%m%d-%H%M%S")
-fig.savefig('images/MAP'+timestr+'.png', bbox_inches='tight', verbose=True)
+fig.set_size_inches(width, height)
+fig.savefig('images/'+timestr+'_MAP.png', bbox_inches='tight', dpi=300)
 
