@@ -39,7 +39,7 @@ trainSize = np.size(x_train_data, 0)
 '''
     Constants
 '''
-numEpochs = 2**16  #2**16 approx 65000
+numEpochs = 2**12  #2**16 approx 65000
 batchSize = trainSize 
 train_p = 0.07
 timestr = time.strftime("%Y%m%d-%H%M%S")
@@ -49,7 +49,9 @@ title = 'Autoencoder'
     Architecture
 '''
 def roundCode(x):
-    return tf.stop_gradient(K.round(x))
+    #return tf.stop_gradient(K.round(x))
+    y = K.round(x)
+    return  (y)
 
 Encoder = tf.keras.Sequential([
         # Input Layer
@@ -61,7 +63,9 @@ Encoder = tf.keras.Sequential([
         # Coded Layer
         layers.Dense(2*k, activation='sigmoid', name='Codedfloat'),
         # Rounded codeword
-        layers.Lambda(roundCode, input_shape=(2*k,), output_shape=(2*k,), name='Codeword'),
+        #layers.Lambda(lambda x: K.stop_gradient(x)),
+        layers.Lambda(roundCode, input_shape=(2*k,), output_shape=(2*k,), name='Codeword', trainable=False),
+        layers.Lambda(lambda x: K.stop_gradient(x), output_shape=(2*k,))
         #layers.Lambda(lambda x: K.stop_gradient(x)), # Stop gradient
         ], name='Encoder')
 
