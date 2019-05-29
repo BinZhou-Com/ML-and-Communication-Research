@@ -321,6 +321,8 @@ def TensorOnehot2singleMessage(h):
     index = tf.argmax(h)
     return np.asarray([int(x) for x in list('{0:08b}'.format(index))])
 
+def roundCode(x):
+    return tf.stop_gradient(K.round(x)-x)+x
        
     
     

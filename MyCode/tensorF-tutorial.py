@@ -623,15 +623,35 @@ def testBER(y_true, y_pred):
 
 sess = tf.Session()
 with sess.as_default():
-    y_true = K.variable(np.array([0, 1, 0, 0, 0]))
-    y_pred = K.variable(np.array([0.023, 0.23423, 0.988899, 0.123, 0.1]))
-   
-    test = testBER(y_true, y_pred)
-    messages = fn.tensorPossibleMessages(name)
+    var = Decoder.weights[2]
     sess.run(tf.global_variables_initializer())
-    out1 = sess.run(messages)
-    out2 = sess.run(test)
-print(out2)
+    out = sess.run(var)
+print(out)
 
+#%%%
+from tensorflow.keras.layers import *
+
+u_train_labels = messages.copy()
+x_train_data = possibleCodewords.copy()
+
+numEpochs = 2*10
+batchSize = 256
+
+input_layer = Input(shape=(16,))
+x = Dense(32)(input_layer)
+x = Activation('relu')(x)
+
+x = Flatten()(x)
+
+x_1 = Dense(64)(x)
+x_1_stop_grad = Lambda(lambda x: K.stop_gradient(x))(x_1)
+x_1 = Dense(32)(x_1_stop_grad)
+x_1 = Dense(8)(x_1)
+
+model = tf.keras.Model(inputs=input_layer, outputs=x_1)
+model.compile(optimizer='adam', loss='mse')
+hisotry = model.fit(x_train_data, u_train_labels, epochs=numEpochs, 
+                   batch_size=batchSize)
+plt.plot(history.history['loss'])
 
 

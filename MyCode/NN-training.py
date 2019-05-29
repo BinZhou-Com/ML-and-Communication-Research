@@ -94,7 +94,7 @@ plt.legend([lossFunc + ' loss', 'BER'])
 plt.show()
 
 timestr = time.strftime("%Y%m%d-%H%M%S")
-trainingFig.savefig('training_history/'+title+'/'+timestr + '_train.png', bbox_inches='tight')
+trainingFig.savefig('training_history/'+title+'/'+timestr + '_'+title+'_train.png', bbox_inches='tight', dpi=300)
 '''
     evaluate the inference-model
 ''' 
@@ -229,7 +229,7 @@ MLNN1H.save('Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'
 '''
     Prediction
 '''
-globalReps = 1000
+globalReps = 100
 globalErrorMLNN1H = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):

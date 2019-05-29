@@ -205,5 +205,18 @@ plt.show()
 
 #timestr = time.strftime("%Y%m%d-%H%M%S")
 fig.savefig('images/'+timestr+'MAP_MLNN_Mep_'+str(numEpochs)+'.png', bbox_inches='tight')
-'''
+'
+''
+#%%
+import os
+
+# define the name of the directory to be created
+path = "tmp\oi"
+
+try:  
+    os.mkdir(path)
+except OSError:  
+    print ("Creation of the directory %s failed" % path)
+else:  
+    print ("Successfully created the directory %s " % path)
 
