@@ -39,7 +39,7 @@ trainSize = np.size(x_train_data, 0)
 '''
     Constants
 '''
-numEpochs = 2**12  #2**16 approx 65000
+numEpochs = 2**10  #2**16 approx 65000
 batchSize = trainSize 
 train_p = 0.07
 timestr = time.strftime("%Y%m%d-%H%M%S")
@@ -50,9 +50,12 @@ title = 'Autoencoder'
 '''
 def roundCode(x):
     #return tf.stop_gradient(K.round(x))
-    y = K.round(x)
-    return  (y)
+    return K.round(x)
 
+def skipLayer(x):
+    return x + K.stop_gradient(x)
+
+'''
 Encoder = tf.keras.Sequential([
         # Input Layer
         layers.Dense(128, activation='relu', input_shape=(k,), name='Input'),
@@ -68,6 +71,18 @@ Encoder = tf.keras.Sequential([
         layers.Lambda(lambda x: K.stop_gradient(x), output_shape=(2*k,))
         #layers.Lambda(lambda x: K.stop_gradient(x)), # Stop gradient
         ], name='Encoder')
+'''
+inputL = layers.Input(shape=(k,), name='Input')
+HL1 = layers.Dense(128, activation='relu', name='HL1')(inputL)
+HL2 = layers.Dense(64, activation='relu', name='HL2')(HL1)
+HL3 = layers.Dense(32, activation='relu', name='HL3')(HL2)
+HL4 = layers.Dense(2*k, activation='sigmoid', name='CodedFloat')(HL3)
+roundedL = layers.Lambda(roundCode, output_shape=(2*k,), name='Codeword')(HL4)
+stop_grad = layers.Lambda(skipLayer, output_shape=(2*k,))(roundedL)
+#stop_grad = layers.Lambda(lambda x: K.stop_gradient(x))(roundedL)
+Encoder = tf.keras.Model(inputs=inputL, outputs=stop_grad, name='Encoder')
+
+plot_model(Encoder,to_file='graphNN/'+title+'/'+timestr+'_'+title+'_Encoder.pdf',show_shapes=True)
 
 NoiseL = tf.keras.Sequential([
         # Noise Layer
