@@ -94,7 +94,7 @@ plt.legend([lossFunc + ' loss', 'BER'])
 plt.show()
 
 timestr = time.strftime("%Y%m%d-%H%M%S")
-trainingFig.savefig('training_history/'+timestr + '_train.png', bbox_inches='tight')
+trainingFig.savefig('training_history/'+title+'/'+timestr + '_train.png', bbox_inches='tight')
 '''
     evaluate the inference-model
 ''' 
@@ -208,7 +208,7 @@ plt.xscale('log')
 plt.legend([lossFunc + ' loss', 'BER'])
 plt.show()
 trainingFig.set_size_inches(width, height)
-trainingFig.savefig('training_history/'+timestr + '_'+title+'_train.png', bbox_inches='tight', dpi=300)
+trainingFig.savefig('training_history/'+title+'/'+timestr + '_'+title+'_train.png', bbox_inches='tight', dpi=300)
 '''
     evaluate the inference-model
 ''' 

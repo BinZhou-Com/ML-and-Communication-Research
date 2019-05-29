@@ -101,5 +101,5 @@ def plotBERp(globalErrorMLNN, legendEntry):
     plt.show()
     
     fig.set_size_inches(width, height)
-    fig.savefig('images/'+timestr+'_MAP_'+title+'_Mep_'+str(numEpochs)+'.png', bbox_inches='tight', dpi=300)
+    fig.savefig('images/'+title+'/'+timestr+'_MAP_'+title+'_Mep_'+str(numEpochs)+'.png', bbox_inches='tight', dpi=300)
 

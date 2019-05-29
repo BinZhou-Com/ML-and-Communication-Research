@@ -15,7 +15,6 @@ Created on Mon May 27 16:04:54 2019
 '''
     DNN One Hot Model Autoencoder
 '''
-#%%
 '''
     One hot training and validation data
 '''
@@ -39,7 +38,7 @@ trainSize = np.size(x_train_data, 0)
 '''
     Constants
 '''
-numEpochs = 2**10  #2**16 approx 65000
+numEpochs = 2**11  #2**16 approx 65000
 batchSize = trainSize 
 train_p = 0.07
 timestr = time.strftime("%Y%m%d-%H%M%S")
@@ -84,6 +83,16 @@ Encoder = tf.keras.Model(inputs=inputL, outputs=stop_grad, name='Encoder')
 
 plot_model(Encoder,to_file='graphNN/'+title+'/'+timestr+'_'+title+'_Encoder.pdf',show_shapes=True)
 
+EncoderS = tf.keras.Sequential([ # Array to define layers
+        # Adds a densely-connected layer with n units to the model: L1
+        layers.Dense(128, activation='relu', input_shape=(k,), name='EHL1'),
+        # Add another: L2
+        layers.Dense(64, activation='relu', name='EHL2'),
+        # Add another: L3
+        layers.Dense(32, activation='relu', name='EHL3'),
+        # Add layer with k output units: onehot output
+        layers.Dense(2*k, activation='sigmoid', name='Output')
+        ], name = 'Encoder')
 NoiseL = tf.keras.Sequential([
         # Noise Layer
         layers.Lambda(tensorBSC,input_shape=(2*k,), output_shape=(2*k,), name='Noise'),
@@ -108,7 +117,7 @@ Decoder = tf.keras.Sequential([ # Array to define layers
         # Add layer with k output units: onehot output
         layers.Dense(k, activation='sigmoid', name='Output')
         ], name = 'Decoder')
-#Autoencoder = tf.keras.Sequential([Encoder, Decoder1H])
+#Autoencoder = tf.keras.Sequential([EncoderS, NoiseL, Decoder1H])
 Autoencoder = tf.keras.Sequential([Encoder, NoiseL, Decoder])
 plot_model(Autoencoder,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',show_shapes=True)
 
@@ -145,7 +154,7 @@ plt.xscale('log')
 plt.legend([lossFunc + ' loss', 'BER'])
 plt.show()
 trainingFig.set_size_inches(width, height)
-trainingFig.savefig('training_history/'+timestr + '_'+title+'_train.png', bbox_inches='tight', dpi=300)
+trainingFig.savefig('training_history/'+title+'/'+timestr + '_'+title+'_train.png', bbox_inches='tight', dpi=300)
 
 '''
     Saving model

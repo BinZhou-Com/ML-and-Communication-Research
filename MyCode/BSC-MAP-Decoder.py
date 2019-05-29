@@ -8,7 +8,7 @@ Created on Sun May 12 12:02:48 2019
 globalError = np.empty([globalReps, len(pOptions)])
 globalErrorHamming = np.empty([globalReps, len(pOptions)])
 globalErrorMAP = np.empty([globalReps, len(pOptions)])
-
+title = 'MAP'
 for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
         p = pOptions[i_p]
@@ -66,5 +66,5 @@ plt.show()
 
 timestr = time.strftime("%Y%m%d-%H%M%S")
 fig.set_size_inches(width, height)
-fig.savefig('images/'+timestr+'_MAP.png', bbox_inches='tight', dpi=300)
+fig.savefig('images/'+title+'/'+timestr+'_MAP.png', bbox_inches='tight', dpi=300)
 
