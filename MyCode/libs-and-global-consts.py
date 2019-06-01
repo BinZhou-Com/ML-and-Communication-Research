@@ -17,15 +17,18 @@ sys.path.append('C:\\Users\\user\\Desktop\\GitHub\\PIR\\MyCode')
 import my_functions as fn
 
 import time
+import os
+from ttictoc import TicToc
 
 #Plot setup
 #plt.rcParams['mathtext.fontset'] = 'dejavuserif'
 plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams.update({'font.weight':'normal'})
-plt.rc('xtick', labelsize=8)
-plt.rc('ytick', labelsize=8)
-plt.rc('axes', labelsize=8)
-plt.rc('legend', fontsize=8)
+letterSize = 6
+plt.rc('xtick', labelsize=letterSize)
+plt.rc('ytick', labelsize=letterSize)
+plt.rc('axes', labelsize=letterSize)
+plt.rc('legend', fontsize=letterSize)
 
 # width as measured in inkscape
 width = 3.487
@@ -93,7 +96,7 @@ def plotBERp(globalErrorMLNN, legendEntry):
     plt.plot(pOptions,avgGlobalError, color='b', linewidth=1, linestyle='--')
     plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=1)
     plt.grid(True, which='both')
-    #plt.title('Batch size = '+str(batchSize)+', train_p = ' + str(train_p))
+    #plt.title('Training $p = $ '+ str(train_p))
     plt.xlabel('$p$')
     plt.ylabel('BER')
     plt.yscale('log')
@@ -101,5 +104,5 @@ def plotBERp(globalErrorMLNN, legendEntry):
     plt.show()
     
     fig.set_size_inches(width, height)
-    fig.savefig('images/'+title+'/'+timestr+'_MAP_'+title+'_Mep_'+str(numEpochs)+'.png', bbox_inches='tight', dpi=300)
+    fig.savefig('images/'+title+'/'+timestr+'_MAP_'+title+'_Mep_'+str(numEpochs)+'_ptrain_'+str(train_p)+'.png', bbox_inches='tight', dpi=300)
 

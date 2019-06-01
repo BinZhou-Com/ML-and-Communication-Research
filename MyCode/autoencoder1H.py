@@ -19,11 +19,11 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-#%%
+#%
 '''
     Constants
 '''
-numEpochs = 2**14  #2**16 approx 65000
+numEpochs = 2**16  #2**16 approx 65000
 batchSize = trainSize 
 train_p = 0.07
 timestr = time.strftime("%Y%m%d-%H%M%S")
@@ -51,8 +51,8 @@ NoiseL = tf.keras.Sequential([
         ], name='Noise')
 
 Decoder1H = tf.keras.Sequential([ # Array to define layers
-        layers.Dense(128, activation='relu', input_shape=(2*k,), name='DHL3'),
-        # Add layer with 2**k output units: onehot output
+        layers.Dense(64, activation='relu', input_shape=(2*k,), name='DHL1'),
+        layers.Dense(128, activation='relu', input_shape=(2*k,), name='DHL2'),
         layers.Dense(256, activation='softmax', name='1H_Output')
         ], name = 'Decoder')
 
@@ -99,10 +99,14 @@ trainingFig.savefig('training_history/'+title+'/'+timestr + '_'+title+'_train.pn
 '''
 Autoencoder1H.save('Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5')  # creates a HDF5 file
 
-#%%
+#%
 '''
     Prediction 1H
 '''
+t = TicToc('name')
+t.tic()
+
+
 globalReps = 100
 globalErrorAutoencoder1H = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
@@ -110,8 +114,7 @@ for i_global in range(globalReps):
         p = pOptions[i_p]
         u = fn.generateU(N,k)
         x = Encoder.predict(u)
-        xround = np.round(x)
-        xflat = np.reshape(xround, [-1])
+        xflat = np.reshape(x, [-1])
         yflat = fn.BSC(xflat,p)
         y = yflat.reshape(N,2*k) # noisy codewords
         prediction = Decoder1H.predict(y)
@@ -121,3 +124,6 @@ for i_global in range(globalReps):
 
 #% Plotting
 plotBERp(globalErrorAutoencoder1H, 'One-hot Autoencoder')
+
+t.toc()
+print(t.elapsed)

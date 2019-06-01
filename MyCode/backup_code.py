@@ -211,7 +211,7 @@ fig.savefig('images/'+timestr+'MAP_MLNN_Mep_'+str(numEpochs)+'.png', bbox_inches
 import os
 
 # define the name of the directory to be created
-path = "tmp\oi"
+directory = "tmp"
 
 try:  
     os.mkdir(path)
@@ -219,4 +219,22 @@ except OSError:
     print ("Creation of the directory %s failed" % path)
 else:  
     print ("Successfully created the directory %s " % path)
+    
+#%%
+print('main')
+exec(open("autoencoder1H.py").read())
+
+#%%
+# load weights into new model
+loadedModel = tf.keras.models.load_model("Trained_AutoencoderArray\AutoencoderArray_Mep_32768_bs_256.h5")
+print("Loaded model from disk")
+plot_model(loadedModel, to_file='Debug\Loaded.pdf')
+loadedModel.summary()
+
+#%%
+t = TicToc('Training')
+t.tic()
+some code...
+t.toc()
+print(t.elapsed)
 

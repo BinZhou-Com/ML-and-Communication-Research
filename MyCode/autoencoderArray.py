@@ -13,19 +13,6 @@ Created on Mon May 27 16:04:54 2019
 """
 #%%
 '''
-    DNN One Hot Model Autoencoder
-'''
-'''
-    One hot training and validation data
-'''
-u_train_labels = fn.messages2onehot(messages.copy())
-x_train_data = messages.copy()
-
-u_train_labels = np.repeat(u_train_labels, 1, axis=0)
-x_train_data = np.repeat(x_train_data, 1, axis=0)
-trainSize = np.size(x_train_data, 0)
-#%%
-'''
     Array training and validation data
 '''
 u_train_labels = messages.copy()
@@ -35,15 +22,6 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 #%%
-'''
-    Constants
-'''
-numEpochs = 2**15  #2**16 approx 65000
-batchSize = trainSize 
-train_p = 0.07
-timestr = time.strftime("%Y%m%d-%H%M%S")
-title = 'AutoencoderArray'
-
 '''
     Architecture
 '''
@@ -57,7 +35,7 @@ Encoder = tf.keras.Sequential([
         # Coded Layer
         layers.Dense(2*k, activation='sigmoid', name='Codedfloat'),
         # Rounded codeword
-        layers.Lambda(roundCode, input_shape=(2*k,), output_shape=(2*k,), name='Codeword'),
+        layers.Lambda(fn.roundCode, input_shape=(2*k,), output_shape=(2*k,), name='Codeword'),
         ], name='Encoder')
 
 NoiseL = tf.keras.Sequential([
@@ -89,7 +67,7 @@ Autoencoder.compile(loss=lossFunc ,
 '''
     Summaries and checkpoints (to do)
 '''
-summary = Autoencoder.summary()
+#summary = Autoencoder.summary()
 checkpoint = tf.keras.callbacks.ModelCheckpoint(
         'Checkpoints/'+timestr+'_'+title+'_weights.{epoch:02d}-{loss:.6f}.hdf5', monitor='loss', 
         verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=2**11)
@@ -117,11 +95,12 @@ trainingFig.savefig('training_history/'+title+'/'+timestr + '_'+title+'_train.pn
 '''
     Saving model
 '''
-Autoencoder.save('Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5')  # creates a HDF5 file
+Autoencoder.save(path)  # creates a HDF5 file
 
-#%%
+#%
 '''
     Prediction Array
+'''
 '''
 globalReps = 1000
 globalErrorAutoencoder = np.empty([globalReps, len(pOptions)])
@@ -139,6 +118,7 @@ for i_global in range(globalReps):
 
 #% Plotting
 plotBERp(globalErrorAutoencoder, 'Array Autoencoder')
+'''
 
 
 

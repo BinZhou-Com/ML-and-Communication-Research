@@ -47,7 +47,7 @@ for i_global in range(globalReps):
         globalError[i_global][i_p] = fn.codeErrorFunction(y, x)
         globalErrorMAP[i_global][i_p] = fn.bitErrorFunction(MAP, u)
 
-#%% plot
+#% plot
         
 avgGlobalError = np.average(globalError, 0)
 avgGlobalErrorMAP = np.average(globalErrorMAP, 0)

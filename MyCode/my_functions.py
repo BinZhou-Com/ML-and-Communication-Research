@@ -14,6 +14,7 @@ from scipy import stats
 import tensorflow as tf
 from tensorflow.keras import layers
 from keras import backend as K
+import os
 
 def plotit(t, u, title="Title", X="time (s)", Y="Amplitude"):
     plt.figure()
@@ -323,6 +324,14 @@ def TensorOnehot2singleMessage(h):
 
 def roundCode(x):
     return tf.stop_gradient(K.round(x)-x)+x
+
+def createDir(path):
+    try:  
+        os.mkdir(path)
+    except OSError:  
+        print ("Creation of the directory %s failed" % path)
+    else:  
+        print ("Successfully created the directory %s " % path)
        
     
     
