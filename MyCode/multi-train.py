@@ -11,11 +11,11 @@ Created on Sat Jun  1 13:41:33 2019
 trainTime = TicToc('Training')
 trainTimeT = TicToc('TrainingT')
 # Constants 
-numEpochs = 2**14  #2**16 approx 65000
+numEpochs = 2**16  #2**16 approx 65000
 batchSize = trainSize 
 timestr = time.strftime("%Y%m%d-%H%M%S")
 title = 'AutoencoderArray'
-p_trainOptions = np.array([0, 0.01, 0.03, 0.05, 0.07, 0.09])
+p_trainOptions = np.array([2**16, 2**17, 2**18])
 
 myDir = 'Simulation_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'_pmin_'+str(min(p_trainOptions))+'_pmax_'+str(max(p_trainOptions))
 directory = 'Autoencoder_Simulations\\'+ myDir
@@ -23,18 +23,19 @@ fn.createDir(directory)
 fn.createDir(directory+'\\models')
 
 paths = ["" for x in range(len(p_trainOptions))]
-trainTime.tic()
+trainTimeT.tic()
 for i in range(len(p_trainOptions)):
     trainTime.tic()
-    train_p = p_trainOptions[i]
+    numEpochs = p_trainOptions[i]
         
     paths[i] = directory+'\\models\\'+'i_'+str(i)+'_'+title+'_Mep_'+str(numEpochs)+'_p_'+str(train_p)+'.h5'
     path = paths[i]
     exec(open("autoencoderArray.py").read())
+    
     trainTime.toc()
     print('Train time for model '+str(i)+': ',trainTime.elapsed)
 trainTimeT.toc()
-print('Total train time: ',trainTimeT.elapsed)
+
     
     
 #%%
@@ -47,7 +48,7 @@ predictTimeT = TicToc('PredictT')
 multiPredictions = np.empty([len(p_trainOptions),len(pOptions)])
 globalReps = 1000
 globalErrorAutoencoder = np.empty([globalReps, len(pOptions)])
-predictTime.tic()
+predictTimeT.tic()
 for i_train in range(len(p_trainOptions)):
     predictTime.tic()
     # load weights into new model
@@ -78,17 +79,17 @@ for i_train in range(len(p_trainOptions)):
     print('Predict time for model '+str(i_train)+ ': ',predictTime.elapsed)
 predictTimeT.toc()
 print('Total predict time: ', predictTimeT.elapsed)
-#%% Multi Plotting
 
+#%% Multi Plotting
 fig = plt.figure(figsize=(8, 6), dpi=80)
 markers = ['^', 'x', 'o', 's', 'v', '*']
 
-plt.plot(pOptions,avgGlobalError, color='b', linewidth=1, linestyle='--', label='No Decoding')
-plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=1, label='MAP')
+plt.plot(pOptions,avgGlobalError, color='b', linewidth=lineWidth, linestyle='--', label='No Decoding')
+plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=lineWidth, label='MAP')
 plt.grid(True, which='both')
 
 for i in range(len(p_trainOptions)):
-    plt.scatter(pOptions,multiPredictions[i], marker=markers[i], zorder=3+i, s=3, label='Autoen., p = %s' % p_trainOptions[i])
+    plt.scatter(pOptions,multiPredictions[i], marker=markers[i], zorder=3+i, s=markerSize, label='Autoen., p = %s' % p_trainOptions[i])
     
 plt.xlabel('$p$')
 plt.ylabel('BER')

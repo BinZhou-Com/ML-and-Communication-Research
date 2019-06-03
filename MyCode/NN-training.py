@@ -4,42 +4,6 @@ Created on Fri May 24 14:12:38 2019
 
 @author: user
 """
-
-    
-#%% Neural Networ decoder
-'''
-    DNN ARRAY Decoder
-'''
-'''
-    Training and validation data
-'''
-n=16
-k=8
-
-u_train_labels = messages.copy()
-x_train_data = possibleCodewords.copy()
-
-u_train_labels = np.repeat(u_train_labels, 1, axis=0)
-x_train_data = np.repeat(x_train_data, 1, axis=0)
-trainSize = np.size(x_train_data, 0)
-
-test_Size = 100
-u_val_labels = fn.generateU(test_Size,k)
-x_val = fn.generteCodeWord(test_Size, n, u_val_labels, G)
-
-
-'''
-    Array Decoding
-'''
-'''
-    Constants
-'''
-
-numEpochs = 2**16  #2**16 approx 65000
-batchSize = 256 # Mini batch size
-train_p = 0.07
-timestr = time.strftime("%Y%m%d-%H%M%S")
-title = 'MLNN'
     
 '''
     Sequential Model: most simple tf MLNN model
@@ -99,17 +63,18 @@ trainingFig.savefig('training_history/'+title+'/'+timestr + '_'+title+'_train.pn
     evaluate the inference-model
 ''' 
 
-evaluation = MLNN.evaluate(x_val, u_val_labels)
+#evaluation = MLNN.evaluate(x_val, u_val_labels)
 
 '''
     Saving model
 '''
-MLNN.save('Trained_NN/'+timestr+'MLNN_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5')  # creates a HDF5 file
+MLNN.save(path)  # creates a HDF5 file
 
 #%%
 '''
     Prediction
 '''
+
 globalReps = 1000
 globalErrorMLNN = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
@@ -127,6 +92,7 @@ for i_global in range(globalReps):
         globalErrorMLNN[i_global][i_p] = fn.bitErrorFunction(rounded, u)
 
 plotBERp(globalErrorMLNN, 'Array Decoder')
+
 
 #%% One hot training
 
@@ -223,11 +189,13 @@ predictedMessage = fn.onehot2singleMessage(prediction, messages)
 '''
     Saving model
 '''
-MLNN1H.save('Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5')  # creates a HDF5 file
+
+MLNN1H.save(path)  # creates a HDF5 file
 
 #%%
 '''
     Prediction
+'''
 '''
 globalReps = 100
 globalErrorMLNN1H = np.empty([globalReps, len(pOptions)])
@@ -246,3 +214,4 @@ for i_global in range(globalReps):
 
 #% Plotting
 plotBERp(globalErrorMLNN1H, 'One-hot Decoder')
+'''

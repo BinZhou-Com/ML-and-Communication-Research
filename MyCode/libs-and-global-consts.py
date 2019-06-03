@@ -24,7 +24,9 @@ from ttictoc import TicToc
 #plt.rcParams['mathtext.fontset'] = 'dejavuserif'
 plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams.update({'font.weight':'normal'})
-letterSize = 6
+letterSize = 7
+markerSize = 3
+lineWidth = 0.5
 plt.rc('xtick', labelsize=letterSize)
 plt.rc('ytick', labelsize=letterSize)
 plt.rc('axes', labelsize=letterSize)
@@ -92,9 +94,9 @@ def tensorBSC(x):
 def plotBERp(globalErrorMLNN, legendEntry):
     avgGlobalErrorMLNN = np.average(globalErrorMLNN,0)
     fig = plt.figure(figsize=(8, 6), dpi=80)
-    plt.scatter(pOptions,avgGlobalErrorMLNN, color='g', marker='^', zorder=3, s=8)
-    plt.plot(pOptions,avgGlobalError, color='b', linewidth=1, linestyle='--')
-    plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=1)
+    plt.scatter(pOptions,avgGlobalErrorMLNN, color='g', marker='^', zorder=3, s=markerSize)
+    plt.plot(pOptions,avgGlobalError, color='b', linewidth=lineWidth, linestyle='--')
+    plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=lineWidth)
     plt.grid(True, which='both')
     #plt.title('Training $p = $ '+ str(train_p))
     plt.xlabel('$p$')

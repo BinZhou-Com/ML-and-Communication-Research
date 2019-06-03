@@ -5,10 +5,12 @@ Created on Sun May 12 12:02:48 2019
 @author: user
 """
 #%% Initialization
+MAPpredictTime = TicToc('MAPPredict')
 globalError = np.empty([globalReps, len(pOptions)])
 globalErrorHamming = np.empty([globalReps, len(pOptions)])
 globalErrorMAP = np.empty([globalReps, len(pOptions)])
 title = 'MAP'
+MAPpredictTime.tic()
 for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
         p = pOptions[i_p]
@@ -31,7 +33,6 @@ for i_global in range(globalReps):
         '''
             Decoding
         '''
-      
         '''
             MAP Decoder (minimum distance decoding)
         '''
@@ -47,6 +48,8 @@ for i_global in range(globalReps):
         globalError[i_global][i_p] = fn.codeErrorFunction(y, x)
         globalErrorMAP[i_global][i_p] = fn.bitErrorFunction(MAP, u)
 
+MAPpredictTime.toc()
+print('Total MAP predict time: ', MAPpredictTime.elapsed)
 #% plot
         
 avgGlobalError = np.average(globalError, 0)
@@ -54,8 +57,8 @@ avgGlobalErrorMAP = np.average(globalErrorMAP, 0)
 
 fig = plt.figure(figsize=(8, 6), dpi=80)
 
-plt.plot(pOptions,avgGlobalError, color='b', linewidth=1)
-plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=1)
+plt.plot(pOptions,avgGlobalError, color='b', linewidth=lineWidth)
+plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=lineWidth)
 
 plt.grid(True, which="both")
 plt.xlabel('$p$')

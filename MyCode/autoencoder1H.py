@@ -25,7 +25,7 @@ trainSize = np.size(x_train_data, 0)
 '''
 numEpochs = 2**16  #2**16 approx 65000
 batchSize = trainSize 
-train_p = 0.07
+train_p = 0.00
 timestr = time.strftime("%Y%m%d-%H%M%S")
 title = 'Autoencoder1H'
 
@@ -52,7 +52,7 @@ NoiseL = tf.keras.Sequential([
 
 Decoder1H = tf.keras.Sequential([ # Array to define layers
         layers.Dense(64, activation='relu', input_shape=(2*k,), name='DHL1'),
-        layers.Dense(128, activation='relu', input_shape=(2*k,), name='DHL2'),
+        #layers.Dense(128, activation='relu', input_shape=(2*k,), name='DHL2'),
         layers.Dense(256, activation='softmax', name='1H_Output')
         ], name = 'Decoder')
 

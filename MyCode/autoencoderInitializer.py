@@ -32,7 +32,7 @@ trainSize = np.size(x_train_data, 0)
 '''
     Constants
 '''
-numEpochs = 2**13  #2**16 approx 65000
+numEpochs = 2**14  #2**16 approx 65000
 batchSize = 256
 train_p = 0.07
 timestr = time.strftime("%Y%m%d-%H%M%S")

@@ -3,12 +3,14 @@
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{tikz}
-\usepackage{verbatim} 
+\usepackage{verbatim}
+
 
 
 \usetikzlibrary{positioning}
@@ -48,13 +50,6 @@ A point to point communication channel is a system in which  two terminals excha
     \caption{Diagram of a simplified communication system.}\label{fig:cs}
 \end{figure}
 
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.5\textwidth]{images/test}
-    \caption{Diagram of a simplified communication system.}\label{fig:cs}
-\end{figure}
-
-
 Since then, the research community in digital communication developed a series of algorithms to minimize error probability over a channel. In practice, the bit error rate (BER), an approximation of the probability of error, is targeted. However, the challenge of finding an \textit{efficient} solution  i.e., with both low latency and low error probability, for low signal to noise ratio (SNR) channels, remains. Low latency and high bandwidth wireless communication are key to critical systems, such as airplanes, satellites, cellular communication and 5G operations. The latter was studied by F. D. Calabrese et al. in \cite{b3} which  demonstrated that individual based radio resource management (RRM) algorithms were outperformed by a general learning framework, resulting in significant expense reductions, while increasing performance of the network.
 
 Based on this vision, Tim O'Shea and Jakob Hoydis \cite{b2} pertinently noted that traditional algorithms in the field have foundations in probability theory e.g. maximum a posteriori (MAP) rule, maximum likelihood decoder (MLD) and turbo codes. Hence, they are usually built on top of mathematically convenient models. Even though they are theoretically optimal error corrector codes, these models often do not account for all the real system's imperfections, which leads to errors when implemented in practice.
@@ -74,7 +69,9 @@ In this work, we will implement a ML autoencoder for a  BSC that performs simila
 
 
 \subsection{Notation}
-Special notations used throughout the paper as shown in figures tac tac
+Throughout the work, vectors will be written in bold font weight and may  have a subscript which indicates their layer in a NN and may have a superscript which indicates their size length. In order to homogenize notation, for the encoding phase of the communication system, $\textbf{u}^k$ represents an input \textit{source message} and $\textbf{x}^n$ its correspondent codeword. For the decoding portion, $\textbf{y}^n$ represents the output of the noisy channel and $\hat{\textbf{u}}^k$ the estimated source message. These definitions are illustrated in Fig. \ref{fig:cs}.
+
+In addition, every indispensable concept is introduced either in italics or is defined by a commonly used abbreviation present in others scientific works.
 
 
 \section{Theoretical Background}
@@ -184,7 +181,7 @@ Two common activation functions are the rectified linear unit (ReLU) and the sig
 	\text{ReLU: } \sigma_1 (x)& = max\{0, x\} \label{eq:relu}\\ 
 	\text{Sigmoid: } \sigma_2 (x)& = \frac{1}{1+e^{- \lambda x}} \label{eq:sig}
 \end{align}
-where $x \in \mathbb{R}$.
+where $x \in \mathbb{R}$ and $\lambda>0$.
 
 For a classification problem in communication, the \textit{categorical cross-entropy} loss function $l(\textbf{p},\textbf{q}):\mathbb{R} ^{N_L}\times \mathbb{R} ^{N_L}\mapsto \mathbb{R}$ defined in \eqref{eq:c-e} is most common. It is derived from the log-likelihood of a training set where $q_j$ is the estimated probability of the outcome $j$ and $p_{j}$ is the true probability. Basically, the function measures the dissimilarity between $p_{j}$ (what you expected) and $q_{j}$ (what you obtained) \cite{b10} where $j=1,...,N_L$.
 \begin{equation}\label{eq:c-e}
@@ -206,39 +203,49 @@ For implementing all the algorithms, Keras, a high-level python API for ML, will
 
 
 \subsection{Autoencoders}
-TO PARAPHRASE: The parallel computing
-capabilities of NNs allow us to solve or, at least, approximate
-the MLD problem in polynomial time [7]. Moreover, the
-weights of the NN are precomputed during training and the
-decoding step itself is then relatively simple. 
 
-NNs which can learn an appropriate
-mapping between noisy input patterns and codewords. No
-assumption has to be made about the statistics of the channel
-noise because the NN is able to learn the mapping or to
-extract the channel statistics during the learning process
+Autoencoders based on DNN can learn an appropriate correspondence between input source messages and estimated source message output through different noisy channels. The statistics of the channel's noise is shown in \cite{2018} to be irrelevant, since the NN extract it during training phase. Their applicability is tantamount compelling because the weights computed during training can be separated in two groups, one correspondent to the nodes before the channel and one posterior to the channel. As a consequence, we are able to design an non linear encoder and its correspondent non linear decoder with substantial ease. This new representation has ultimately far more possibilities than conventional encoding patterns.
 
-decoding problems have far more possibilities than conventional pattern recognition problems
-
-In 2006, a new training technique, called layer-by-layer
-unsupervised pre-training followed by gradient descent finetuning [14], led to the renaissance of NNs because it made
-training of NNs with more layers feasible.
-
-new hardware such as graphical processing units (GPUs) are available
-to speed up learning as well as inference. In this renaissance
-of NNs, new NND ideas emerge
-
-The curse of dimensionality
-
+Whilst autoencoders are more complex dimensional wise when compared to NN decoders, the readily access to graphical processing units (GPUs) contributed to the feasibility of this technique, tackling the \textit{curse of dimensionality} challenge in ML. This type of hardware made possible the approach of the layer-by-layer unsupervised pre-training followed by stochastic gradient descent applied in this work. \cite{GPU}
 
 \section{Procedure and Methodology}
 Explain what I Should do to achieve my goal
 Talk about decoder + autoencoder and the OBJECTIVE of each one, G matrix of choice, Batch size, The reader should be able to replicate what I ve done
 
-\subsection{Array Decoder}
-Architecture, Training parameters, cite choice of p train \cite{b13}, number of epochs, Talk about noise layer and its removal in prediction, 
+\subsection{Decoder}
+Hamming coding
 
-\subsection{One-hot Decoder}
+
+The linear encoding matrix $\textbf{G}_{8\times16}$ is shown below.
+
+\begin{flalign*}
+    &\textbf{G}=&
+\end{flalign*}
+
+\[
+\left [
+  \begin{array}{cccccccccccccccc}
+  
+   1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 \\
+	1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+	1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+	1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1
+  \end{array}
+\right ]
+\]
+
+
+Introduce encoding equations
+
+
+
+\subsubsection{Array Decoder}
+Architecture, Training parameters, cite choice of p train \cite{b13}, number of epochs, Talk about noise layer and its removal in prediction, 
+\subsubsection{One-hot Decoder}
 Architecture, Training parameters, Explain what is a One hot decoding, talk about the matrix transformation from one hot to messages, p train equals 0, number of epochs
 
 \subsection{Autoencoder}
@@ -250,8 +257,28 @@ Architecture, Training and simulation parameters, procedure to find a M epoch su
 \subsection{Decoders}
 BER Curves from both decoders, analyse why the number of epochs is so different. 
 
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/MAP_MLNN1H_p_0}
+    \caption{Test caption to test image.}\label{fig:1HD}
+\end{figure}
+
 \subsection{Autoencoder}
 BER Curves of simulation varying p, best choice of p, analyse autoencoder with best choice of p
+
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/MAP_MAP_Mep_65536}
+    \caption{Test caption to test image.}\label{fig:ae1}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/MAP_AutoencoderArray_Mep_65536}
+    \caption{Test caption to test image.}\label{fig:ae1}
+\end{figure}
+
 
 \subsection{Decoding time analysis}
 compare time in decoding between map, autoencoder and a decoder.
@@ -325,6 +352,8 @@ algorithms. In: ITG-Fachbericht 130. October 1994, p. 21-29.
 ``TensorFlow: Large-scale machine learning on heterogeneous systems", 2015. Software available from tensorflow.org.
 
 \bibitem{b12} F. Chollet, “keras,” https://github.com/fchollet/keras, 2015.
+
+\bibitem{GPU} G. E. Hinton, S. Osindero, and Y.-W. Teh, “A fast learning algorithm for deep belief nets,” Neural Computation, vol. 18, no. 7, pp. 1527–1554, July 2006.
 
 \bibitem{b13} M. Benammar and P. Piantanida, “Optimal training channel statistics for neural-based decoders,” in Asilomar, Oct 2018, pp. 2157–2161.
 
