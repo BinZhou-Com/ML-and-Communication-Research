@@ -30,6 +30,7 @@ for i in range(len(p_trainOptions)):
         
     paths[i] = directory+'\\models\\'+'i_'+str(i)+'_'+title+'_Mep_'+str(numEpochs)+'_p_'+str(train_p)+'.h5'
     path = paths[i]
+    checkpointPath = directory+'\\models\\'+'i_'+str(i)+'_'+title+'_p_'+str(train_p)+'_Mep_{epoch:02d}-{loss:.6f}.h5'
     exec(open("autoencoderArray.py").read())
     
     trainTime.toc()
@@ -89,7 +90,7 @@ plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=lineWidth, label='MAP'
 plt.grid(True, which='both')
 
 for i in range(len(p_trainOptions)):
-    plt.scatter(pOptions,multiPredictions[i], marker=markers[i], zorder=3+i, s=markerSize, label='Autoen., p = %s' % p_trainOptions[i])
+    plt.scatter(pOptions,multiPredictions[i], marker=markers[i], zorder=3+i, s=markerSize, label='Autoen., Mep = %s' % p_trainOptions[i])
     
 plt.xlabel('$p$')
 plt.ylabel('BER')

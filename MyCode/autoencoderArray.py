@@ -67,7 +67,7 @@ plot_model(Autoencoder,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',sho
 '''
     Overall Settings/ Compilation
 '''
-lossFunc = 'mse'
+lossFunc = 'binary_crossentropy'
 Autoencoder.compile(loss=lossFunc ,
               optimizer='adam',
               )
@@ -76,8 +76,8 @@ Autoencoder.compile(loss=lossFunc ,
 '''
 summary = Autoencoder.summary()
 checkpoint = tf.keras.callbacks.ModelCheckpoint(
-        'Checkpoints/'+timestr+'_'+title+'_weights.{epoch:02d}-{loss:.6f}.hdf5', monitor='loss', 
-        verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=2**11)
+        checkpointPath, monitor='loss', 
+        verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=checkpointPeriod)
 callbacks_list = [checkpoint]
 ''' 
     Training
@@ -97,7 +97,7 @@ plt.xscale('log')
 plt.legend([lossFunc + ' loss', 'BER'])
 plt.show()
 trainingFig.set_size_inches(width, height)
-trainingFig.savefig('training_history/'+title+'/'+timestr + '_'+title+'_train.png', bbox_inches='tight', dpi=300)
+trainingFig.savefig(trainingPath, bbox_inches='tight', dpi=300)
 
 '''
     Saving model

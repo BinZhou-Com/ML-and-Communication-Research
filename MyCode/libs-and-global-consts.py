@@ -81,6 +81,11 @@ C = 1-He # channel capacity (R<C)
 # Simulation
 globalReps = 1000
 
+# NN parameters
+checkpointPath = 'Checkpoints/'+title+'/'+timestr+'_'+title+'_Mep_{epoch:02d}-{loss:.6f}.h5'
+checkpointPeriod = 2**12
+trainingPath = 'training_history/'+title+'/'+timestr + '_'+title+'_train.png'
+
 #% Global Functions
 def tensorBSC(x):
     # GLOBAL value of p: optimal training statistics for neural based channel decoders (paper)

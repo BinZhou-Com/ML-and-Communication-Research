@@ -19,13 +19,15 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
+encoderNodes = np.array([256, 256, 256 ,2*k])
+DecoderNodes = [128, 64, 32 ,k]
 #%
 '''
     Constants
 '''
-numEpochs = 2**16  #2**16 approx 65000
+numEpochs = 2**17  #2**16 approx 65000
 batchSize = trainSize 
-train_p = 0.00
+train_p = 0.0
 timestr = time.strftime("%Y%m%d-%H%M%S")
 title = 'Autoencoder1H'
 
@@ -34,20 +36,22 @@ title = 'Autoencoder1H'
 '''
 Encoder = tf.keras.Sequential([
         # Input Layer
-        layers.Dense(128, activation='relu', input_shape=(k,), name='Input'),
+        layers.Dense(encoderNodes[0], activation='relu', input_shape=(k,), name='Input'),
         # Hidden Layer
-        layers.Dense(64, activation='relu', name='EHL1'),
+        layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
         # Hidden Layer
-        layers.Dense(32, activation='relu', name='EHL2'),
+        layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         # Coded Layer
-        layers.Dense(2*k, activation='sigmoid', name='Codedfloat'),
+        layers.Dense(encoderNodes[3], activation='sigmoid', name='Codedfloat'),
         # Rounded codeword
-        layers.Lambda(fn.roundCode, input_shape=(2*k,), output_shape=(2*k,), name='Codeword'),
+        layers.Lambda(fn.roundCode, input_shape=(encoderNodes[3],), 
+                      output_shape=(encoderNodes[3],), name='Codeword'),
         ], name='Encoder')
 
 NoiseL = tf.keras.Sequential([
         # Noise Layer
-        layers.Lambda(tensorBSC,input_shape=(2*k,), output_shape=(2*k,), name='Noise'),
+        layers.Lambda(tensorBSC,input_shape=(encoderNodes[3],), 
+                      output_shape=(encoderNodes[3],), name='Noise'),
         ], name='Noise')
 
 Decoder1H = tf.keras.Sequential([ # Array to define layers
@@ -71,8 +75,8 @@ Autoencoder1H.compile(loss=lossFunc ,
 '''
 summary = Autoencoder1H.summary()
 checkpoint = tf.keras.callbacks.ModelCheckpoint(
-        'Checkpoints/'+timestr+'_'+title+'_weights.{epoch:02d}-{loss:.6f}.hdf5', monitor='loss', 
-        verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=2**11)
+        checkpointPath, monitor='loss', 
+        verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=checkpointPeriod)
 callbacks_list = [checkpoint]
 ''' 
     Training
@@ -82,17 +86,17 @@ history = Autoencoder1H.fit(x_train_data, u_train_labels, epochs=numEpochs,
 
 # summarize history for loss
 trainingFig = plt.figure(figsize=(8, 6), dpi=80)
-plt.title('Batch size = '+str(batchSize))
+plt.title('Training p = '+str(train_p) +', Loss Function: binary cross-entropy')
 plt.plot(history.history['loss']) # all outputs: ['acc', 'loss', 'val_acc', 'val_loss']
 #plt.plot(history.history['metricBER'])
 plt.grid(True, which='both')
 #plt.plot(history.history['val_loss'])
 plt.xlabel('$M_{ep}$')
 plt.xscale('log')
-plt.legend([lossFunc + ' loss', 'BER'])
+#plt.legend([lossFunc + ' loss', 'BER'])
 plt.show()
 trainingFig.set_size_inches(width, height)
-trainingFig.savefig('training_history/'+title+'/'+timestr + '_'+title+'_train.png', bbox_inches='tight', dpi=300)
+trainingFig.savefig(trainingPath, bbox_inches='tight', dpi=300)
 
 '''
     Saving model
