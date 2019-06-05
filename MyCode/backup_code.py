@@ -237,4 +237,48 @@ t.tic()
 some code...
 t.toc()
 print(t.elapsed)
+#%%
+'''
+    Decoder Fine Tuning
+'''
+Decoder = tf.keras.Sequential([ # Array to define layers
+              # Adds a densely-connected layer with n units to the model: L1
+              #layers.Dense(32, activation='relu', input_shape=(n,), name='HL1'),
+              # Add another: L2
+              layers.Dense(64, activation='relu', input_shape=(n,), name='HL1'),
+              # Add another: L3
+              #layers.Dense(128, activation='relu',input_shape=(n,), name='HL1'),
+              # Add layer with k output units:
+              layers.Dense(256, activation='softmax', name='Output')
+])
+
+
+lossFunc = 'binary_crossentropy'
+Decoder.compile(loss=lossFunc ,
+              optimizer='adam',
+              )
+
+summary = Decoder.summary()
+checkpoint = tf.keras.callbacks.ModelCheckpoint(
+        checkpointPath, monitor='loss', 
+        verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=checkpointPeriod)
+callbacks_list = [checkpoint]
+history = Decoder.fit(x_train_data, u_train_labels, epochs=numEpochs, 
+                   batch_size=batchSize, shuffle=True, verbose=0, callbacks=callbacks_list)
+
+plotTraining(history)
+
+Decoder.save('Fine-tuning/decoder/'+fileName)
+
+'''
+    Prediction Array
+'''
+
+#globalErrorAutoencoder = fn.arrayAutoencoderPrediction(Encoder, Decoder, pOptions, globalReps, N, n, k)
+globalErrorAutoencoder = fn.onehotAutoencoderPrediction(Encoder, Decoder, messages, pOptions, globalReps, N, n, k)
+
+#% Plotting
+plotBERp(globalErrorAutoencoder, 'Array Autoencoder')
+
+'''
 

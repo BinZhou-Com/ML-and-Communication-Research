@@ -82,7 +82,7 @@ C = 1-He # channel capacity (R<C)
 globalReps = 1000
 
 # NN parameters
-checkpointPath = 'Checkpoints/'+title+'/'+timestr+'_'+title+'_Mep_{epoch:02d}-{loss:.6f}.h5'
+checkpointPath = 'Checkpoints/'+title+'/'+timestr+'_'+title+'_Mep_{epoch:02d}-{loss:.8f}.h5'
 checkpointPeriod = 2**12
 trainingPath = 'training_history/'+title+'/'+timestr + '_'+title+'_train.png'
 
@@ -112,4 +112,19 @@ def plotBERp(globalErrorMLNN, legendEntry):
     
     fig.set_size_inches(width, height)
     fig.savefig('images/'+title+'/'+timestr+'_MAP_'+title+'_Mep_'+str(numEpochs)+'_ptrain_'+str(train_p)+'.png', bbox_inches='tight', dpi=300)
+
+def plotTraining(history):
+    # summarize history for loss
+    trainingFig = plt.figure(figsize=(8, 6), dpi=80)
+    #plt.title('Batch size = '+str(batchSize))
+    plt.plot(history.history['loss']) # all outputs: ['acc', 'loss', 'val_acc', 'val_loss']
+    #plt.plot(history.history['metricBER'])
+    plt.grid(True, which='both')
+    #plt.plot(history.history['val_loss'])
+    plt.xlabel('$M_{ep}$')
+    plt.xscale('log')
+    #plt.legend([lossFunc + ' loss'])
+    plt.show()
+    trainingFig.set_size_inches(width, height)
+    trainingFig.savefig(trainingPath, bbox_inches='tight', dpi=300)
 

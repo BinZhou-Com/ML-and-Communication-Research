@@ -25,9 +25,9 @@ DecoderNodes = [128, 64, 32 ,k]
 '''
     Constants
 '''
-numEpochs = 2**17  #2**16 approx 65000
+numEpochs = 2**15  #2**16 approx 65000
 batchSize = trainSize 
-train_p = 0.0
+train_p = 0.07
 timestr = time.strftime("%Y%m%d-%H%M%S")
 title = 'Autoencoder1H'
 

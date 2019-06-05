@@ -332,6 +332,39 @@ def createDir(path):
         print ("Creation of the directory %s failed" % path)
     else:  
         print ("Successfully created the directory %s " % path)
-       
+        
+def messages2customEncoding(messages, Encoder):
+    return Encoder.predict(messages)
+
+def arrayAutoencoderPrediction(Encoder, Decoder, pOptions, globalReps, N, n, k):
+    globalErrorAutoencoder = np.empty([globalReps, len(pOptions)])
+    for i_global in range(globalReps):
+        for i_p in range(np.size(pOptions)):
+            p = pOptions[i_p]
+            u = generateU(N,k)
+            x = Encoder.predict(u)
+            xflat = np.reshape(x, [-1])
+            yflat = BSC(xflat,p)
+            y = yflat.reshape(N,2*k) # noisy codewords
+            prediction = Decoder.predict(y)
+            predictedMessages = np.round(prediction)
+            globalErrorAutoencoder[i_global][i_p] = bitErrorFunction(predictedMessages, u)
+            
+    return globalErrorAutoencoder
+
+def onehotAutoencoderPrediction(Encoder, Decoder, messages, pOptions, globalReps, N, n, k):
+    globalErrorAutoencoder1H = np.empty([globalReps, len(pOptions)])
+    for i_global in range(globalReps):
+        for i_p in range(np.size(pOptions)):
+            p = pOptions[i_p]
+            u = generateU(N,k)
+            x = Encoder.predict(u)
+            xflat = np.reshape(x, [-1])
+            yflat = BSC(xflat,p)
+            y = yflat.reshape(N,2*k) # noisy codewords
+            prediction = Decoder.predict(y)
+            predictedMessages = multipleOneshot2messages(prediction, messages)
     
+            globalErrorAutoencoder1H[i_global][i_p] = bitErrorFunction(predictedMessages, u)
     
+    return globalErrorAutoencoder1H

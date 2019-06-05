@@ -15,9 +15,9 @@ numEpochs = 2**16  #2**16 approx 65000
 batchSize = trainSize 
 timestr = time.strftime("%Y%m%d-%H%M%S")
 title = 'AutoencoderArray'
-p_trainOptions = np.array([2**16, 2**17, 2**18])
+p_trainOptions = np.array([0.020, 0.025, 0.03, 0.035, 0.04])
 
-myDir = 'Simulation_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'_pmin_'+str(min(p_trainOptions))+'_pmax_'+str(max(p_trainOptions))
+myDir = 'Simulation_Mep_64_128_256_'+str(numEpochs)+'_bs_'+str(batchSize)+'_pmin_'+str(min(p_trainOptions))+'_pmax_'+str(max(p_trainOptions))
 directory = 'Autoencoder_Simulations\\'+ myDir
 fn.createDir(directory)
 fn.createDir(directory+'\\models')
@@ -26,7 +26,7 @@ paths = ["" for x in range(len(p_trainOptions))]
 trainTimeT.tic()
 for i in range(len(p_trainOptions)):
     trainTime.tic()
-    numEpochs = p_trainOptions[i]
+    train_p = p_trainOptions[i]
         
     paths[i] = directory+'\\models\\'+'i_'+str(i)+'_'+title+'_Mep_'+str(numEpochs)+'_p_'+str(train_p)+'.h5'
     path = paths[i]

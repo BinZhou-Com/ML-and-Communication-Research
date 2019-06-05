@@ -16,6 +16,7 @@ Created on Mon May 27 16:04:54 2019
     Array training and validation data
 '''
 timestr = time.strftime("%Y%m%d-%H%M%S")
+title='AutoencoderArray'
 
 u_train_labels = messages.copy()
 x_train_data = u_train_labels
@@ -24,8 +25,8 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([256, 256, 256 ,2*k])
-DecoderNodes = [128, 64, 32 ,k]
+encoderNodes = np.array([64, 128, 256, 16])
+DecoderNodes = [128, 64, 32, k]
 #%
 '''
     Architecture
@@ -65,9 +66,9 @@ Autoencoder = tf.keras.Sequential([Encoder,NoiseL, Decoder])
 plot_model(Autoencoder,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',show_shapes=True)
 
 '''
-    Overall Settings/ Compilation
+    Overall Settings/ Compilationl
 '''
-lossFunc = 'binary_crossentropy'
+lossFunc = 'mse'
 Autoencoder.compile(loss=lossFunc ,
               optimizer='adam',
               )
@@ -85,19 +86,7 @@ callbacks_list = [checkpoint]
 history = Autoencoder.fit(x_train_data, u_train_labels, epochs=numEpochs, 
                    batch_size=batchSize, shuffle=True, verbose=0, callbacks=callbacks_list)
 
-# summarize history for loss
-trainingFig = plt.figure(figsize=(8, 6), dpi=80)
-plt.title('Batch size = '+str(batchSize))
-plt.plot(history.history['loss']) # all outputs: ['acc', 'loss', 'val_acc', 'val_loss']
-#plt.plot(history.history['metricBER'])
-plt.grid(True, which='both')
-#plt.plot(history.history['val_loss'])
-plt.xlabel('$M_{ep}$')
-plt.xscale('log')
-plt.legend([lossFunc + ' loss', 'BER'])
-plt.show()
-trainingFig.set_size_inches(width, height)
-trainingFig.savefig(trainingPath, bbox_inches='tight', dpi=300)
+plotTraining(history)
 
 '''
     Saving model
@@ -118,7 +107,7 @@ for i_global in range(globalReps):
         x = Encoder.predict(u)
         xflat = np.reshape(x, [-1])
         yflat = fn.BSC(xflat,p)
-        y = yflat.reshape(N,2*k) # noisy codewords
+        y = yflat.reshape(N,encoderNodes[3]) # noisy codewords
         prediction = Decoder.predict(y)
         predictedMessages = np.round(prediction)
         globalErrorAutoencoder[i_global][i_p] = fn.bitErrorFunction(predictedMessages, u)
