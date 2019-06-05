@@ -97,8 +97,8 @@ Autoencoder.save(path)  # creates a HDF5 file
 '''
     Prediction Array
 '''
-
-globalReps = 100
+'''
+globalReps = 1000
 globalErrorAutoencoder = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
@@ -114,6 +114,7 @@ for i_global in range(globalReps):
 
 #% Plotting
 plotBERp(globalErrorAutoencoder, 'Array Autoencoder')
+'''
 
 
 

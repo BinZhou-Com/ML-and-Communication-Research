@@ -90,7 +90,7 @@ plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=lineWidth, label='MAP'
 plt.grid(True, which='both')
 
 for i in range(len(p_trainOptions)):
-    plt.scatter(pOptions,multiPredictions[i], marker=markers[i], zorder=3+i, s=markerSize, label='Autoen., Mep = %s' % p_trainOptions[i])
+    plt.scatter(pOptions,multiPredictions[i], marker=markers[i], zorder=3+i, s=markerSize, label='Autoen., p = %s' % p_trainOptions[i])
     
 plt.xlabel('$p$')
 plt.ylabel('BER')

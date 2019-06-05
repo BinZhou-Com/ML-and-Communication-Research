@@ -34,7 +34,7 @@ trainSize = np.size(x_train_data, 0)
 '''
 numEpochs = 2**16  #2**16 approx 65000
 batchSize = 256
-train_p = 0.07
+train_p = 0.03
 timestr = time.strftime("%Y%m%d-%H%M%S")
 title = 'AutoencoderArray'
 path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5'

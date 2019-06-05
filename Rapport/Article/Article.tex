@@ -32,7 +32,7 @@ Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr}
 
 \begin{abstract}
 
-Communication channel error correction is key to enable digital critical communication systems to work efficiently. Although the optimal decoder for noisy channels, the maximum a posteriori (MAP) decoder, has already a mathematically proven optimal error probability minimization; its implementation cripples system applicability, since it introduces a large delay for large codewords. In this context, a deep neural network (DNN) is proposed to optimize the channel with an end-to-end autoencoder. The DNN autoencoder outperforms a MAP decoder form a given encoder in terms of delay, because of the first`s \textit{one-shot} capability once trained.
+Communication channel error correction is key to enable digital critical communication systems to work efficiently. Although the optimal decoder for noisy channels, the maximum a posteriori (MAP) decoder, has already a mathematically proven optimal error probability minimization; its implementation cripples system applicability, since it introduces a large delay for large code words. In this context, a deep neural network (DNN) is proposed to optimize the channel with an end-to-end autoencoder. The DNN autoencoder outperforms a MAP decoder form a given encoder in terms of delay, because of the first`s \textit{one-shot} capability once trained.
 
 \end{abstract}
 
@@ -61,7 +61,7 @@ As opposite to structured algorithms, machine learning (ML) algorithms do not re
 Recently, a significant amount of work in radio communication theory has emerged, introducing ML elements to the communication system. O'Shea et al. in \cite{osheaautoencoder} developed a channel autoencoder with optimized impairment and regularization layers to emulate channel impairments. They studied this architecture over an additive white Gaussian noise (AWGN) channel, founding ``some promising initial capacity" for this scheme. In their research, results in terms of BER over SNR for a DNN based autoencoder and for a convolutional neural network (CNN) based autoencoder were treated. They used a range of SNR - from $-10 \text{dB}$ to $15 \text{dB}$ - with QPSK and QAM16 modulation as benchmarks. This analysis was conducted for a binary input message.
 
     
-T. Gruber et. al. in \cite{2018} proved that a deep learning-based channel decoder could actually learn a decoding algorithm rather than just being a simple classifier. They introduced codewords that were not been used in the training set, and the trained NN was able to correctly decode it. They also observed that structured codes are easier to learn than unstructured ones. NN for structured codes are able to generalize to the full codebook even if they have not seen all the training examples. They trained the NN for very short blocklengths ($N \leq 64$) in order to compare with MAP decoding performance.
+T. Gruber et. al. in \cite{2018} proved that a deep learning-based channel decoder could actually learn a decoding algorithm rather than just being a simple classifier. They introduced code words that were not been used in the training set, and the trained NN was able to correctly decode it. They also observed that structured codes are easier to learn than unstructured ones. NN for structured codes are able to generalize to the full codebook even if they have not seen all the training examples. They trained the NN for very short blocklengths ($N \leq 64$) in order to compare with MAP decoding performance.
 
 \subsection{Problem statement}
 
@@ -69,18 +69,34 @@ In this work, we will implement a ML autoencoder for a  BSC that performs simila
 
 
 \subsection{Notation}
-Throughout the work, vectors will be written in bold font weight and may  have a subscript which indicates their layer in a NN and may have a superscript which indicates their size length. In order to homogenize notation, for the encoding phase of the communication system, $\textbf{u}^k$ represents an input \textit{source message} and $\textbf{x}^n$ its correspondent codeword. For the decoding portion, $\textbf{y}^n$ represents the output of the noisy channel and $\hat{\textbf{u}}^k$ the estimated source message. These definitions are illustrated in Fig. \ref{fig:cs}.
+Throughout the work, vectors will be written in bold font weight and may  have a subscript which indicates their layer in a NN and may have a superscript which indicates their size length. In order to homogenize notation, for the encoding phase of the communication system, $\textbf{u}^k$ represents an input \textit{source message} and $\textbf{x}^n$ its correspondent code word. For the decoding portion, $\textbf{y}^n$ represents the output of the noisy channel and $\hat{\textbf{u}}^k$ the estimated source message. These definitions are illustrated in Fig. \ref{fig:cs}.
 
 In addition, every indispensable concept is introduced either in italics or is defined by a commonly used abbreviation present in others scientific works.
 
 
 \section{Theoretical Background}
 
+\subsection{Channel coding}
+Consider the communication system illustrated in Fig. \ref{fig:cs}. The left portion of the chain, the transmitter, wants to communicate a message $\textbf{u}$ through a noisy channel. The right portion of the chain, the receiver, may interpret this possible corrupted stream of bits into the original message. Usually this prediction $\hat{\textbf{u}}$ carry errors which we aim to minimize its probability of occurring. In this scenario, the theory of channel coding discuss possible solutions. 
+
+In particular, linear block codes represented by a pair $(n, k)$ called \textit{code name} will be implemented. Where $k$ is the length of a source message and $n$ is the length of a code word. Briefly, a linear encoder will index a message $\textbf{u}^k \in \mathcal{U} \subseteq \{0,1\}^k$ to a code word $\textbf{x}^n \in \mathcal{X} \subseteq \{0,1\}^n$. This mapping is done by the \textit{generator matrix} $ \textbf{G} $.
+\begin{equation}\label{eq:encoding}
+\mathbb{E}:\textbf{u} \mapsto \textbf{uG}
+\end{equation}
+
+Then, the objective of the receiver is to estimate the original message with an empirical error probability, or a BER, defined as
+
+\begin{equation}
+P_{eb} = \frac{1}{M} \underset{u}{\sum}Pr(\hat{u}\neq u)
+\end{equation}
+where $M$ is the total amount of bits transmitted, $u$ represents one bit transmitted and $\hat{u}$ its estimation.
+
+
 
 \subsection{Maximum a posteriori decoder}
 
 
-The concept of a MAP decoder algorithm for sequences, is choosing a message which maximizes the a posterior probability of the corrupted codeword $y$ received by the decoder \cite{b4}. This algorithm is known for its optimal error correction capability for white noise interference. This algorithm is also referred as the Viterbi decoder \cite{viterbi}.
+The concept of a MAP decoder algorithm for sequences, is choosing a message which maximizes the a posterior probability of the corrupted code word $y$ received by the decoder \cite{b4}. This algorithm is known for its optimal error correction capability for white noise interference. This algorithm is also referred as the Viterbi decoder \cite{viterbi}.
 
 Mathematically, we want to maximize the average probability of making a correct decision when analysing the channel output $\textbf{y}$, which is written as
 \begin{equation}\label{eq:MAP1}
@@ -204,18 +220,32 @@ For implementing all the algorithms, Keras, a high-level python API for ML, will
 
 \subsection{Autoencoders}
 
-Autoencoders based on DNN can learn an appropriate correspondence between input source messages and estimated source message output through different noisy channels. The statistics of the channel's noise is shown in \cite{2018} to be irrelevant, since the NN extract it during training phase. Their applicability is tantamount compelling because the weights computed during training can be separated in two groups, one correspondent to the nodes before the channel and one posterior to the channel. As a consequence, we are able to design an non linear encoder and its correspondent non linear decoder with substantial ease. This new representation has ultimately far more possibilities than conventional encoding patterns.
+Autoencoders based on DNN can learn an appropriate correspondence between input source messages and estimated source message output through different noisy channels. The statistics of the channel's noise is shown in \cite{2018} to be irrelevant, since the NN extract it during training phase. The autoencoder applicability is compelling because the weights computed during training can be separated in two groups, one correspondent to the nodes before the channel and one posterior to the channel. As a consequence, we are able to design a non linear encoder and its correspondent non linear decoder with ease. This new representation has ultimately far more possibilities than conventional encoding patterns.
+
+Mathematically, the non linear autoencoder`s encoding function $\phi: \{0,1\}^k \mapsto \{0,1\}^n $ maps the message input to its code word. 
+
+\begin{equation}
+x^n = \phi (u^k)
+\end{equation} 
+
+
 
 Whilst autoencoders are more complex dimensional wise when compared to NN decoders, the readily access to graphical processing units (GPUs) contributed to the feasibility of this technique, tackling the \textit{curse of dimensionality} challenge in ML. This type of hardware made possible the approach of the layer-by-layer unsupervised pre-training followed by stochastic gradient descent applied in this work. \cite{GPU}
 
-\section{Procedure and Methodology}
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/DNN_autoencoder}
+    \caption{Representation of a DNN autoencoder composed of Dense NNs.}\label{fig:DDNNAutoencoder}
+\end{figure}
+
+
+
+\section{Implementation and Methodology}
 Explain what I Should do to achieve my goal
 Talk about decoder + autoencoder and the OBJECTIVE of each one, G matrix of choice, Batch size, The reader should be able to replicate what I ve done
 
 \subsection{Decoder}
-Hamming coding
-
-
 The linear encoding matrix $\textbf{G}_{8\times16}$ is shown below.
 
 \begin{flalign*}

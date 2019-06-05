@@ -108,5 +108,61 @@ timestr = time.strftime("%Y%m%d-%H%M%S")
 fig.set_size_inches(width, height)
 fig.savefig('images/'+title+'/'+timestr+'_MAP.png', bbox_inches='tight', dpi=300)
 
+#%% 
+'''
+    Compare loaded autoencoder models
+'''
+p_trainOptions = [0.03, 0.03]
+directory = 'Saved_Models\AutoencoderArray\p_train_03\\'
+fileName = ['i_1_AutoencoderArray_Mep_65536_p_0.03.h5', 'i_2_AutoencoderArray_Mep_65536_p_0.03.h5']
+Models = [tf.keras.models.load_model(directory+fileName[0]), tf.keras.models.load_model(directory+fileName[1])]
+print("Loaded models from disk")
+
+Encoders = [Models[0].layers[0], Models[1].layers[0]]
+Decoders = [Models[0].layers[2], Models[1].layers[2]]
+
+'''
+    Prediction
+'''
+globalReps = 1000
+globalErrorAutoencoder = np.empty([globalReps, len(pOptions)])
+multiPredictions = np.empty([len(Models),len(pOptions)])
+for mod in range(len(Models)):
+    for i_global in range(globalReps):
+        for i_p in range(np.size(pOptions)):
+            p = pOptions[i_p]
+            u = fn.generateU(N,k)
+            x = Encoders[mod].predict(u)
+            xflat = np.reshape(x, [-1])
+            yflat = fn.BSC(xflat,p)
+            y = yflat.reshape(N,encoderNodes[3]) # noisy codewords
+            prediction = Decoders[mod].predict(y)
+            predictedMessages = np.round(prediction)
+            globalErrorAutoencoder[i_global][i_p] = fn.bitErrorFunction(predictedMessages, u)
+            
+    multiPredictions[mod] = np.average(globalErrorAutoencoder,0)
+
+#%%Plotting
+fig = plt.figure(figsize=(8, 6), dpi=80)
+markers = ['^', 'x', 'o', 's', 'v', '*']
+
+plt.plot(pOptions,avgGlobalError, color='b', linewidth=lineWidth, linestyle='--', label='No Decoding')
+plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=lineWidth, label='MAP')
+plt.grid(True, which='both')
+
+for i in range(len(Models)):
+    plt.scatter(pOptions,multiPredictions[i], marker=markers[i], 
+                zorder=3+i, s=markerSize, label='Autoen., $\mathrm{p_t}$ = %s' % p_trainOptions[i])
+    
+plt.xlabel('$p$')
+plt.ylabel('BER')
+plt.yscale('log')
+plt.legend()
+plt.show()
+
+figPath = directory+'\\images'
+fn.createDir(figPath)
+fig.set_size_inches(width, height)
+fig.savefig(figPath+'\MAP_'+title+'_Mep_'+str(numEpochs)+'.png', bbox_inches='tight', dpi=300)
 
 

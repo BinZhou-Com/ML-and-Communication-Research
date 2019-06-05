@@ -85,6 +85,7 @@ globalReps = 1000
 checkpointPath = 'Checkpoints/'+title+'/'+timestr+'_'+title+'_Mep_{epoch:02d}-{loss:.8f}.h5'
 checkpointPeriod = 2**12
 trainingPath = 'training_history/'+title+'/'+timestr + '_'+title+'_train.png'
+figPath = 'images/'+title+'/'+timestr+'_MAP_'+title+'_Mep_'+str(numEpochs)+'_ptrain_'+str(train_p)+'.png'
 
 #% Global Functions
 def tensorBSC(x):
@@ -111,7 +112,7 @@ def plotBERp(globalErrorMLNN, legendEntry):
     plt.show()
     
     fig.set_size_inches(width, height)
-    fig.savefig('images/'+title+'/'+timestr+'_MAP_'+title+'_Mep_'+str(numEpochs)+'_ptrain_'+str(train_p)+'.png', bbox_inches='tight', dpi=300)
+    fig.savefig(figPath, bbox_inches='tight', dpi=300)
 
 def plotTraining(history):
     # summarize history for loss

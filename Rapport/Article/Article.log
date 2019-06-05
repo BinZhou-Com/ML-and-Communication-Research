@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.5.13)  3 JUN 2019 16:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.5.13)  5 JUN 2019 15:04
 entering extended mode
 **./Article.tex
 (Article.tex
@@ -782,45 +782,55 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 49--50
 [1{C:/Users/user/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
- <./simple_sys.png>] [2]
-Overfull \hbox (1.33362pt too wide) detected at line 239
+ <./simple_sys.png>] [2] [3]
+<images/DNN_autoencoder.png, id=36, 633.567pt x 287.27325pt>
+File: images/DNN_autoencoder.png Graphic file (type png)
+<use images/DNN_autoencoder.png>
+Package pdftex.def Info: images/DNN_autoencoder.png  used on input line 238.
+(pdftex.def)             Requested size: 258.0pt x 116.98062pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 238--239
+ [][] 
+ []
+
+
+Overfull \hbox (1.33362pt too wide) detected at line 269
 []
  []
 
-[3]
-<images/MAP_MLNN1H_p_0.png, id=36, 240.6591pt x 156.8259pt>
+<images/MAP_MLNN1H_p_0.png, id=37, 240.6591pt x 156.8259pt>
 File: images/MAP_MLNN1H_p_0.png Graphic file (type png)
 <use images/MAP_MLNN1H_p_0.png>
-Package pdftex.def Info: images/MAP_MLNN1H_p_0.png  used on input line 262.
+Package pdftex.def Info: images/MAP_MLNN1H_p_0.png  used on input line 292.
 (pdftex.def)             Requested size: 258.0pt x 168.12747pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 262--263
+Overfull \hbox (6.0pt too wide) in paragraph at lines 292--293
  [][] 
  []
 
-<images/MAP_MAP_Mep_65536.png, id=37, 238.2501pt x 155.3805pt>
+<images/MAP_MAP_Mep_65536.png, id=38, 238.2501pt x 155.3805pt>
 File: images/MAP_MAP_Mep_65536.png Graphic file (type png)
 <use images/MAP_MAP_Mep_65536.png>
-Package pdftex.def Info: images/MAP_MAP_Mep_65536.png  used on input line 272.
+Package pdftex.def Info: images/MAP_MAP_Mep_65536.png  used on input line 302.
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 272--273
+Overfull \hbox (6.0pt too wide) in paragraph at lines 302--303
  [][] 
  []
 
-<images/MAP_AutoencoderArray_Mep_65536.png, id=38, 240.6591pt x 156.8259pt>
+<images/MAP_AutoencoderArray_Mep_65536.png, id=39, 240.6591pt x 156.8259pt>
 File: images/MAP_AutoencoderArray_Mep_65536.png Graphic file (type png)
 <use images/MAP_AutoencoderArray_Mep_65536.png>
 Package pdftex.def Info: images/MAP_AutoencoderArray_Mep_65536.png  used on inp
-ut line 278.
+ut line 308.
 (pdftex.def)             Requested size: 258.0pt x 168.12747pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 278--279
+Overfull \hbox (6.0pt too wide) in paragraph at lines 308--309
  [][] 
  []
 
-[4 <./images/MAP_MLNN1H_p_0.png> <./images/MAP_MAP_Mep_65536.png> <./images/MAP
-_AutoencoderArray_Mep_65536.png>]
+[4 <./images/DNN_autoencoder.png> <./images/MAP_MLNN1H_p_0.png> <./images/MAP_M
+AP_Mep_65536.png>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -834,16 +844,16 @@ Before submitting the final camera ready copy, remember to:
 
 [5
 
-] (Article.aux)
+ <./images/MAP_AutoencoderArray_Mep_65536.png>] (Article.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 14416 strings out of 492946
- 281398 string characters out of 3135530
- 328392 words of memory out of 3000000
- 18026 multiletter control sequences out of 15000+200000
+ 14423 strings out of 492946
+ 281574 string characters out of 3135530
+ 329439 words of memory out of 3000000
+ 18032 multiletter control sequences out of 15000+200000
  46451 words of font info for 103 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,14n,69p,988b,819s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -865,9 +875,9 @@ sbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Pro
 gram Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
 /urw/times/utmri8a.pfb>
-Output written on Article.pdf (5 pages, 392084 bytes).
+Output written on Article.pdf (5 pages, 453108 bytes).
 PDF statistics:
- 107 PDF objects out of 1000 (max. 8388607)
+ 109 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 
