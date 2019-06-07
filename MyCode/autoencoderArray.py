@@ -25,7 +25,7 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([64, 128, 256, 16])
+encoderNodes = np.array([64, 64, 64, 16])
 DecoderNodes = [128, 64, 32, k]
 #%
 '''
@@ -97,7 +97,6 @@ Autoencoder.save(path)  # creates a HDF5 file
 '''
     Prediction Array
 '''
-'''
 globalReps = 1000
 globalErrorAutoencoder = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
@@ -114,7 +113,7 @@ for i_global in range(globalReps):
 
 #% Plotting
 plotBERp(globalErrorAutoencoder, 'Array Autoencoder')
-'''
+
 
 
 

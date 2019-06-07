@@ -46,10 +46,9 @@ Decoder = Autoencoder.layers[2]
 globalErrorAutoencoder=fn.arrayAutoencoderPrediction(Encoder, Decoder, pOptions, globalReps, N, n, k)
 
 #% Plotting
-figPath = directory+'\\images\\'+fileName
-fn.createDir(figPath)
+figPath = directory+'AutoencoderArray_64-128-256_Mep_131072_p_0.03.png'
 numEpochs = 2**17
-plotBERp(globalErrorAutoencoder, 'Array Autoencoder')
+plotBERp(globalErrorAutoencoder, 'Autoencoder')
 
 
 

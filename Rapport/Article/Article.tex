@@ -228,22 +228,21 @@ Mathematically, the non linear autoencoder`s encoding function $\phi: \{0,1\}^k 
 x^n = \phi (u^k)
 \end{equation} 
 
+Whilst autoencoders are more complex dimensional wise compared to NN decoders, the readily access to graphical processing units (GPUs) contributed to the feasibility of this technique, tackling the \textit{curse of dimensionality} challenge in ML. This type of hardware made possible the approach of the layer-by-layer supervised training by stochastic gradient descent optimization applied in this work. \cite{GPU}.
 
-
-Whilst autoencoders are more complex dimensional wise when compared to NN decoders, the readily access to graphical processing units (GPUs) contributed to the feasibility of this technique, tackling the \textit{curse of dimensionality} challenge in ML. This type of hardware made possible the approach of the layer-by-layer unsupervised pre-training followed by stochastic gradient descent applied in this work. \cite{GPU}
+A common architecture of DNN autoencoders is shown in Fig. \ref{fig:DDNNAutoencoder} where the encoder and the decoder are composed of dense layers of different widths. In addition, a noise layer and a rounding layer acts on the forward propagation but not on the BP, since their activation functions are not differentiable. More details on the autoencoder's architecture is discussed is section III.  
 
 
 \begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.5\textwidth]{images/DNN_autoencoder}
-    \caption{Representation of a DNN autoencoder composed of Dense NNs.}\label{fig:DDNNAutoencoder}
+    \includegraphics[width=0.4\textwidth]{images/DNN_autoencoder}
+    \caption{Representation of a DNN autoencoder composed of dense layers.}\label{fig:DDNNAutoencoder}
 \end{figure}
 
 
 
 \section{Implementation and Methodology}
-Explain what I Should do to achieve my goal
-Talk about decoder + autoencoder and the OBJECTIVE of each one, G matrix of choice, Batch size, The reader should be able to replicate what I ve done
+This section explains the main implementation procedures in order to replicate the results and understand in depth the methodology behind the work. For organizational purposes, the section is divided into two subsections, where the first concerns the experiments relating to the ML based decoders and the second treats the implementation of the ML based autoencoders. 
 
 \subsection{Decoder}
 The linear encoding matrix $\textbf{G}_{8\times16}$ is shown below.
@@ -295,19 +294,6 @@ BER Curves from both decoders, analyse why the number of epochs is so different.
 
 \subsection{Autoencoder}
 BER Curves of simulation varying p, best choice of p, analyse autoencoder with best choice of p
-
-
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.5\textwidth]{images/MAP_MAP_Mep_65536}
-    \caption{Test caption to test image.}\label{fig:ae1}
-\end{figure}
-
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.5\textwidth]{images/MAP_AutoencoderArray_Mep_65536}
-    \caption{Test caption to test image.}\label{fig:ae1}
-\end{figure}
 
 
 \subsection{Decoding time analysis}

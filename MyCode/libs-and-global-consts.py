@@ -2,6 +2,7 @@
 '''
        Load libraries
 '''
+#%%%
 import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
@@ -81,6 +82,7 @@ C = 1-He # channel capacity (R<C)
 # Simulation
 globalReps = 1000
 
+#%%
 # NN parameters
 checkpointPath = 'Checkpoints/'+title+'/'+timestr+'_'+title+'_Mep_{epoch:02d}-{loss:.8f}.h5'
 checkpointPeriod = 2**12
@@ -108,7 +110,7 @@ def plotBERp(globalErrorMLNN, legendEntry):
     plt.xlabel('$p$')
     plt.ylabel('BER')
     plt.yscale('log')
-    plt.legend(['No Decoding', 'MAP', legendEntry+ ', $M_{ep}=$'+str(numEpochs)])
+    plt.legend(['No Decoding', 'MAP', legendEntry+ ', $p_t=$'+str(train_p)])
     plt.show()
     
     fig.set_size_inches(width, height)
