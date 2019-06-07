@@ -25,7 +25,7 @@ from ttictoc import TicToc
 #plt.rcParams['mathtext.fontset'] = 'dejavuserif'
 plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams.update({'font.weight':'normal'})
-letterSize = 7
+letterSize = 6
 markerSize = 3
 lineWidth = 0.5
 plt.rc('xtick', labelsize=letterSize)
@@ -110,7 +110,7 @@ def plotBERp(globalErrorMLNN, legendEntry):
     plt.xlabel('$p$')
     plt.ylabel('BER')
     plt.yscale('log')
-    plt.legend(['No Decoding', 'MAP', legendEntry+ ', $p_t=$'+str(train_p)])
+    plt.legend(['No Decoding', 'MAP Algorithm', legendEntry+ ', $p_t=$'+str(train_p)])
     plt.show()
     
     fig.set_size_inches(width, height)

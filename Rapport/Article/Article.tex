@@ -4,12 +4,18 @@
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 
-\usepackage{algorithmic}
+%\usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{tikz}
 \usepackage{verbatim}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
 
 
 
@@ -84,13 +90,17 @@ In particular, linear block codes represented by a pair $(n, k)$ called \textit{
 \mathbb{E}:\textbf{u} \mapsto \textbf{uG}
 \end{equation}
 
-Then, the objective of the receiver is to estimate the original message with an empirical error probability, or a BER, defined as
+The objective of the receiver is to estimate the original message. The empirical error probability, or a BER, in this process is defined as
 
 \begin{equation}
 P_{eb} = \frac{1}{M} \underset{u}{\sum}Pr(\hat{u}\neq u)
 \end{equation}
 where $M$ is the total amount of bits transmitted, $u$ represents one bit transmitted and $\hat{u}$ its estimation.
 
+The Hamming distance $d_H:\mathcal{X}\mapsto \mathbb{Z}$ is a metric in the word subset which in the context of linear coding is equal to equation \ref{eq:dh}. Noteworthy for the MAP rule, a non zero Hamming distance indicates that there is a block error, and ultimately at least a binary error in the received code word.
+\begin{equation}\label{eq:dh}
+d_H(\textbf{x},\textbf{y}) = \sum_{i=1}^{n} y_i \text{ XOR } x_i 
+\end{equation}  
 
 
 \subsection{Maximum a posteriori decoder}
@@ -228,7 +238,7 @@ Mathematically, the non linear autoencoder`s encoding function $\phi: \{0,1\}^k 
 x^n = \phi (u^k)
 \end{equation} 
 
-Whilst autoencoders are more complex dimensional wise compared to NN decoders, the readily access to graphical processing units (GPUs) contributed to the feasibility of this technique, tackling the \textit{curse of dimensionality} challenge in ML. This type of hardware made possible the approach of the layer-by-layer supervised training by stochastic gradient descent optimization applied in this work. \cite{GPU}.
+Whilst autoencoders are more complex dimensional wise compared to NN decoders, the readily access to graphical processing units (GPUs) contributed to the feasibility of this technique, tackling the \textit{curse of dimensionality} challenge in ML. This type of hardware made possible the approach of the layer-by-layer supervised training by stochastic gradient descent optimization applied in this work. \cite{GPU}
 
 A common architecture of DNN autoencoders is shown in Fig. \ref{fig:DDNNAutoencoder} where the encoder and the decoder are composed of dense layers of different widths. In addition, a noise layer and a rounding layer acts on the forward propagation but not on the BP, since their activation functions are not differentiable. More details on the autoencoder's architecture is discussed is section III.  
 
@@ -242,7 +252,34 @@ A common architecture of DNN autoencoders is shown in Fig. \ref{fig:DDNNAutoenco
 
 
 \section{Implementation and Methodology}
-This section explains the main implementation procedures in order to replicate the results and understand in depth the methodology behind the work. For organizational purposes, the section is divided into two subsections, where the first concerns the experiments relating to the ML based decoders and the second treats the implementation of the ML based autoencoders. 
+This section explains the main implementation procedures in order to replicate the results and understand in depth the methodology behind the work. For organizational purposes, the section is divided into three subsections. First, the MAP algorithm for a linear code is shown, then the experiments relating to the ML based decoders are assessed and finally the implementation of the ML based autoencoder is explained. 
+
+\subsection{MAP Rule}
+
+The pseudo code of the MAP decoder algorithm is available below.
+
+\begin{algorithm}
+\caption{MAP rule for BSC and linear block code.}\label{euclid}
+\hspace*{\algorithmicindent} \textbf{Input:} received block $\textbf{y}^n \in \{0,1\}^n$, the code word set $\mathcal{X}$ and generator matrix $G_{k \times n}$. \\
+\hspace*{\algorithmicindent} \textbf{Output:} message estimation $\hat{\textbf{u}}^k \in \{0,1\}^k$.
+\begin{algorithmic}[H]
+\Procedure{MAP Decoder}{$y,\mathcal{X}, G$}
+\State $\textit{p} \gets \text{channel crossover probability}$
+\For{i in \textit{range}($2^k$)}
+\State $\text{distances}[i] \gets d_H(\textbf{y},word[i] \in \mathcal{X})$
+\EndFor
+\State $\hat{\textbf{x}} \gets argmin(\text{distances})$
+\State $\hat{\textbf{u}} $
+\Return $\hat{\textbf{u}}$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/20190607-160812_MAP}
+    \caption{MAP algorithm performance in terms of BER versus channel crossover probability.}\label{fig:MAP}
+\end{figure}
 
 \subsection{Decoder}
 The linear encoding matrix $\textbf{G}_{8\times16}$ is shown below.
@@ -289,7 +326,13 @@ BER Curves from both decoders, analyse why the number of epochs is so different.
 \begin{figure}[!ht]
   \centering
     \includegraphics[width=0.5\textwidth]{images/MAP_MLNN1H_p_0}
-    \caption{Test caption to test image.}\label{fig:1HD}
+    \caption{One hot decoding BER performance. NN decoder trained with a channel crossover probability error of $p_t=0$.}\label{fig:1HD}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/20190529-142119_MAP_MLNN_Mep_65536}
+    \caption{Array decoding BER performance. NN trained with a channel crossover probability error of $p_t=0.07$.}\label{fig:ArrayD}
 \end{figure}
 
 \subsection{Autoencoder}

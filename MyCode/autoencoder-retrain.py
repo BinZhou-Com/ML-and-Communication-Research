@@ -11,7 +11,7 @@ fileName = 'i_1_AutoencoderArray_Mep_65536_p_0.03.h5'
 Autoencoder = tf.keras.models.load_model(directory+'OriginalModel\\'+fileName)
 print("Loaded models from disk")
 path = directory+'TrainedModel\\'+fileName
-
+#%%
 '''
     Overall Settings/ Compilationl
 '''
@@ -39,7 +39,7 @@ plotTraining(history)
     Saving model
 '''
 Autoencoder.save(path)  # creates a HDF5 file
-
+#%%
 Encoder = Autoencoder.layers[0]
 Decoder = Autoencoder.layers[2]
 #% Prediction

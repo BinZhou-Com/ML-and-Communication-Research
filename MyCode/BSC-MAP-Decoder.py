@@ -57,14 +57,14 @@ avgGlobalErrorMAP = np.average(globalErrorMAP, 0)
 
 fig = plt.figure(figsize=(8, 6), dpi=80)
 
-plt.plot(pOptions,avgGlobalError, color='b', linewidth=lineWidth)
+plt.plot(pOptions,avgGlobalError, color='b', linewidth=lineWidth, linestyle='--')
 plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=lineWidth)
 
 plt.grid(True, which="both")
 plt.xlabel('$p$')
 plt.ylabel('BER')
 plt.yscale('log')
-plt.legend(['No Decoding', 'MAP'])
+plt.legend(['No Decoding', 'MAP Algorithm'])
 plt.show()
 
 timestr = time.strftime("%Y%m%d-%H%M%S")

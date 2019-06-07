@@ -25,7 +25,7 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([64, 64, 64, 16])
+encoderNodes = np.array([32, 128, 256, 16])
 DecoderNodes = [128, 64, 32, k]
 #%
 '''
@@ -39,13 +39,13 @@ Encoder = tf.keras.Sequential([
         # Hidden Layer
         layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         # Coded Layer
-        layers.Dense(encoderNodes[3], activation='sigmoid', name='Codedfloat'),
-        # Rounded codeword
-        layers.Lambda(fn.roundCode, input_shape=(encoderNodes[3],), 
-                      output_shape=(encoderNodes[3],), name='Codeword'),
+        layers.Dense(encoderNodes[3], activation='sigmoid', name='Codedfloat')
         ], name='Encoder')
 
 NoiseL = tf.keras.Sequential([
+        # Rounded codeword
+        layers.Lambda(fn.roundCode, input_shape=(encoderNodes[3],), 
+                      output_shape=(encoderNodes[3],), name='Codeword'),
         # Noise Layer
         layers.Lambda(tensorBSC,input_shape=(encoderNodes[3],), 
                       output_shape=(encoderNodes[3],), name='Noise'),
@@ -76,10 +76,11 @@ Autoencoder.compile(loss=lossFunc ,
     Summaries and checkpoints (to do)
 '''
 summary = Autoencoder.summary()
-checkpoint = tf.keras.callbacks.ModelCheckpoint(
+'''checkpoint = tf.keras.callbacks.ModelCheckpoint(
         checkpointPath, monitor='loss', 
         verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=checkpointPeriod)
-callbacks_list = [checkpoint]
+'''
+callbacks_list = []
 ''' 
     Training
 '''
@@ -97,13 +98,14 @@ Autoencoder.save(path)  # creates a HDF5 file
 '''
     Prediction Array
 '''
-globalReps = 1000
+globalReps = 100
 globalErrorAutoencoder = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
         p = pOptions[i_p]
         u = fn.generateU(N,k)
         x = Encoder.predict(u)
+        x = np.round(x)
         xflat = np.reshape(x, [-1])
         yflat = fn.BSC(xflat,p)
         y = yflat.reshape(N,encoderNodes[3]) # noisy codewords

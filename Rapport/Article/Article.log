@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.5.13)  7 JUN 2019 10:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.5.13)  7 JUN 2019 16:35
 entering extended mode
 **./Article.tex
 (Article.tex
@@ -185,26 +185,13 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-("C:\Program Files\MiKTeX 2.9\tex/latex/algorithms\algorithmic.sty"
-Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.9\tex/latex/base\ifthen.sty"
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-)
 ("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks20
 )
-\c@ALC@unique=\count107
-\c@ALC@line=\count108
-\c@ALC@rem=\count109
-\c@ALC@depth=\count110
-\ALC@tlm=\skip47
-\algorithmicindent=\skip48
-)
-("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
-Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
-
 ("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphics.sty"
 Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 
@@ -439,14 +426,14 @@ x"
 \pgf@yc=\dimen146
 \w@pgf@writea=\write3
 \r@pgf@reada=\read1
-\c@pgf@counta=\count111
-\c@pgf@countb=\count112
-\c@pgf@countc=\count113
-\c@pgf@countd=\count114
+\c@pgf@counta=\count107
+\c@pgf@countb=\count108
+\c@pgf@countc=\count109
+\c@pgf@countd=\count110
 \t@pgf@toka=\toks25
 \t@pgf@tokb=\toks26
 \t@pgf@tokc=\toks27
-\pgf@sys@id@count=\count115
+\pgf@sys@id@count=\count111
  ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgf.cfg"
 File: pgf.cfg 2019/04/04 v3.1.2 (3.1.2)
 )
@@ -462,8 +449,8 @@ File: pgfsys-common-pdf.def 2019/04/04 v3.1.2 (3.1.2)
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.t
 ex"
 File: pgfsyssoftpath.code.tex 2019/04/04 v3.1.2 (3.1.2)
-\pgfsyssoftpath@smallbuffer@items=\count116
-\pgfsyssoftpath@bigbuffer@items=\count117
+\pgfsyssoftpath@smallbuffer@items=\count112
+\pgfsyssoftpath@bigbuffer@items=\count113
 )
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/systemlayer\pgfsysprotocol.code.t
 ex"
@@ -475,7 +462,7 @@ Package: pgfcore 2019/04/04 v3.1.2 (3.1.2)
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathutil.code.tex")
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathparser.code.tex"
 \pgfmath@dimen=\dimen147
-\pgfmath@count=\count118
+\pgfmath@count=\count114
 \pgfmath@box=\box32
 \pgfmath@toks=\toks28
 \pgfmath@stack@operand=\toks29
@@ -499,7 +486,7 @@ ex")
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfunctions.integerarit
 hmetics.code.tex")))
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/math\pgfmathfloat.code.tex"
-\c@pgfmathroundto@lastzeros=\count119
+\c@pgfmathroundto@lastzeros=\count115
 ))
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex
 "
@@ -537,7 +524,7 @@ File: pgfcorescopes.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \pgfpic=\box33
 \pgf@hbox=\box34
 \pgf@layerbox@main=\box35
-\pgf@picture@serial@count=\count120
+\pgf@picture@serial@count=\count116
 )
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoregraphicstate.co
 de.tex"
@@ -570,8 +557,8 @@ File: pgfcorearrows.code.tex 2019/04/04 v3.1.2 (3.1.2)
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex"
 File: pgfcoreshade.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \pgf@max=\dimen171
-\pgf@sys@shading@range@num=\count121
-\pgf@shadingcount=\count122
+\pgf@sys@shading@range@num=\count117
+\pgf@shadingcount=\count118
 ) ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/basiclayer\pgfcoreimage.code.te
 x"
 File: pgfcoreimage.code.tex 2019/04/04 v3.1.2 (3.1.2)
@@ -631,7 +618,7 @@ Package: tikz 2019/04/04 v3.1.2 (3.1.2)
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries\pgflibraryplothandlers.
 code.tex"
 File: pgflibraryplothandlers.code.tex 2019/04/04 v3.1.2 (3.1.2)
-\pgf@plot@mark@count=\count123
+\pgf@plot@mark@count=\count119
 \pgfplotmarksize=\dimen176
 )
 \tikz@lastx=\dimen177
@@ -644,18 +631,18 @@ File: pgflibraryplothandlers.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \tikz@figbox@bg=\box39
 \tikz@tempbox=\box40
 \tikz@tempbox@bg=\box41
-\tikztreelevel=\count124
-\tikznumberofchildren=\count125
-\tikznumberofcurrentchild=\count126
-\tikz@fig@count=\count127
+\tikztreelevel=\count120
+\tikznumberofchildren=\count121
+\tikznumberofcurrentchild=\count122
+\tikz@fig@count=\count123
 
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/modules\pgfmodulematrix.code.tex"
 File: pgfmodulematrix.code.tex 2019/04/04 v3.1.2 (3.1.2)
-\pgfmatrixcurrentrow=\count128
-\pgfmatrixcurrentcolumn=\count129
-\pgf@matrix@numberofcolumns=\count130
+\pgfmatrixcurrentrow=\count124
+\pgfmatrixcurrentcolumn=\count125
+\pgf@matrix@numberofcolumns=\count126
 )
-\tikz@expandcount=\count131
+\tikz@expandcount=\count127
 
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
 librarytopaths.code.tex"
@@ -667,46 +654,84 @@ Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 \verbatim@line=\toks34
 \verbatim@in@stream=\read2
 )
+("C:\Program Files\MiKTeX 2.9\tex/latex/algorithms\algorithm.sty"
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count128
+\float@exts=\toks35
+\float@box=\box42
+\@float@everytoks=\toks36
+\@floatcapt=\box43
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks37
+\c@algorithm=\count129
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/algorithmicx\algpseudocode.sty"
+Package: algpseudocode 
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/algorithmicx\algorithmicx.sty"
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count130
+\c@ALG@rem=\count131
+\c@ALG@nested=\count132
+\ALG@tlm=\skip47
+\ALG@thistlm=\skip48
+\c@ALG@Lnr=\count133
+\c@ALG@blocknr=\count134
+\c@ALG@storecount=\count135
+\c@ALG@tmpcounter=\count136
+\ALG@tmplength=\skip49
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+)
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
 librarypositioning.code.tex"
 File: tikzlibrarypositioning.code.tex 2019/04/04 v3.1.2 (3.1.2)
 ) (Article.aux)
 \openout1 = `Article.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 25.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    ... okay on input line 25.
 
 -- Lines per column: 56 (exact).
 ("C:\Program Files\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count132
+\scratchcounter=\count137
 \scratchdimen=\dimen183
-\scratchbox=\box42
-\nofMPsegments=\count133
-\nofMParguments=\count134
-\everyMPshowfont=\toks35
-\MPscratchCnt=\count135
+\scratchbox=\box44
+\nofMPsegments=\count138
+\nofMParguments=\count139
+\everyMPshowfont=\toks38
+\MPscratchCnt=\count140
 \MPscratchDim=\dimen184
-\MPnumerator=\count136
-\makeMPintoPDFobject=\count137
-\everyMPtoPDFconversion=\toks36
+\MPnumerator=\count141
+\makeMPintoPDFobject=\count142
+\everyMPtoPDFconversion=\toks39
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -755,13 +780,13 @@ G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 31.
-LaTeX Font Info:    Try loading font information for U+msa on input line 31.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 37.
+LaTeX Font Info:    Try loading font information for U+msa on input line 37.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 31.
+LaTeX Font Info:    Try loading font information for U+msb on input line 37.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -769,10 +794,10 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <simple_sys.png, id=4, 976.24725pt x 179.4705pt>
 File: simple_sys.png Graphic file (type png)
 <use simple_sys.png>
-Package pdftex.def Info: simple_sys.png  used on input line 49.
+Package pdftex.def Info: simple_sys.png  used on input line 55.
 (pdftex.def)             Requested size: 258.0pt x 47.43074pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 49--50
+Overfull \hbox (6.0pt too wide) in paragraph at lines 55--56
  [][] 
  []
 
@@ -783,24 +808,47 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 49--50
 <images/DNN_autoencoder.png, id=36, 633.567pt x 287.27325pt>
 File: images/DNN_autoencoder.png Graphic file (type png)
 <use images/DNN_autoencoder.png>
-Package pdftex.def Info: images/DNN_autoencoder.png  used on input line 238.
+Package pdftex.def Info: images/DNN_autoencoder.png  used on input line 248.
 (pdftex.def)             Requested size: 206.39685pt x 93.58186pt.
+<images/20190607-160812_MAP.png, id=37, 238.2501pt x 155.3805pt>
+File: images/20190607-160812_MAP.png Graphic file (type png)
+<use images/20190607-160812_MAP.png>
+Package pdftex.def Info: images/20190607-160812_MAP.png  used on input line 278
+.
+(pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (1.33362pt too wide) detected at line 268
-[]
- []
-
-<images/MAP_MLNN1H_p_0.png, id=37, 240.6591pt x 156.8259pt>
-File: images/MAP_MLNN1H_p_0.png Graphic file (type png)
-<use images/MAP_MLNN1H_p_0.png>
-Package pdftex.def Info: images/MAP_MLNN1H_p_0.png  used on input line 291.
-(pdftex.def)             Requested size: 258.0pt x 168.12747pt.
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 291--292
+Overfull \hbox (6.0pt too wide) in paragraph at lines 278--279
  [][] 
  []
 
-[4 <./images/DNN_autoencoder.png> <./images/MAP_MLNN1H_p_0.png>]
+
+Overfull \hbox (1.33362pt too wide) detected at line 303
+[]
+ []
+
+<images/MAP_MLNN1H_p_0.png, id=38, 240.6591pt x 156.8259pt>
+File: images/MAP_MLNN1H_p_0.png Graphic file (type png)
+<use images/MAP_MLNN1H_p_0.png>
+Package pdftex.def Info: images/MAP_MLNN1H_p_0.png  used on input line 326.
+(pdftex.def)             Requested size: 258.0pt x 168.12747pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 326--327
+ [][] 
+ []
+
+<images/20190529-142119_MAP_MLNN_Mep_65536.png, id=39, 243.0681pt x 158.2713pt>
+
+File: images/20190529-142119_MAP_MLNN_Mep_65536.png Graphic file (type png)
+<use images/20190529-142119_MAP_MLNN_Mep_65536.png>
+Package pdftex.def Info: images/20190529-142119_MAP_MLNN_Mep_65536.png  used on
+ input line 332.
+(pdftex.def)             Requested size: 258.0pt x 167.99619pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 332--333
+ [][] 
+ []
+
+[4 <./images/DNN_autoencoder.png> <./images/20190607-160812_MAP.png>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -812,38 +860,38 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5
-
-] (Article.aux) ) 
+[5 <./images/MAP_MLNN1H_p_0.png> <./images/20190529-142119_MAP_MLNN_Mep_65536.p
+ng>] (Article.aux) ) 
 Here is how much of TeX's memory you used:
- 14412 strings out of 492946
- 281196 string characters out of 3135530
- 329392 words of memory out of 3000000
- 18023 multiletter control sequences out of 15000+200000
- 46451 words of font info for 103 fonts, out of 3000000 for 9000
+ 14896 strings out of 492946
+ 288653 string characters out of 3135530
+ 333801 words of memory out of 3000000
+ 18492 multiletter control sequences out of 15000+200000
+ 47072 words of font info for 105 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,14n,69p,988b,819s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/P
-rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program F
-iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.
-pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
-fonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utm
-b8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Prog
-ram Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Article.pdf (5 pages, 349400 bytes).
+ 55i,14n,69p,988b,821s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+r10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pf
+b><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/urw/times/utmri8a.pfb>
+Output written on Article.pdf (5 pages, 440231 bytes).
 PDF statistics:
- 105 PDF objects out of 1000 (max. 8388607)
+ 113 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 28 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 
