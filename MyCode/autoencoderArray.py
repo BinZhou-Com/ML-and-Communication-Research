@@ -17,6 +17,7 @@ Created on Mon May 27 16:04:54 2019
 '''
 timestr = time.strftime("%Y%m%d-%H%M%S")
 title='AutoencoderArray'
+path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5'
 
 u_train_labels = messages.copy()
 x_train_data = u_train_labels
@@ -25,8 +26,9 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([32, 128, 256, 16])
+encoderNodes = np.array([256, 128, 64, 16])
 DecoderNodes = [128, 64, 32, k]
+n = 8
 #%
 '''
     Architecture
@@ -34,26 +36,28 @@ DecoderNodes = [128, 64, 32, k]
 Encoder = tf.keras.Sequential([
         # Input Layer
         layers.Dense(encoderNodes[0], activation='relu', input_shape=(k,), name='Input'),
+        #layers.Dropout(rate=0.1),
         # Hidden Layer
         layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
+        #layers.Dropout(rate=0.1), 
         # Hidden Layer
         layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         # Coded Layer
-        layers.Dense(encoderNodes[3], activation='sigmoid', name='Codedfloat')
+        layers.Dense(n, activation='sigmoid', name='Codedfloat')
         ], name='Encoder')
 
 NoiseL = tf.keras.Sequential([
         # Rounded codeword
-        layers.Lambda(fn.roundCode, input_shape=(encoderNodes[3],), 
-                      output_shape=(encoderNodes[3],), name='Codeword'),
+        layers.Lambda(fn.roundCode, input_shape=(n,), 
+                      output_shape=(n,), name='Codeword'),
         # Noise Layer
-        layers.Lambda(tensorBSC,input_shape=(encoderNodes[3],), 
-                      output_shape=(encoderNodes[3],), name='Noise'),
+        layers.Lambda(tensorBSC,input_shape=(n,), 
+                      output_shape=(n,), name='Noise'),
         ], name='Noise')
 
 Decoder = tf.keras.Sequential([ # Array to define layers
         # Adds a densely-connected layer with n units to the model: L1
-        layers.Dense(DecoderNodes[0], activation='relu', input_shape=(encoderNodes[3],), name='DHL1'),
+        layers.Dense(DecoderNodes[0], activation='relu', input_shape=(n,), name='DHL1'),
         # Add another: L2
         layers.Dense(DecoderNodes[1], activation='relu', name='DHL2'),
         # Add another: L3
@@ -94,7 +98,7 @@ plotTraining(history)
 '''
 Autoencoder.save(path)  # creates a HDF5 file
 
-#%
+#%%
 '''
     Prediction Array
 '''
@@ -108,7 +112,7 @@ for i_global in range(globalReps):
         x = np.round(x)
         xflat = np.reshape(x, [-1])
         yflat = fn.BSC(xflat,p)
-        y = yflat.reshape(N,encoderNodes[3]) # noisy codewords
+        y = yflat.reshape(N,n) # noisy codewords
         prediction = Decoder.predict(y)
         predictedMessages = np.round(prediction)
         globalErrorAutoencoder[i_global][i_p] = fn.bitErrorFunction(predictedMessages, u)

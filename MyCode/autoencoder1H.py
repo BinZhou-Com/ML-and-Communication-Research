@@ -13,7 +13,7 @@ Created on Wed May 29 16:56:03 2019
     One hot training and validation data
 '''
 u_train_labels = fn.messages2onehot(messages.copy())
-x_train_data = messages.copy()
+x_train_data = u_train_labels.copy()
 
 u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
@@ -25,38 +25,34 @@ DecoderNodes = [128, 64, 32 ,k]
 '''
     Constants
 '''
-numEpochs = 2**15  #2**16 approx 65000
-batchSize = trainSize 
-train_p = 0.07
-timestr = time.strftime("%Y%m%d-%H%M%S")
-title = 'Autoencoder1H'
-
+path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5'
 '''
     Architecture
 '''
 Encoder = tf.keras.Sequential([
         # Input Layer
-        layers.Dense(encoderNodes[0], activation='relu', input_shape=(k,), name='Input'),
+        layers.Dense(encoderNodes[0], activation='relu', input_shape=(256,), name='Input'),
         # Hidden Layer
         layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
         # Hidden Layer
         layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         # Coded Layer
-        layers.Dense(encoderNodes[3], activation='sigmoid', name='Codedfloat'),
-        # Rounded codeword
-        layers.Lambda(fn.roundCode, input_shape=(encoderNodes[3],), 
-                      output_shape=(encoderNodes[3],), name='Codeword'),
+        layers.Dense(n, activation='sigmoid', name='Codedfloat'),
+        #layers.BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=True, scale=True, beta_initializer='zeros', gamma_initializer='ones', moving_mean_initializer='zeros', moving_variance_initializer='ones', beta_regularizer=None, gamma_regularizer=None, beta_constraint=None, gamma_constraint=None)
         ], name='Encoder')
 
 NoiseL = tf.keras.Sequential([
+        # Rounded codeword
+        layers.Lambda(fn.roundCode, input_shape=(n,), 
+                      output_shape=(n,), name='Codeword'),
         # Noise Layer
-        layers.Lambda(tensorBSC,input_shape=(encoderNodes[3],), 
-                      output_shape=(encoderNodes[3],), name='Noise'),
+        layers.Lambda(tensorBSC,input_shape=(n,), 
+                      output_shape=(n,), name='Noise'),
         ], name='Noise')
 
 Decoder1H = tf.keras.Sequential([ # Array to define layers
-        layers.Dense(64, activation='relu', input_shape=(2*k,), name='DHL1'),
-        #layers.Dense(128, activation='relu', input_shape=(2*k,), name='DHL2'),
+        layers.Dense(DecoderNodes[0], activation='relu', input_shape=(n,), name='DHL1'),
+        layers.Dense(DecoderNodes[1], activation='relu', name='DHL2'),
         layers.Dense(256, activation='softmax', name='1H_Output')
         ], name = 'Decoder')
 
@@ -66,7 +62,7 @@ plot_model(Autoencoder1H,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',s
 '''
     Overall Settings/ Compilation
 '''
-lossFunc = 'binary_crossentropy'
+lossFunc = 'mse'
 Autoencoder1H.compile(loss=lossFunc ,
               optimizer='adam',
               )
@@ -85,18 +81,7 @@ history = Autoencoder1H.fit(x_train_data, u_train_labels, epochs=numEpochs,
                    batch_size=batchSize, shuffle=True, verbose=0, callbacks=callbacks_list)
 
 # summarize history for loss
-trainingFig = plt.figure(figsize=(8, 6), dpi=80)
-plt.title('Training p = '+str(train_p) +', Loss Function: binary cross-entropy')
-plt.plot(history.history['loss']) # all outputs: ['acc', 'loss', 'val_acc', 'val_loss']
-#plt.plot(history.history['metricBER'])
-plt.grid(True, which='both')
-#plt.plot(history.history['val_loss'])
-plt.xlabel('$M_{ep}$')
-plt.xscale('log')
-#plt.legend([lossFunc + ' loss', 'BER'])
-plt.show()
-trainingFig.set_size_inches(width, height)
-trainingFig.savefig(trainingPath, bbox_inches='tight', dpi=300)
+plotTraining(history)
 
 '''
     Saving model
@@ -117,7 +102,8 @@ for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
         p = pOptions[i_p]
         u = fn.generateU(N,k)
-        x = Encoder.predict(u)
+        u1h = fn.messages2onehot(u)
+        x = Encoder.predict(u1h)
         xflat = np.reshape(x, [-1])
         yflat = fn.BSC(xflat,p)
         y = yflat.reshape(N,2*k) # noisy codewords

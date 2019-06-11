@@ -84,10 +84,17 @@ globalReps = 1000
 
 #%%
 # NN parameters
+title = 'Autoencoder1H'
+timestr = time.strftime("%Y%m%d-%H%M%S")
+numEpochs = 2**10
+batchSize = 256
+train_p = 0.03
+
 checkpointPath = 'Checkpoints/'+title+'/'+timestr+'_'+title+'_Mep_{epoch:02d}-{loss:.8f}.h5'
-checkpointPeriod = 2**12
+checkpointPeriod = 2**11
 trainingPath = 'training_history/'+title+'/'+timestr + '_'+title+'_train.png'
 figPath = 'images/'+title+'/'+timestr+'_MAP_'+title+'_Mep_'+str(numEpochs)+'_ptrain_'+str(train_p)+'.png'
+
 
 #% Global Functions
 def tensorBSC(x):
@@ -110,7 +117,8 @@ def plotBERp(globalErrorMLNN, legendEntry):
     plt.xlabel('$p$')
     plt.ylabel('BER')
     plt.yscale('log')
-    plt.legend(['No Decoding', 'MAP Algorithm', legendEntry+ ', $p_t=$'+str(train_p)])
+    #plt.legend(['No Decoding', 'MAP Algorithm', legendEntry+ ', $p_t=$'+str(train_p)])
+    plt.legend(['No Decoding', 'MAP Algorithm', legendEntry])
     plt.show()
     
     fig.set_size_inches(width, height)

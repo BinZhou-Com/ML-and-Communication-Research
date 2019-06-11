@@ -234,7 +234,7 @@ def codeErrorFunction(y, x):
     return Ecw/size(x)
 
 def bitErrorFunction(uhat, u):
-    Eb = sum(uhat != u) # Codeword Error with hamming decoding
+    Eb = sum(uhat != u)
     return Eb/size(u)
     
 def generateU(N,k):

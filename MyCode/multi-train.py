@@ -15,7 +15,7 @@ numEpochs = 2**16  #2**16 approx 65000
 batchSize = trainSize 
 timestr = time.strftime("%Y%m%d-%H%M%S")
 title = 'AutoencoderArray'
-p_trainOptions = np.array([0.020, 0.025, 0.03, 0.035, 0.04])
+p_trainOptions = np.array([0.020, 0.025, 0.03, 0.035, 0.04, 0.07])
 
 myDir = 'Simulation_Mep_64_128_256_'+str(numEpochs)+'_bs_'+str(batchSize)+'_pmin_'+str(min(p_trainOptions))+'_pmax_'+str(max(p_trainOptions))
 directory = 'Autoencoder_Simulations\\'+ myDir
