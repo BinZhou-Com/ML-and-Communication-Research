@@ -84,11 +84,11 @@ globalReps = 1000
 
 #%%
 # NN parameters
-title = 'Autoencoder1H'
+title = 'Decoder'
 timestr = time.strftime("%Y%m%d-%H%M%S")
-numEpochs = 2**10
+numEpochs = 2**14
 batchSize = 256
-train_p = 0.03
+train_p = 0.0
 
 checkpointPath = 'Checkpoints/'+title+'/'+timestr+'_'+title+'_Mep_{epoch:02d}-{loss:.8f}.h5'
 checkpointPeriod = 2**11

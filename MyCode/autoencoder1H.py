@@ -19,8 +19,8 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([256, 256, 256 ,2*k])
-DecoderNodes = [128, 64, 32 ,k]
+encoderNodes = np.array([256, 256, 256])
+DecoderNodes = [256, 256]
 #%
 '''
     Constants
@@ -32,10 +32,16 @@ path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(
 Encoder = tf.keras.Sequential([
         # Input Layer
         layers.Dense(encoderNodes[0], activation='relu', input_shape=(256,), name='Input'),
+        layers.BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=True, 
+            scale=True, beta_initializer='zeros', gamma_initializer='ones', 
+            moving_mean_initializer='zeros', moving_variance_initializer='ones'),
         # Hidden Layer
         layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
+        layers.BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=True, 
+            scale=True, beta_initializer='zeros', gamma_initializer='ones', 
+            moving_mean_initializer='zeros', moving_variance_initializer='ones'),
         # Hidden Layer
-        layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
+        #layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         # Coded Layer
         layers.Dense(n, activation='sigmoid', name='Codedfloat'),
         #layers.BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=True, scale=True, beta_initializer='zeros', gamma_initializer='ones', moving_mean_initializer='zeros', moving_variance_initializer='ones', beta_regularizer=None, gamma_regularizer=None, beta_constraint=None, gamma_constraint=None)

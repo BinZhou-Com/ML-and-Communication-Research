@@ -11,13 +11,13 @@ Created on Fri Jun  7 22:26:59 2019
 path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5'
 
 u_train_labels = possibleCodewords.copy()
-x_train_data = messages.copy()
+x_train_data = fn.messages2onehot(messages)
 
 u_train_labels = np.repeat(u_train_labels, 2, axis=0)
 x_train_data = np.repeat(x_train_data, 2, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([256, 256, 256, 32])
+encoderNodes = np.array([256, 256])
 
 '''
     Architecture
@@ -31,11 +31,11 @@ Encoder = tf.keras.Sequential([
         # Hidden Layer
         layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
         # Hidden Layer
-        layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
+        #layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         # Hidden Layer
         #layers.Dense(encoderNodes[3], activation='relu', name='EHL3'),
         # Coded Layer
-        layers.Dense(n, activation='tanh', name='Codedfloat')
+        layers.Dense(n, activation='sigmoid', name='Codedfloat')
         # Normalization Layer
         #layers.BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=True, scale=True, beta_initializer='zeros', gamma_initializer='ones', moving_mean_initializer='zeros', moving_variance_initializer='ones')
         ], name='Encoder')
