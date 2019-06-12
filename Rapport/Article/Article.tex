@@ -38,7 +38,7 @@ Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr}
 
 \begin{abstract}
 
-Communication channel error correction is key to enable digital critical communication systems to work efficiently. Although the optimal decoder for noisy channels, the maximum a posteriori (MAP) decoder, has already a mathematically proven optimal error probability minimization; its implementation cripples system applicability, since it introduces a large delay for large code words. In this context, a deep neural network (DNN) is proposed to optimize the channel with an end-to-end autoencoder. The DNN autoencoder outperforms a MAP decoder form a given encoder in terms of delay, because of the first`s \textit{one-shot} capability once trained.
+Communication channel error correction is key to enable digital critical communication systems to work efficiently. The maximum a posteriori (MAP) decoder is proven to be the mathematically optimal solution for the problem. However, its implementation cripples the system applicability. This is because the MAP rule introduces a large delay for long code words. In this context, a deep neural network (DNN) is proposed to optimize the channel with an end-to-end autoencoder. The trained DNN autoencoder has a \textit{one-shot} capability which outperforms a MAP decoder for a given encoder in terms of delay. ONE PHRASE FOR RESULTS
 
 \end{abstract}
 
@@ -269,7 +269,7 @@ The pseudo code of the MAP decoder algorithm is available below.
 \State $\text{distances}[i] \gets d_H(\textbf{y},word[i] \in \mathcal{X})$
 \EndFor
 \State $\hat{\textbf{x}} \gets argmin(\text{distances})$
-\State $\hat{\textbf{u}} $
+\State $\hat{\textbf{u}} \gets G^{-1}\hat{\textbf{x}}$
 \Return $\hat{\textbf{u}}$
 \EndProcedure
 \end{algorithmic}

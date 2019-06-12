@@ -84,9 +84,9 @@ globalReps = 1000
 
 #%%
 # NN parameters
-title = 'Decoder'
+title = 'Autoencoder1H'
 timestr = time.strftime("%Y%m%d-%H%M%S")
-numEpochs = 2**14
+numEpochs = 2**16
 batchSize = 256
 train_p = 0.0
 

@@ -13,18 +13,18 @@ path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(
 u_train_labels = possibleCodewords.copy()
 x_train_data = fn.messages2onehot(messages)
 
-u_train_labels = np.repeat(u_train_labels, 2, axis=0)
-x_train_data = np.repeat(x_train_data, 2, axis=0)
+u_train_labels = np.repeat(u_train_labels, 1, axis=0)
+x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([256, 256])
+encoderNodes = np.array([32, 32])
 
 '''
     Architecture
 '''
 Encoder = tf.keras.Sequential([
         # Input Layer
-        layers.Dense(encoderNodes[0], activation='relu', input_shape=(k,), name='Input'),
+        layers.Dense(encoderNodes[0], activation='relu', input_shape=(256,), name='Input'),
         #layers.Conv1D(12, kernel_size= 4, activation='relu', input_shape=(k,), name='Input'),
         # Dropout Layer
         #layers.Dropout(rate=0.01),
@@ -40,7 +40,7 @@ Encoder = tf.keras.Sequential([
         #layers.BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=True, scale=True, beta_initializer='zeros', gamma_initializer='ones', moving_mean_initializer='zeros', moving_variance_initializer='ones')
         ], name='Encoder')
 
-trainingPath = 'training_history/'+title+'/'+timestr + '_'+title+'_train' + str(encoderNodes) +'conv1d.png'
+trainingPath = 'training_history/'+title+'/'+timestr + '_'+title+'_train_' + str(encoderNodes) +'_1H.png'
 plot_model(Encoder,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',show_shapes=True)
 
 '''
@@ -115,3 +115,23 @@ for i_global in range(globalReps):
 
 #% Plotting
 plotBERp(globalErrorMAP2, 'MAP with NN Encoder')
+
+#%%
+'''
+    Predicition one-hot encoder
+'''
+globalReps = 100
+globalErrorEncoder = np.empty([globalReps, len(pOptions)])
+for i_global in range(globalReps):
+    for i_p in range(np.size(pOptions)):
+        p = pOptions[i_p]
+        u = fn.generateU(N,k)
+        x = fn.generteCodeWord(N, n, u, G)
+        u1h = fn.messages2onehot(u)
+        xhat = np.round(Encoder.predict(u1h))
+        
+        globalErrorEncoder[i_global][i_p] = fn.codeErrorFunction(xhat, x)
+
+#% Plotting
+plotBERp(globalErrorEncoder, 'Encoder')
+
