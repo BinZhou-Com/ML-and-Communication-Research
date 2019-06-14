@@ -358,7 +358,8 @@ def onehotAutoencoderPrediction(Encoder, Decoder, messages, pOptions, globalReps
         for i_p in range(np.size(pOptions)):
             p = pOptions[i_p]
             u = generateU(N,k)
-            x = Encoder.predict(u)
+            u1h = messages2onehot(u)
+            x = np.round(Encoder.predict(u1h))
             xflat = np.reshape(x, [-1])
             yflat = BSC(xflat,p)
             y = yflat.reshape(N,2*k) # noisy codewords

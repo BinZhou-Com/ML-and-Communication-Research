@@ -1,0 +1,379 @@
+\documentclass{beamer}
+
+% You can uncomment the themes below if you would like to use a different
+% one:
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{boxes}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{default}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{multirow}
+\usepackage{url}
+%\usepackage[sorting=none]{biblatex}
+\usepackage[utf8]{inputenc}
+\usepackage{ifthen}
+\usepackage{filecontents}
+\usetikzlibrary{shapes,arrows,shadings,patterns}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\pgfplotsset{plot coordinates/math parser=false}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+\usetikzlibrary{positioning}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+    
+\makeatletter
+\def\endthebibliography{%
+  \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist
+}
+\makeatother    
+    
+\makeatletter
+\def\thickhline{%
+  \noalign{\ifnum0=`}\fi\hrule \@height \thickarrayrulewidth \futurelet
+   \reserved@a\@xthickhline}
+\def\@xthickhline{\ifx\reserved@a\thickhline
+               \vskip\doublerulesep
+               \vskip-\thickarrayrulewidth
+             \fi
+      \ifnum0=`{\fi}}
+\makeatother
+
+\newlength{\thickarrayrulewidth}
+\setlength{\thickarrayrulewidth}{3\arrayrulewidth}   
+
+
+\title[Machine Learning and Communication]{Machine Learning Autoencoder Applied to Communication Channels}
+
+\author{E.~Dadalto Camara Gomes\inst{1} \and M.~Benammar\inst{2}}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[] % (optional, but mostly needed)
+{
+  \inst{1}%
+   ISAE-SUPAERO\\
+   Université de Toulouse\\
+    31055, Toulouse, France\\
+Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr
+  \and
+  \inst{2}%
+  Department of Electronics, Optronics, and Signal processing\\
+  ISAE-SUPAERO\\
+  31055, Toulouse, France\\
+  Email: meryem.benammar@isae-supaero.fr}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date{ISAE-SUPAERO, 2019}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+\subject{Machine Learning and Communication}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+\pgfdeclareimage[height=0.5cm]{university-logo}{images/ISAE}
+\logo{\pgfuseimage{university-logo}}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+% Let's get started
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+% Section and subsections will appear in the presentation overview
+% and table of contents.
+\section{Introduction}
+
+\begin{frame}{Context}{Communication system context in general - what field will I be treating}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Context}{Machine Learning applications - what could we do in communication system}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Relevance \& Challenges}{Explain why the work is relevant and explain what are the challenges}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Problem Statement}{What exactly I will solve in this work}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+
+% You can reveal the parts of a slide one at a time
+% with the \pause command:
+\begin{frame}{Second Slide Title}
+  \begin{itemize}
+  \item {
+    First item.
+    \pause % The slide will pause after showing the first item
+  }
+  \item {   
+    Second item.
+  }
+  % You can also specify when the content should appear
+  % by using <n->:
+  \item<3-> {
+    Third item.
+  }
+  \item<4-> {
+    Fourth item.
+  }
+  % or you can use the \uncover command to reveal general
+  % content (not just \items):
+  \item<5-> {
+    Fifth item. \uncover<6->{Extra text in the fifth item.}
+  }
+  \end{itemize}
+\end{frame}
+
+
+\section{Methodology}
+
+\subsection{Reference Model}
+\begin{frame}{Maximum a Posterior (MAP) Rule}{Implementation of a MAP decoder for a linear block code through a BSC.}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+\subsection{Design \& Architecture}
+\begin{frame}{Neural Network's Architecture}{Show the architecture used for each case and remarks some important parameters}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+\subsection{Training}
+\begin{frame}{Neural Network's Training}{Show the best training parameters for each structure}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+\subsection{Predictions}
+\begin{frame}{Monte Carlo Simulations}{Explain how we could use NN to predict the results with certain confidence.}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Blocks}
+\begin{block}{Block Title}
+You can also highlight sections of your presentation in a block, with it's own title
+\end{block}
+\begin{theorem}
+There are separate environments for theorems, examples, definitions and proofs.
+\end{theorem}
+\begin{example}
+Here is an example of an example block.
+\end{example}
+\end{frame}
+
+% Placing a * after \section means it will not show in the
+% outline or table of contents.
+
+\section{Results \& Discussions}
+\subsection{DNN Decoders}
+\begin{frame}{DNN Array Decoder}{Show the results for the array decoder in terms of train p, Mep, Parameters, etc}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{DNN One-hot Decoder}{Show the results for the one-hot decoder in terms of train p, Mep, Parameters, etc}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+\subsection{DNN Autoencoders}
+\begin{frame}{DNN Autoencoder}{Show the results for the autoencoder in terms of train p, Mep, Parameters, etc}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+\section{Conclusions}
+\begin{frame}{Conclusions}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+\section{Future Work}
+\begin{frame}{Future Work}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+\section*{Acknowledgment}
+
+\begin{frame}{Acknowledgment}
+  \begin{itemize}
+  \item {
+    My first point.
+  }
+  \item {
+    My second point.
+  }
+  \end{itemize}
+\end{frame}
+
+% All of the following is optional and typically not needed. 
+\appendix
+\section<presentation>*{\appendixname}
+\subsection<presentation>*{Bibliography}
+
+\begin{frame}[allowframebreaks]
+  \frametitle<presentation>{Bibliography}
+    
+
+  \cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18}    
+    
+  \bibliographystyle{ieeetr}
+  \bibliography{../../Article/bib/ShannonCE1948,../../Article/bib/CalabreseWGPS16,../../Article/bib/OSheaH17,../../Article/bib/Oshea2,../../Article/bib/Gruber,../../Article/bib/Worm,../../Article/bib/Viterbi,../../Article/bib/RobertsonHV97,../../Article/bib/Ibnkahla,../../Article/bib/Nielsen,../../Article/bib/Murphy,../../Article/bib/AbadiABBCCCDDDG16,../../Article/bib/Keras,../../Article/bib/mit_neco18_1527,../../Article/bib/BenammarP18}
+ 
+\end{frame}
+
+\end{document}
+
+

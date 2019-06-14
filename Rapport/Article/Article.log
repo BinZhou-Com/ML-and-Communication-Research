@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  14 JUN 2019 15:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  14 JUN 2019 16:26
 entering extended mode
 **./Article.tex
 (Article.tex
@@ -1023,9 +1023,6 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 73.
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-
-LaTeX Warning: Citation `b1' on page 1 undefined on input line 87.
-
 <simple_sys.png, id=12, 976.24725pt x 179.4705pt>
 File: simple_sys.png Graphic file (type png)
 <use simple_sys.png>
@@ -1036,79 +1033,17 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 91--92
  [][] 
  []
 
-
-LaTeX Warning: Citation `b3' on page 1 undefined on input line 95.
-
-
-LaTeX Warning: Citation `b2' on page 1 undefined on input line 97.
-
-
-LaTeX Warning: Citation `osheaautoencoder' on page 1 undefined on input line 10
-3.
-
 [1{C:/Users/user/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
  <./simple_sys.png>]
 
-LaTeX Warning: Citation `2018' on page 2 undefined on input line 106.
-
-
-LaTeX Warning: Citation `b4' on page 2 undefined on input line 145.
-
-
-LaTeX Warning: Citation `b6' on page 2 undefined on input line 165.
-
-
 LaTeX Warning: Citation `b7' on page 2 undefined on input line 165.
-
-
-LaTeX Warning: Citation `b6' on page 2 undefined on input line 165.
 
 
 LaTeX Warning: Citation `b5' on page 2 undefined on input line 167.
 
-
-LaTeX Warning: Citation `b6' on page 2 undefined on input line 167.
-
-[2]
-
-LaTeX Warning: Citation `b9' on page 3 undefined on input line 227.
-
-
-LaTeX Warning: Citation `b8' on page 3 undefined on input line 229.
-
-
-LaTeX Warning: Citation `b9' on page 3 undefined on input line 231.
-
-
-LaTeX Warning: Citation `b2' on page 3 undefined on input line 236.
-
-
-LaTeX Warning: Citation `b10' on page 3 undefined on input line 248.
-
-
-LaTeX Warning: Citation `b2' on page 3 undefined on input line 253.
-
-
-LaTeX Warning: Citation `b9' on page 3 undefined on input line 258.
-
-
-LaTeX Warning: Citation `b8' on page 3 undefined on input line 258.
-
-
-LaTeX Warning: Citation `b11' on page 3 undefined on input line 262.
-
-
-LaTeX Warning: Citation `b12' on page 3 undefined on input line 262.
-
-[3]
-
-LaTeX Warning: Citation `2018' on page 4 undefined on input line 269.
-
-
-LaTeX Warning: Citation `GPU' on page 4 undefined on input line 277.
-
+[2] [3]
 <images/DNN_autoencoder.png, id=44, 633.567pt x 287.27325pt>
 File: images/DNN_autoencoder.png Graphic file (type png)
 <use images/DNN_autoencoder.png>
@@ -1129,9 +1064,6 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 316--317
 Overfull \hbox (1.33362pt too wide) detected at line 341
 []
  []
-
-
-LaTeX Warning: Citation `b13' on page 4 undefined on input line 349.
 
 [4 <./images/DNN_autoencoder.png> <./images/20190607-160812_MAP.png>]
 <images/MAP_MLNN1H_p_0.png, id=51, 240.6591pt x 156.8259pt>
@@ -1156,14 +1088,20 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 429--430
  [][] 
  []
 
-(Article.bbl [5 <./images/MAP_MLNN1H_p_0.png> <./images/20190529-142119_MAP_MLN
-N_Mep_65536.png>]
-Underfull \hbox (badness 1509) in paragraph at lines 48--51
-[]\OT1/ptm/m/n/8 Mohamed Ibnkahla.  Ap-pli-ca-tions of neu-ral net-works to dig
--i-tal
+(Article.bbl
+Underfull \hbox (badness 1924) in paragraph at lines 26--28
+\OT1/ptm/m/n/8 decoding with-out snr es-ti-ma-tion,'' \OT1/ptm/m/it/8 IEEE Com-
+mu-ni-ca-tions Let-ters\OT1/ptm/m/n/8 ,
  []
 
-)
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--43
+[]\OT1/ptm/m/n/8 M. Ibnkahla, ``Ap-pli-ca-tions of neu-ral net-works to dig-i-t
+al
+ []
+
+[5 <./images/MAP_MLNN1H_p_0.png> <./images/20190529-142119_MAP_MLNN_Mep_65536.p
+ng>])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1183,10 +1121,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 27393 strings out of 492925
- 697032 string characters out of 3134506
+ 27378 strings out of 492925
+ 696959 string characters out of 3134506
  925329 words of memory out of 3000000
- 30776 multiletter control sequences out of 15000+200000
+ 30761 multiletter control sequences out of 15000+200000
  49932 words of font info for 108 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  78i,14n,136p,988b,837s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1209,7 +1147,7 @@ pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 s/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/time
 s/utmri8a.pfb>
-Output written on Article.pdf (6 pages, 451787 bytes).
+Output written on Article.pdf (6 pages, 451125 bytes).
 PDF statistics:
  124 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

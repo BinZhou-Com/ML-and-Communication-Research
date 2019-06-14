@@ -19,8 +19,8 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([256, 1024])
-DecoderNodes = [128, 64]
+encoderNodes = np.array([32, 32])
+DecoderNodes = [32, 32]
 #%
 '''
     Architecture
@@ -86,12 +86,15 @@ Autoencoder1H.save(path)  # creates a HDF5 file
 #%%%
 '''
     Prediction 1H
-
+'''
 t = TicToc('name')
 t.tic()
 
 
 globalReps = 100
+globalErrorAutoencoder1H = fn.onehotAutoencoderPrediction(Encoder, Decoder, 
+                               messages, pOptions, globalReps, N, n, k)
+'''
 globalErrorAutoencoder1H = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):
@@ -106,10 +109,10 @@ for i_global in range(globalReps):
         predictedMessages = fn.multipleOneshot2messages(prediction, messages)
 
         globalErrorAutoencoder1H[i_global][i_p] = fn.bitErrorFunction(predictedMessages, u)
-
+'''
 #% Plotting
 plotBERp(globalErrorAutoencoder1H, 'One-hot Autoencoder')
 
 t.toc()
 print(t.elapsed)
-'''
+

@@ -6,8 +6,8 @@ Created on Wed Jun  5 13:47:36 2019
 """
 #%%
 numEpochs = 2**16
-directory = 'Retrain\AutoencoderArray\\'
-fileName = 'i_1_AutoencoderArray_Mep_65536_p_0.03.h5'
+directory = 'Retrain\Autoencoder1H\\'
+fileName = 'Autoencoder1H_Mep_65536_bs_256_32_32-32_32.h5'
 Autoencoder = tf.keras.models.load_model(directory+'OriginalModel\\'+fileName)
 print("Loaded models from disk")
 path = directory+'TrainedModel\\'+fileName
@@ -20,7 +20,7 @@ Autoencoder.compile(loss=lossFunc ,
               optimizer='adam',
               )
 '''
-    Summaries and checkpoints (to do)
+    Summaries and checkpoints
 '''
 summary = Autoencoder.summary()
 checkpoint = tf.keras.callbacks.ModelCheckpoint(
@@ -43,12 +43,12 @@ Autoencoder.save(path)  # creates a HDF5 file
 Encoder = Autoencoder.layers[0]
 Decoder = Autoencoder.layers[2]
 #% Prediction
-globalErrorAutoencoder=fn.arrayAutoencoderPrediction(Encoder, Decoder, pOptions, globalReps, N, n, k)
-
+#globalErrorAutoencoder=fn.arrayAutoencoderPrediction(Encoder, Decoder, pOptions, globalReps, N, n, k)
+globalErrorAutoencoder=fn.onehotAutoencoderPrediction(Encoder, Decoder, messages, pOptions, globalReps, N, n, k)
 #% Plotting
-figPath = directory+'AutoencoderArray_64-128-256_Mep_131072_p_0.03.png'
 numEpochs = 2**17
-plotBERp(globalErrorAutoencoder, 'Autoencoder')
+figPath = directory+'Autoencoder1H_Mep_'+str(numEpochs)+'_bs_256_32_32-32_32_p_train_0.png'
+plotBERp(globalErrorAutoencoder, 'One-hot Autoencoder')
 
 
 
