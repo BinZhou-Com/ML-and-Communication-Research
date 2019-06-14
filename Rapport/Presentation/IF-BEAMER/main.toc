@@ -1,0 +1,13 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Overview}{3}{0}{1}
+\beamer@sectionintoc {2}{Blocks}{5}{0}{2}
+\beamer@sectionintoc {3}{Boxes}{7}{0}{3}
+\beamer@sectionintoc {4}{Lists}{9}{0}{4}
+\beamer@subsectionintoc {4}{1}{List items}{10}{0}{4}
+\beamer@subsectionintoc {4}{2}{Numbered list}{11}{0}{4}
+\beamer@subsectionintoc {4}{3}{Descriptive list}{12}{0}{4}
+\beamer@sectionintoc {5}{Tables}{13}{0}{5}
+\beamer@sectionintoc {6}{Figures}{16}{0}{6}
+\beamer@sectionintoc {7}{Equations and Codes}{18}{0}{7}
+\beamer@subsectionintoc {7}{1}{Equations}{19}{0}{7}
+\beamer@subsectionintoc {7}{2}{Programming}{20}{0}{7}

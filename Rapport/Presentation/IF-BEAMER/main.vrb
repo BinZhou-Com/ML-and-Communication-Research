@@ -1,0 +1,13 @@
+\frametitle{Code Example \#2}
+
+\code{\textbf{import} numpy \textbf{as} np}
+
+\begin{lstlisting}[language=Python]
+def code():
+  # test comments #1
+  if True:
+    for _ in range(5):
+      print("Hello World 5 times")
+  return None
+\end{lstlisting}
+

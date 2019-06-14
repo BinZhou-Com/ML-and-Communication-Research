@@ -4,7 +4,6 @@
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 
-%\usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
@@ -12,27 +11,64 @@
 \usepackage{verbatim}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
+\usepackage{multirow}
+\usepackage{url}
+
+\usepackage[utf8]{inputenc}
+\usepackage{ifthen}
+\usepackage{filecontents}
+\usetikzlibrary{shapes,arrows,shadings,patterns}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\pgfplotsset{plot coordinates/math parser=false}
 
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}
 \makeatother
 
-
-
 \usetikzlibrary{positioning}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+    
+\makeatletter
+\def\endthebibliography{%
+  \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist
+}
+\makeatother    
+    
+\makeatletter
+\def\thickhline{%
+  \noalign{\ifnum0=`}\fi\hrule \@height \thickarrayrulewidth \futurelet
+   \reserved@a\@xthickhline}
+\def\@xthickhline{\ifx\reserved@a\thickhline
+               \vskip\doublerulesep
+               \vskip-\thickarrayrulewidth
+             \fi
+      \ifnum0=`{\fi}}
+\makeatother
+
+\newlength{\thickarrayrulewidth}
+\setlength{\thickarrayrulewidth}{3\arrayrulewidth}    
+    
 \begin{document}
 
 \title{Machine Learning Autoencoder Applied to Communication Channels}
 
 
-\author{\IEEEauthorblockN{Eduardo Dadalto Camara Gomes\IEEEauthorrefmark{1}}
+\author{
+\IEEEauthorblockN{Eduardo Dadalto Camara Gomes\IEEEauthorrefmark{1},
+Meryem Benammar\IEEEauthorrefmark{2}}
+
 \IEEEauthorblockA{\IEEEauthorrefmark{1}Institut Supérieur de l'Aéronautique et de l'Espace (ISAE-SUPAERO), Université de Toulouse, 31055 Toulouse, FRANCE\\
-Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr}
+Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr
+}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}Institut Supérieur de l'Aéronautique et de l'Espace (ISAE-SUPAERO), Université de Toulouse, 31055 Toulouse, FRANCE\\
+Email: meryem.benammar@isae-supaero.fr
+}
 }
 
-
+\IEEEspecialpapernotice{(Final report)}
 
 \maketitle
 
@@ -106,7 +142,7 @@ d_H(\textbf{x},\textbf{y}) = \sum_{i=1}^{n} y_i \text{ XOR } x_i
 \subsection{Maximum a posteriori decoder}
 
 
-The concept of a MAP decoder algorithm for sequences, is choosing a message which maximizes the a posterior probability of the corrupted code word $y$ received by the decoder \cite{b4}. This algorithm is known for its optimal error correction capability for white noise interference. This algorithm is also referred as the Viterbi decoder \cite{viterbi}.
+The concept of a MAP decoder algorithm for sequences, is choosing a message which maximizes the a posterior probability of the corrupted code word $y$ received by the decoder \cite{b4}. This algorithm is known for its optimal error correction capability for white noise interference. This algorithm is also referred as the Viterbi decoder \cite{Viterbi}.
 
 Mathematically, we want to maximize the average probability of making a correct decision when analysing the channel output $\textbf{y}$, which is written as
 \begin{equation}\label{eq:MAP1}
@@ -259,8 +295,8 @@ This section explains the main implementation procedures in order to replicate t
 The pseudo code of the MAP decoder algorithm is available below.
 
 \begin{algorithm}
-\caption{MAP rule for BSC and linear block code.}\label{euclid}
-\hspace*{\algorithmicindent} \textbf{Input:} received block $\textbf{y}^n \in \{0,1\}^n$, the code word set $\mathcal{X}$ and generator matrix $G_{k \times n}$. \\
+\caption{MAP rule for BSC and linear block code.}\label{alg:MAP}
+\hspace*{\algorithmicindent} \textbf{Input:} received block $\textbf{y}^n \in \{0,1\}^n$, code word set $\mathcal{X}$ and generator matrix $G_{k \times n}$. \\
 \hspace*{\algorithmicindent} \textbf{Output:} message estimation $\hat{\textbf{u}}^k \in \{0,1\}^k$.
 \begin{algorithmic}[H]
 \Procedure{MAP Decoder}{$y,\mathcal{X}, G$}
@@ -311,11 +347,70 @@ Introduce encoding equations
 
 \subsubsection{Array Decoder}
 Architecture, Training parameters, cite choice of p train \cite{b13}, number of epochs, Talk about noise layer and its removal in prediction, 
+
+\begin{table}
+\caption{DNN array decoder architecture and parameters.} 
+\begin{center}
+
+  \begin{tabular}{ l  |  l }
+    \thickhline
+    \multirow{3}{*}{Decoder} & Dense: X, activation: ReLU, input size: $n$ \\
+ & Dense: X, activation: ReLU  \\
+ & Dense: $k$, activation: Sigmoid  \\ \hline
+    \multicolumn{2}{l}{\textbf{Total parameters: }XX}\\
+    \thickhline
+  \end{tabular}
+    \label{tab:arraydecoder}
+\end{center}
+\end{table}
+
 \subsubsection{One-hot Decoder}
 Architecture, Training parameters, Explain what is a One hot decoding, talk about the matrix transformation from one hot to messages, p train equals 0, number of epochs
 
+
+
+\begin{table}
+\caption{DNN one-hot decoder architecture and parameters.} 
+\begin{center}
+
+  \begin{tabular}{ l  |  l }
+    \thickhline
+    \multirow{3}{*}{Decoder} & Dense: X, activation: ReLU, input size: $n$ \\
+ & Dense: X, activation: ReLU  \\
+ & Dense: $2^k$, activation: Sigmoid  \\ \hline
+    \multicolumn{2}{l}{\textbf{Total parameters: }XX}\\
+    \thickhline
+  \end{tabular}
+    \label{tab:onehotdecoder}
+\end{center}
+\end{table}
+
 \subsection{Autoencoder}
 Architecture, Training and simulation parameters, procedure to find a M epoch suitable, choices of p train, Talk about NN separation, 
+
+\begin{table}
+\caption{DNN array autoencoder architecture and parameters.} 
+\begin{center}
+
+  \begin{tabular}{ l  |  l }
+    \thickhline
+    \multirow{3}{*}{Encoder} & Dense: X, activation: ReLU, input size: $k$ \\
+ & Dense: X, activation: ReLU  \\
+ & Dense: $n$, activation: Sigmoid  \\ \hline
+ 
+    \multirow{2}{*}{Channel} & Lambda: $Round(\textbf{x})$, input size: $n$ \\
+ & Lambda: $\textbf{x}\oplus \text{noise}$\\ \hline
+ 
+ \multirow{2}{*}{Decoder} & Dense: X, input size: $n$ \\
+ & Dense: X, activation: ReLU  \\
+ & Dense: $k$, activation: Sigmoid  \\ \hline
+ 
+    \multicolumn{2}{l}{\textbf{Total parameters: }XX}\\
+    \thickhline
+  \end{tabular}
+    \label{tab:arrayautoencoder}
+\end{center}
+\end{table}
 
 
 \section{Results and Analysis}
@@ -345,80 +440,49 @@ compare time in decoding between map, autoencoder and a decoder.
 \section{Conclusions}
 
 
+\section*{Acknowledgment}
+The authors would like to thank...
+
+\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18},
+
+\bibliographystyle{plain}
+\bibliography{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18}
+
+%\bibitem{b1} C. E. Shannon, ``A mathematical theory of communication," Bell System Technical Journal, vol. 27, no. 3, pp. 379–423, Jul. 1948.
 
 
-\begin{comment}
+%\bibitem{b3} F. D. Calabrese, L. Wang, E. Ghadimi, G. Peters, and P. Soldati, ``Learning radio resource management in 5G networks: Framework, opportunities and challenges," arXiv preprint arXiv:1611.10253, 2016.
 
-\subsection{Figures and Tables}
+%\bibitem{b2} O'Shea, Tim \& Hoydis, Jakob, ``An Introduction to Machine Learning Communications Systems", 2017.
 
+%\bibitem{osheaautoencoder} T. O'Shea, K. arra, T. C. Clancy, ``Learning to Communicate: Channel Auto-encoders, Domain Specific Regularizers, and Attention", 2016.
 
-\begin{table}[htbp]
-\caption{Table Type Styles}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
-\cline{2-4} 
-\textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
-\hline
-copy& More table copy$^{\mathrm{a}}$& &  \\
-\hline
-\multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
-\end{tabular}
-\label{tab1}
-\end{center}
-\end{table}
+%\bibitem{2018} T. Gruber, S. Cammerer, J. Hoydis, and S. ten Brink, “On deep learning based channel decoding,” accepted for CISS 2017, arXiv preprint arXiv:1701.07738, 2017.
 
+%\bibitem{b4} W. Alexander, H. Peter \& W. Norbert, ``Turbo-Decoding Without SNR Estimation",IEEE Communications Letter, vol. 4, no. 6, pp. 193-195, 2000.
 
-\begin{figure}[htbp]
-\centerline{\includegraphics{fig1.png}}
-\caption{Example of a figure caption.}
-\label{fig}
-\end{figure}
-\end{comment}
+%\bibitem{viterbi} A. J. Viterbi, ``Error Bounds for Convolutional Codes and an Asymptotically Optimum Decoding Algorithm", IEEE Transactions on Information Theory, 13 (2): 260–269, 1967.
 
+%\bibitem{b6} Robertson, P. , Hoeher, P. and Villebrun, E. (1997), Optimal and sub‐optimal maximum a posteriori algorithms suitable for turbo decoding. Eur. Trans. Telecomm., 8: 119-125. doi:10.1002/ett.4460080202.
 
-\begin{thebibliography}{00}
-\bibitem{b1} C. E. Shannon, ``A mathematical theory of communication," Bell System Technical Journal, vol. 27, no. 3, pp. 379–423, Jul. 1948.
+%\bibitem{b7} J. Hagenauer,P. Robertson, L. Papke: iterative (“Turbo”) decoding of systematic convolutional codes with the MAP and SOVA algorithms. In: ITG-Fachbericht 130. October 1994, p. 21-29.
 
+%\bibitem{b5} M. Jordan and R. Nichols, “The effects of channel characteristics on turbo code performance,” in Proc. Milcom’96, McLean, VA, Oct. 1996, pp. 17–21.
 
-\bibitem{b3} F. D. Calabrese, L. Wang, E. Ghadimi, G. Peters, and P. Soldati, ``Learning radio resource management in 5G networks: Framework, opportunities and challenges," arXiv preprint arXiv:1611.10253, 2016.
+%\bibitem{b9} I. Mohamed, ``Applications of neural networks to digital communications - a survey", 1997.
 
-\bibitem{b2} O'Shea, Tim \& Hoydis, Jakob, ``An Introduction to Machine Learning Communications Systems", 2017.
+%\bibitem{b8} M. Nielsen, \textit{Neural Networks and Deep Learning}.
 
-\bibitem{osheaautoencoder} T. O'Shea, K. arra, T. C. Clancy, ``Learning to Communicate: Channel Auto-encoders, Domain Specific Regularizers, and Attention", 2016.
+%%\bibitem{b10} M. Kevin, ``Machine Learning: A Probabilistic Perspective", MIT, ISBN 978-0262018029, 2012.
 
-\bibitem{2018} T. Gruber, S. Cammerer, J. Hoydis, and S. ten Brink, “On deep learning based channel decoding,” accepted for CISS 2017, arXiv preprint arXiv:1701.07738, 2017.
+%\bibitem{b11} M. Abadi, A. Agarwal, P. Barham, et al.,``TensorFlow: Large-scale machine learning on heterogeneous systems", 2015. Software available from tensorflow.org.
 
-\bibitem{b4} W. Alexander, H. Peter \& W. Norbert, ``Turbo-Decoding Without SNR Estimation",IEEE Communications Letter, vol. 4, no. 6, pp. 193-195, 2000.
+%\bibitem{b12} F. Chollet, “keras,” https://github.com/fchollet/keras, 2015.
 
-\bibitem{viterbi} A. J. Viterbi, ``Error Bounds for Convolutional Codes and an Asymptotically Optimum Decoding Algorithm", IEEE Transactions on Information Theory, 13 (2): 260–269, 1967.
+%\bibitem{GPU} G. E. Hinton, S. Osindero, and Y.-W. Teh, “A fast learning algorithm for deep belief nets,” Neural Computation, vol. 18, no. 7, pp. 1527–1554, July 2006.
 
-\bibitem{b6} Robertson, P. , Hoeher, P. and Villebrun, E. (1997), Optimal and sub‐optimal maximum a posteriori algorithms suitable for turbo decoding. Eur. Trans. Telecomm., 8: 119-125. doi:10.1002/ett.4460080202.
+%\bibitem{b13} M. Benammar and P. Piantanida, “Optimal training channel statistics for neural-based decoders,” in Asilomar, Oct 2018, pp. 2157–2161.
 
-\bibitem{b7} J. Hagenauer,P. Robertson, L. Papke: iterative (“Turbo”) decoding of systematic convolutional codes with the MAP and SOVA
-algorithms. In: ITG-Fachbericht 130. October 1994, p. 21-29.
-
-\bibitem{b5} M. Jordan and R. Nichols, “The effects of channel characteristics on turbo code performance,” in Proc. Milcom’96, McLean, VA, Oct. 1996, pp. 17–21.
-
-\bibitem{b9} I. Mohamed, ``Applications of neural networks to digital communications - a survey", 1997.
-
-\bibitem{b8} M. Nielsen, \textit{Neural Networks and Deep Learning}.
-
-\bibitem{b10} M. Kevin, ``Machine Learning: A Probabilistic Perspective", MIT, ISBN 978-0262018029, 2012.
-
-\bibitem{b11} M. Abadi, A. Agarwal, P. Barham, et al., 
-``TensorFlow: Large-scale machine learning on heterogeneous systems", 2015. Software available from tensorflow.org.
-
-\bibitem{b12} F. Chollet, “keras,” https://github.com/fchollet/keras, 2015.
-
-\bibitem{GPU} G. E. Hinton, S. Osindero, and Y.-W. Teh, “A fast learning algorithm for deep belief nets,” Neural Computation, vol. 18, no. 7, pp. 1527–1554, July 2006.
-
-\bibitem{b13} M. Benammar and P. Piantanida, “Optimal training channel statistics for neural-based decoders,” in Asilomar, Oct 2018, pp. 2157–2161.
-
-
-
-\end{thebibliography}
 
 
 

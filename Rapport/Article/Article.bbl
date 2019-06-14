@@ -1,0 +1,90 @@
+\begin{thebibliography}{10}
+
+\bibitem{DBLP:journals/corr/AbadiABBCCCDDDG16}
+Mart{\'{\i}}n Abadi, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen,
+  Craig Citro, Gregory~S. Corrado, Andy Davis, Jeffrey Dean, Matthieu Devin,
+  Sanjay Ghemawat, Ian~J. Goodfellow, Andrew Harp, Geoffrey Irving, Michael
+  Isard, Yangqing Jia, Rafal J{\'{o}}zefowicz, Lukasz Kaiser, Manjunath Kudlur,
+  Josh Levenberg, Dan Man{\'{e}}, Rajat Monga, Sherry Moore, Derek~Gordon
+  Murray, Chris Olah, Mike Schuster, Jonathon Shlens, Benoit Steiner, Ilya
+  Sutskever, Kunal Talwar, Paul~A. Tucker, Vincent Vanhoucke, Vijay Vasudevan,
+  Fernanda~B. Vi{\'{e}}gas, Oriol Vinyals, Pete Warden, Martin Wattenberg,
+  Martin Wicke, Yuan Yu, and Xiaoqiang Zheng.
+\newblock Tensorflow: Large-scale machine learning on heterogeneous distributed
+  systems.
+\newblock {\em CoRR}, abs/1603.04467, 2016.
+
+\bibitem{DBLP:conf/acssc/BenammarP18}
+Meryem Benammar and Pablo Piantanida.
+\newblock Optimal training channel statistics for neural-based decoders.
+\newblock In Michael~B. Matthews, editor, {\em 52nd Asilomar Conference on
+  Signals, Systems, and Computers, {ACSSC} 2018, Pacific Grove, CA, USA,
+  October 28-31, 2018}, pages 2157--2161. {IEEE}, 2018.
+
+\bibitem{DBLP:journals/corr/CalabreseWGPS16}
+Francesco~Davide Calabrese, Li~Wang, Euhanna Ghadimi, Gunnar Peters, and Pablo
+  Soldati.
+\newblock Learning radio resource management in 5g networks: Framework,
+  opportunities and challenges.
+\newblock {\em CoRR}, abs/1611.10253, 2016.
+
+\bibitem{chollet2015keras}
+Fran\c{c}ois Chollet et~al.
+\newblock Keras.
+\newblock \url{https://keras.io}, 2015.
+
+\bibitem{2017arXiv171008379G}
+D.~{Goldin} and D.~{Burshtein}.
+\newblock {Performance Bounds of Concatenated Polar Coding Schemes}.
+\newblock {\em arXiv e-prints}, October 2017.
+
+\bibitem{doi:10.1162/neco.2006.18.7.1527}
+Geoffrey~E. Hinton, Simon Osindero, and Yee-Whye Teh.
+\newblock A fast learning algorithm for deep belief nets.
+\newblock {\em Neural Computation}, 18(7):1527--1554, 2006.
+\newblock PMID: 16764513.
+
+\bibitem{Ibnkahla}
+Mohamed Ibnkahla.
+\newblock Applications of neural networks to digital communications-survey.
+\newblock {\em Signal Processing}, 80:1185--1215, 07 2000.
+
+\bibitem{murphy2013machine}
+Kevin~P. Murphy.
+\newblock {\em Machine learning : a probabilistic perspective}.
+\newblock MIT Press, Cambridge, Mass. [u.a.], 2013.
+
+\bibitem{nielsenneural}
+Michael~A. Nielsen.
+\newblock Neural networks and deep learning, 2018.
+
+\bibitem{DBLP:journals/corr/OSheaH17}
+Timothy~J. O'Shea and Jakob Hoydis.
+\newblock An introduction to machine learning communications systems.
+\newblock {\em CoRR}, abs/1702.00832, 2017.
+
+\bibitem{journals/ett/RobertsonHV97}
+Patrick Robertson, Peter~A. Hoeher, and Emmanuelle Villebrun.
+\newblock Optimal and sub-optimal maximum a posteriori algorithms suitable for
+  turbo decoding.
+\newblock {\em European Transactions on Telecommunications}, 8(2):119--125,
+  1997.
+
+\bibitem{Shannon:2001:MTC:584091.584093}
+C.~E. Shannon.
+\newblock A mathematical theory of communication.
+\newblock {\em SIGMOBILE Mob. Comput. Commun. Rev.}, 5(1):3--55, January 2001.
+
+\bibitem{Viterbi}
+Andrew~J. Viterbi.
+\newblock Error bounds for convolutional codes and an asymptotically optimum
+  decoding algorithm.
+\newblock {\em IEEE Transactions on Information Theory}, IT-13(2):260--269,
+  April 1967.
+
+\bibitem{Worm00turbo-decodingwithout}
+Er~Worm, Student Member, Peter Hoeher, Senior Member, and Norbert Wehn.
+\newblock Turbo-decoding without snr estimation.
+\newblock {\em IEEE Communications Letters}, pages 193--195, 2000.
+
+\end{thebibliography}

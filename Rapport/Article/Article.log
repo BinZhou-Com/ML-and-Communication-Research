@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.5.13)  12 JUN 2019 15:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  14 JUN 2019 15:23
 entering extended mode
 **./Article.tex
 (Article.tex
@@ -691,47 +691,277 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \ALG@tmplength=\skip49
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/multirow\multirow.sty"
+Package: multirow 2019/01/01 v2.4 Span multiple rows of a table
+\multirow@colwidth=\skip50
+\multirow@cntb=\count137
+\multirow@dima=\skip51
+\bigstrutjot=\dimen183
 )
+("C:\Program Files\MiKTeX 2.9\tex/latex/url\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\inputenc.sty"
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks38
+\inpenc@posthook=\toks39
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/filecontents\filecontents.sty"
+Package: filecontents 2018/05/30 v1.4 Create an external file from within a LaT
+eX document
+)
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+libraryshapes.code.tex"
+File: tikzlibraryshapes.code.tex 2019/04/04 v3.1.2 (3.1.2)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+libraryshapes.geometric.code.tex"
+File: tikzlibraryshapes.geometric.code.tex 2019/04/04 v3.1.2 (3.1.2)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries/shapes\pgflibraryshapes
+.geometric.code.tex"
+File: pgflibraryshapes.geometric.code.tex 2019/04/04 v3.1.2 (3.1.2)
+))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+libraryshapes.misc.code.tex"
+File: tikzlibraryshapes.misc.code.tex 2019/04/04 v3.1.2 (3.1.2)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries/shapes\pgflibraryshapes
+.misc.code.tex"
+File: pgflibraryshapes.misc.code.tex 2019/04/04 v3.1.2 (3.1.2)
+))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+libraryshapes.symbols.code.tex"
+File: tikzlibraryshapes.symbols.code.tex 2019/04/04 v3.1.2 (3.1.2)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries/shapes\pgflibraryshapes
+.symbols.code.tex"
+File: pgflibraryshapes.symbols.code.tex 2019/04/04 v3.1.2 (3.1.2)
+))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+libraryshapes.arrows.code.tex"
+File: tikzlibraryshapes.arrows.code.tex 2019/04/04 v3.1.2 (3.1.2)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries/shapes\pgflibraryshapes
+.arrows.code.tex"
+File: pgflibraryshapes.arrows.code.tex 2019/04/04 v3.1.2 (3.1.2)
+))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+libraryshapes.callouts.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries/shapes\pgflibraryshapes
+.callouts.code.tex"))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+libraryshapes.multipart.code.tex"
+File: tikzlibraryshapes.multipart.code.tex 2019/04/04 v3.1.2 (3.1.2)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries/shapes\pgflibraryshapes
+.multipart.code.tex"
+File: pgflibraryshapes.multipart.code.tex 2019/04/04 v3.1.2 (3.1.2)
+\pgfnodepartlowerbox=\box44
+\pgfnodeparttwobox=\box45
+\pgfnodepartthreebox=\box46
+\pgfnodepartfourbox=\box47
+\pgfnodeparttwentybox=\box48
+\pgfnodepartnineteenbox=\box49
+\pgfnodeparteighteenbox=\box50
+\pgfnodepartseventeenbox=\box51
+\pgfnodepartsixteenbox=\box52
+\pgfnodepartfifteenbox=\box53
+\pgfnodepartfourteenbox=\box54
+\pgfnodepartthirteenbox=\box55
+\pgfnodeparttwelvebox=\box56
+\pgfnodepartelevenbox=\box57
+\pgfnodeparttenbox=\box58
+\pgfnodepartninebox=\box59
+\pgfnodeparteightbox=\box60
+\pgfnodepartsevenbox=\box61
+\pgfnodepartsixbox=\box62
+\pgfnodepartfivebox=\box63
+)))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+libraryarrows.code.tex"
+File: tikzlibraryarrows.code.tex 2019/04/04 v3.1.2 (3.1.2)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries\pgflibraryarrows.code.t
+ex"
+File: pgflibraryarrows.code.tex 2019/04/04 v3.1.2 (3.1.2)
+\arrowsize=\dimen184
+))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+libraryshadings.code.tex"
+File: tikzlibraryshadings.code.tex 2019/04/04 v3.1.2 (3.1.2)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries\pgflibraryshadings.code
+.tex"
+File: pgflibraryshadings.code.tex 2019/04/04 v3.1.2 (3.1.2)
+))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+librarypatterns.code.tex"
+File: tikzlibrarypatterns.code.tex 2019/04/04 v3.1.2 (3.1.2)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries\pgflibrarypatterns.code
+.tex"
+File: pgflibrarypatterns.code.tex 2019/04/04 v3.1.2 (3.1.2)
+)) ("C:\Program Files\MiKTeX 2.9\tex/latex/pgfplots\pgfplots.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplots.revision.tex")
+Package: pgfplots 2018/03/28 v1.16 Data Visualization (1.16)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplots.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplotscore.code.tex"
+\t@pgfplots@toka=\toks40
+\t@pgfplots@tokb=\toks41
+\t@pgfplots@tokc=\toks42
+\pgfplots@tmpa=\dimen185
+\c@pgfplots@coordindex=\count138
+\c@pgfplots@scanlineindex=\count139
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/sys\pgfplotssysgeneric.code.
+tex"))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/libs\pgfplotslibrary.code.te
+x")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/oldpgfcompatib\pgfplotsoldpg
+fsupp_loader.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries\pgflibraryfpu.code.tex"
+)
+Package pgfplots: loading complementary arithmetics for your pgf version...
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/oldpgfcompatib\pgfplotsoldpg
+fsupp_pgflibraryfpu.code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/oldpgfcompatib\pgfplotsoldpg
+fsupp_pgfmathfloat.code.tex"
+\c@pgfmathroundto@lastzeros=\count140
+))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/util\pgfplotsutil.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/liststructure\pgfplotslistst
+ructure.code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/liststructure\pgfplotslistst
+ructureext.code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/liststructure\pgfplotsarray.
+code.tex"
+\c@pgfplotsarray@tmp=\count141
+)
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/liststructure\pgfplotsmatrix
+.code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/numtable\pgfplotstableshared
+.code.tex"
+\c@pgfplotstable@counta=\count142
+\t@pgfplotstable@a=\toks43
+)
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/liststructure\pgfplotsdeque.
+code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/util\pgfplotsbinary.code.tex
+"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/util\pgfplotsbinary.data.cod
+e.tex"))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/util\pgfplotsutil.verb.code.
+tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/libs\pgflibrarypgfplots.surf
+shading.code.tex"
+\c@pgfplotslibrarysurf@no=\count143
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/sys\pgflibrarypgfplots.surfs
+hading.pgfsys-pdftex.def")))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/util\pgfplotscolormap.code.t
+ex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots/util\pgfplotscolor.code.tex"
+))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplotsstackedplots.code.te
+x")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplotsplothandlers.code.te
+x"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplotsmeshplothandler.code
+.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplotsmeshplotimage.code.t
+ex")))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplots.scaling.code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplotscoordprocessing.code
+.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplots.errorbars.code.tex"
+) ("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplots.markers.code.tex"
+) ("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplotsticks.code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgfplots\pgfplots.paths.code.tex")
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+librarydecorations.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/modules\pgfmoduledecorations.code
+.tex"
+\pgfdecoratedcompleteddistance=\dimen186
+\pgfdecoratedremainingdistance=\dimen187
+\pgfdecoratedinputsegmentcompleteddistance=\dimen188
+\pgfdecoratedinputsegmentremainingdistance=\dimen189
+\pgf@decorate@distancetomove=\dimen190
+\pgf@decorate@repeatstate=\count144
+\pgfdecorationsegmentamplitude=\dimen191
+\pgfdecorationsegmentlength=\dimen192
+)
+\tikz@lib@dec@box=\box64
+)
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+librarydecorations.pathmorphing.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries/decorations\pgflibraryd
+ecorations.pathmorphing.code.tex"))
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+librarydecorations.pathreplacing.code.tex"
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries/decorations\pgflibraryd
+ecorations.pathreplacing.code.tex"))
+\pgfplots@numplots=\count145
+\pgfplots@xmin@reg=\dimen193
+\pgfplots@xmax@reg=\dimen194
+\pgfplots@ymin@reg=\dimen195
+\pgfplots@ymax@reg=\dimen196
+\pgfplots@zmin@reg=\dimen197
+\pgfplots@zmax@reg=\dimen198
+)
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
+libraryplotmarks.code.tex"
+File: tikzlibraryplotmarks.code.tex 2019/04/04 v3.1.2 (3.1.2)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/libraries\pgflibraryplotmarks.cod
+e.tex"
+File: pgflibraryplotmarks.code.tex 2019/04/04 v3.1.2 (3.1.2)
+)))
 ("C:\Program Files\MiKTeX 2.9\tex/generic/pgf/frontendlayer/tikz/libraries\tikz
 librarypositioning.code.tex"
 File: tikzlibrarypositioning.code.tex 2019/04/04 v3.1.2 (3.1.2)
-) (Article.aux)
+)
+\thickarrayrulewidth=\skip52
+ (Article.aux)
 \openout1 = `Article.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 54.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 54.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    ... okay on input line 54.
 
 -- Lines per column: 56 (exact).
 ("C:\Program Files\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count137
-\scratchdimen=\dimen183
-\scratchbox=\box44
-\nofMPsegments=\count138
-\nofMParguments=\count139
-\everyMPshowfont=\toks38
-\MPscratchCnt=\count140
-\MPscratchDim=\dimen184
-\MPnumerator=\count141
-\makeMPintoPDFobject=\count142
-\everyMPtoPDFconversion=\toks39
+\scratchcounter=\count146
+\scratchdimen=\dimen199
+\scratchbox=\box65
+\nofMPsegments=\count147
+\nofMParguments=\count148
+\everyMPshowfont=\toks44
+\MPscratchCnt=\count149
+\MPscratchDim=\dimen256
+\MPnumerator=\count150
+\makeMPintoPDFobject=\count151
+\everyMPtoPDFconversion=\toks45
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -780,75 +1010,160 @@ G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 37.
-LaTeX Font Info:    Try loading font information for U+msa on input line 37.
+Package pgfplots notification 'compat/show suggested version=true': document ha
+s been generated with the most recent feature set (\pgfplotsset{compat=1.16}).
 
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 73.
+LaTeX Font Info:    Try loading font information for U+msa on input line 73.
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 37.
+LaTeX Font Info:    Try loading font information for U+msb on input line 73.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<simple_sys.png, id=4, 976.24725pt x 179.4705pt>
+
+LaTeX Warning: Citation `b1' on page 1 undefined on input line 87.
+
+<simple_sys.png, id=12, 976.24725pt x 179.4705pt>
 File: simple_sys.png Graphic file (type png)
 <use simple_sys.png>
-Package pdftex.def Info: simple_sys.png  used on input line 55.
+Package pdftex.def Info: simple_sys.png  used on input line 91.
 (pdftex.def)             Requested size: 258.0pt x 47.43074pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 55--56
+Overfull \hbox (6.0pt too wide) in paragraph at lines 91--92
  [][] 
  []
+
+
+LaTeX Warning: Citation `b3' on page 1 undefined on input line 95.
+
+
+LaTeX Warning: Citation `b2' on page 1 undefined on input line 97.
+
+
+LaTeX Warning: Citation `osheaautoencoder' on page 1 undefined on input line 10
+3.
 
 [1{C:/Users/user/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
- <./simple_sys.png>] [2] [3]
-<images/DNN_autoencoder.png, id=36, 633.567pt x 287.27325pt>
+ <./simple_sys.png>]
+
+LaTeX Warning: Citation `2018' on page 2 undefined on input line 106.
+
+
+LaTeX Warning: Citation `b4' on page 2 undefined on input line 145.
+
+
+LaTeX Warning: Citation `b6' on page 2 undefined on input line 165.
+
+
+LaTeX Warning: Citation `b7' on page 2 undefined on input line 165.
+
+
+LaTeX Warning: Citation `b6' on page 2 undefined on input line 165.
+
+
+LaTeX Warning: Citation `b5' on page 2 undefined on input line 167.
+
+
+LaTeX Warning: Citation `b6' on page 2 undefined on input line 167.
+
+[2]
+
+LaTeX Warning: Citation `b9' on page 3 undefined on input line 227.
+
+
+LaTeX Warning: Citation `b8' on page 3 undefined on input line 229.
+
+
+LaTeX Warning: Citation `b9' on page 3 undefined on input line 231.
+
+
+LaTeX Warning: Citation `b2' on page 3 undefined on input line 236.
+
+
+LaTeX Warning: Citation `b10' on page 3 undefined on input line 248.
+
+
+LaTeX Warning: Citation `b2' on page 3 undefined on input line 253.
+
+
+LaTeX Warning: Citation `b9' on page 3 undefined on input line 258.
+
+
+LaTeX Warning: Citation `b8' on page 3 undefined on input line 258.
+
+
+LaTeX Warning: Citation `b11' on page 3 undefined on input line 262.
+
+
+LaTeX Warning: Citation `b12' on page 3 undefined on input line 262.
+
+[3]
+
+LaTeX Warning: Citation `2018' on page 4 undefined on input line 269.
+
+
+LaTeX Warning: Citation `GPU' on page 4 undefined on input line 277.
+
+<images/DNN_autoencoder.png, id=44, 633.567pt x 287.27325pt>
 File: images/DNN_autoencoder.png Graphic file (type png)
 <use images/DNN_autoencoder.png>
-Package pdftex.def Info: images/DNN_autoencoder.png  used on input line 248.
+Package pdftex.def Info: images/DNN_autoencoder.png  used on input line 284.
 (pdftex.def)             Requested size: 206.39685pt x 93.58186pt.
-<images/20190607-160812_MAP.png, id=37, 238.2501pt x 155.3805pt>
+<images/20190607-160812_MAP.png, id=45, 238.2501pt x 155.3805pt>
 File: images/20190607-160812_MAP.png Graphic file (type png)
 <use images/20190607-160812_MAP.png>
-Package pdftex.def Info: images/20190607-160812_MAP.png  used on input line 280
+Package pdftex.def Info: images/20190607-160812_MAP.png  used on input line 316
 .
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 280--281
+Overfull \hbox (6.0pt too wide) in paragraph at lines 316--317
  [][] 
  []
 
 
-Overfull \hbox (1.33362pt too wide) detected at line 305
+Overfull \hbox (1.33362pt too wide) detected at line 341
 []
  []
 
-<images/MAP_MLNN1H_p_0.png, id=38, 240.6591pt x 156.8259pt>
+
+LaTeX Warning: Citation `b13' on page 4 undefined on input line 349.
+
+[4 <./images/DNN_autoencoder.png> <./images/20190607-160812_MAP.png>]
+<images/MAP_MLNN1H_p_0.png, id=51, 240.6591pt x 156.8259pt>
 File: images/MAP_MLNN1H_p_0.png Graphic file (type png)
 <use images/MAP_MLNN1H_p_0.png>
-Package pdftex.def Info: images/MAP_MLNN1H_p_0.png  used on input line 328.
+Package pdftex.def Info: images/MAP_MLNN1H_p_0.png  used on input line 423.
 (pdftex.def)             Requested size: 258.0pt x 168.12747pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 328--329
+Overfull \hbox (6.0pt too wide) in paragraph at lines 423--424
  [][] 
  []
 
-[4 <./images/DNN_autoencoder.png> <./images/20190607-160812_MAP.png>]
-<images/20190529-142119_MAP_MLNN_Mep_65536.png, id=44, 243.0681pt x 158.2713pt>
+<images/20190529-142119_MAP_MLNN_Mep_65536.png, id=52, 243.0681pt x 158.2713pt>
 
 File: images/20190529-142119_MAP_MLNN_Mep_65536.png Graphic file (type png)
 <use images/20190529-142119_MAP_MLNN_Mep_65536.png>
 Package pdftex.def Info: images/20190529-142119_MAP_MLNN_Mep_65536.png  used on
- input line 334.
+ input line 429.
 (pdftex.def)             Requested size: 258.0pt x 167.99619pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 334--335
+Overfull \hbox (6.0pt too wide) in paragraph at lines 429--430
  [][] 
  []
 
+(Article.bbl [5 <./images/MAP_MLNN1H_p_0.png> <./images/20190529-142119_MAP_MLN
+N_Mep_65536.png>]
+Underfull \hbox (badness 1509) in paragraph at lines 48--51
+[]\OT1/ptm/m/n/8 Mohamed Ibnkahla.  Ap-pli-ca-tions of neu-ral net-works to dig
+-i-tal
+ []
+
+)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -860,38 +1175,43 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5 <./images/MAP_MLNN1H_p_0.png> <./images/20190529-142119_MAP_MLNN_Mep_65536.p
-ng>] (Article.aux) ) 
+[6
+
+] (Article.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 14897 strings out of 492946
- 288668 string characters out of 3135530
- 333801 words of memory out of 3000000
- 18493 multiletter control sequences out of 15000+200000
- 47072 words of font info for 105 fonts, out of 3000000 for 9000
+ 27393 strings out of 492925
+ 697032 string characters out of 3134506
+ 925329 words of memory out of 3000000
+ 30776 multiletter control sequences out of 15000+200000
+ 49932 words of font info for 108 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,14n,69p,988b,821s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C
-:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Progra
-m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/
-type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
-r10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C
-:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
-symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pf
-b><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fo
-nts/type1/urw/times/utmri8a.pfb>
-Output written on Article.pdf (5 pages, 441136 bytes).
+ 78i,14n,136p,988b,837s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+mi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
+C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb
+><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program File
+s/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/time
+s/utmri8a.pfb>
+Output written on Article.pdf (6 pages, 451787 bytes).
 PDF statistics:
- 113 PDF objects out of 1000 (max. 8388607)
+ 124 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 38 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 78 words of extra memory for PDF output out of 10000 (max. 10000000)
 

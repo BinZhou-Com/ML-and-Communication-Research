@@ -11,14 +11,14 @@ Created on Sat Jun  1 13:41:33 2019
 trainTime = TicToc('Training')
 trainTimeT = TicToc('TrainingT')
 # Constants 
-numEpochs = 2**16  #2**16 approx 65000
+numEpochs = 2**17  #2**16 approx 65000
 batchSize = trainSize 
 timestr = time.strftime("%Y%m%d-%H%M%S")
-title = 'AutoencoderArray'
-p_trainOptions = np.array([0.020, 0.025, 0.03, 0.035, 0.04, 0.07])
+title = 'Autoencoder1H'
+p_trainOptions = np.array([0.0, 0.01, 0.02, 0.03, 0.05, 0.07])
 
-myDir = 'Simulation_Mep_64_128_256_'+str(numEpochs)+'_bs_'+str(batchSize)+'_pmin_'+str(min(p_trainOptions))+'_pmax_'+str(max(p_trainOptions))
-directory = 'Autoencoder_Simulations\\'+ myDir
+myDir = 'Simulation_ESTRUTURA1_-_ESTRUTURA2_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'_pmin_'+str(min(p_trainOptions))+'_pmax_'+str(max(p_trainOptions))
+directory = 'Autoencoder1H_Simulations\\'+ myDir
 fn.createDir(directory)
 fn.createDir(directory+'\\models')
 
@@ -31,7 +31,7 @@ for i in range(len(p_trainOptions)):
     paths[i] = directory+'\\models\\'+'i_'+str(i)+'_'+title+'_Mep_'+str(numEpochs)+'_p_'+str(train_p)+'.h5'
     path = paths[i]
     checkpointPath = directory+'\\models\\'+'i_'+str(i)+'_'+title+'_p_'+str(train_p)+'_Mep_{epoch:02d}-{loss:.6f}.h5'
-    exec(open("autoencoderArray.py").read())
+    exec(open("autoencoder1H.py").read())
     
     trainTime.toc()
     print('Train time for model '+str(i)+': ',trainTime.elapsed)
@@ -64,18 +64,19 @@ for i_train in range(len(p_trainOptions)):
         for i_p in range(np.size(pOptions)):
             p = pOptions[i_p]
             u = fn.generateU(N,k)
-            x = Encoder.predict(u)
+            u1h = fn.messages2onehot(u)
+            x = np.round(Encoder.predict(u1h))
             xflat = np.reshape(x, [-1])
             yflat = fn.BSC(xflat,p)
             y = yflat.reshape(N,2*k) # noisy codewords
             prediction = Decoder.predict(y)
-            predictedMessages = np.round(prediction)
+            predictedMessages = fn.multipleOneshot2messages(prediction, messages)
         
             globalErrorAutoencoder[i_global][i_p] = fn.bitErrorFunction(predictedMessages, u)
             
     multiPredictions[i_train] = np.average(globalErrorAutoencoder,0)
     #% individual Plotting
-    plotBERp(globalErrorAutoencoder, 'Array Autoencoder')
+    plotBERp(globalErrorAutoencoder, 'One-hot Autoencoder')
     predictTime.toc()
     print('Predict time for model '+str(i_train)+ ': ',predictTime.elapsed)
 predictTimeT.toc()
@@ -90,7 +91,7 @@ plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=lineWidth, label='MAP'
 plt.grid(True, which='both')
 
 for i in range(len(p_trainOptions)):
-    plt.scatter(pOptions,multiPredictions[i], marker=markers[i], zorder=3+i, s=markerSize, label='Autoen., p = %s' % p_trainOptions[i])
+    plt.scatter(pOptions,multiPredictions[i], marker=markers[i], zorder=3+i, s=markerSize, label='One-hot Autoencoder, $p_t$ = %s' % p_trainOptions[i])
     
 plt.xlabel('$p$')
 plt.ylabel('BER')

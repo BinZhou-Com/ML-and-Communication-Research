@@ -19,13 +19,9 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([256, 256])
-DecoderNodes = [256, 256]
+encoderNodes = np.array([256, 1024])
+DecoderNodes = [128, 64]
 #%
-'''
-    Constants
-'''
-path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5'
 '''
     Architecture
 '''
@@ -38,9 +34,6 @@ Encoder = tf.keras.Sequential([
         #layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         # Coded Layer
         layers.Dense(n, activation='sigmoid', name='Codedfloat'),
-        layers.BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=True, 
-            scale=True, beta_initializer='zeros', gamma_initializer='ones', 
-            moving_mean_initializer='zeros', moving_variance_initializer='ones'),
         ], name='Encoder')
 
 NoiseL = tf.keras.Sequential([
@@ -88,12 +81,12 @@ plotTraining(history)
 '''
     Saving model
 '''
-Autoencoder1H.save('Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5')  # creates a HDF5 file
+Autoencoder1H.save(path)  # creates a HDF5 file
 
-#%
+#%%%
 '''
     Prediction 1H
-'''
+
 t = TicToc('name')
 t.tic()
 
@@ -105,7 +98,7 @@ for i_global in range(globalReps):
         p = pOptions[i_p]
         u = fn.generateU(N,k)
         u1h = fn.messages2onehot(u)
-        x = Encoder.predict(u1h)
+        x = np.round(Encoder.predict(u1h))
         xflat = np.reshape(x, [-1])
         yflat = fn.BSC(xflat,p)
         y = yflat.reshape(N,2*k) # noisy codewords
@@ -119,3 +112,4 @@ plotBERp(globalErrorAutoencoder1H, 'One-hot Autoencoder')
 
 t.toc()
 print(t.elapsed)
+'''
