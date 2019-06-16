@@ -336,6 +336,38 @@ def createDir(path):
 def messages2customEncoding(messages, Encoder):
     return Encoder.predict(messages)
 
+def arrayDecoderPrediction(G, Decoder, pOptions, globalReps, N, n, k):
+    globalErrorDecoder = np.empty([globalReps, len(pOptions)])
+    for i_global in range(globalReps):
+        for i_p in range(np.size(pOptions)):
+            p = pOptions[i_p]
+            u = generateU(N,k)
+            x = generteCodeWord(N, n, u, G)
+            xflat = np.reshape(x, [-1])
+            yflat = BSC(xflat,p)
+            y = yflat.reshape(N,n) # noisy codewords
+            prediction = Decoder.predict(y)
+            predictedMessages = np.round(prediction)
+            globalErrorDecoder[i_global][i_p] = bitErrorFunction(predictedMessages, u)
+            
+    return globalErrorDecoder
+
+def onehotDecoderPrediction(G, Decoder, pOptions, globalReps, N, n, k, messages):
+    globalErrorDecoder = np.empty([globalReps, len(pOptions)])
+    for i_global in range(globalReps):
+        for i_p in range(np.size(pOptions)):
+            p = pOptions[i_p]
+            u = generateU(N,k)
+            x = generteCodeWord(N, n, u, G)
+            xflat = np.reshape(x, [-1])
+            yflat = BSC(xflat,p)
+            y = yflat.reshape(N,n) # noisy codewords
+            prediction = Decoder.predict(y)
+            predictedMessages = multipleOneshot2messages(prediction, messages)
+            globalErrorDecoder[i_global][i_p] = bitErrorFunction(predictedMessages, u)
+            
+    return globalErrorDecoder
+
 def arrayAutoencoderPrediction(Encoder, Decoder, pOptions, globalReps, N, n, k):
     globalErrorAutoencoder = np.empty([globalReps, len(pOptions)])
     for i_global in range(globalReps):
@@ -345,7 +377,7 @@ def arrayAutoencoderPrediction(Encoder, Decoder, pOptions, globalReps, N, n, k):
             x = Encoder.predict(u)
             xflat = np.reshape(x, [-1])
             yflat = BSC(xflat,p)
-            y = yflat.reshape(N,2*k) # noisy codewords
+            y = yflat.reshape(N,n) # noisy codewords
             prediction = Decoder.predict(y)
             predictedMessages = np.round(prediction)
             globalErrorAutoencoder[i_global][i_p] = bitErrorFunction(predictedMessages, u)
@@ -362,7 +394,7 @@ def onehotAutoencoderPrediction(Encoder, Decoder, messages, pOptions, globalReps
             x = np.round(Encoder.predict(u1h))
             xflat = np.reshape(x, [-1])
             yflat = BSC(xflat,p)
-            y = yflat.reshape(N,2*k) # noisy codewords
+            y = yflat.reshape(N,n) # noisy codewords
             prediction = Decoder.predict(y)
             predictedMessages = multipleOneshot2messages(prediction, messages)
     

@@ -5,9 +5,6 @@ Created on Mon Jun  3 15:15:35 2019
 @author: user
 """
 #%%
-n=16
-k=8
-
 u_train_labels = messages.copy()
 x_train_data = possibleCodewords.copy()
 
@@ -72,11 +69,6 @@ plt.show()
 
 timestr = time.strftime("%Y%m%d-%H%M%S")
 trainingFig.savefig('training_history/'+title+'/'+timestr + '_'+title+'_train.png', bbox_inches='tight', dpi=300)
-'''
-    evaluate the inference-model
-''' 
-
-#evaluation = MLNN.evaluate(x_val, u_val_labels)
 
 '''
     Saving model

@@ -36,6 +36,14 @@ P.~Robertson, P.~A. Hoeher, and E.~Villebrun, ``Optimal and sub-optimal maximum
   a posteriori algorithms suitable for turbo decoding.,'' {\em European
   Transactions on Telecommunications}, vol.~8, no.~2, pp.~119--125, 1997.
 
+\bibitem{HagenauerJ}
+H.~J., R.~P., and P.~L., ``iterative turbo decoding of systematic convolutional
+  codes with the map and sova algorithms,'' pp.~21 -- 29, 10 1994.
+
+\bibitem{JordanMA}
+M.~Jordan and R.~Nichols, ``The effects of channel characteristics on turbo
+  code performance,'' pp.~17 -- 21 vol.1, 11 1996.
+
 \bibitem{Ibnkahla}
 M.~Ibnkahla, ``Applications of neural networks to digital
   communications-survey,'' {\em Signal Processing}, vol.~80, pp.~1185--1215, 07

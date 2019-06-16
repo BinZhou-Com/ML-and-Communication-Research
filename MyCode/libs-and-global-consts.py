@@ -27,7 +27,7 @@ plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams.update({'font.weight':'normal'})
 letterSize = 6
 markerSize = 3
-lineWidth = 0.5
+lineWidth = 0.75
 plt.rc('xtick', labelsize=letterSize)
 plt.rc('ytick', labelsize=letterSize)
 plt.rc('axes', labelsize=letterSize)
@@ -84,11 +84,11 @@ globalReps = 1000
 
 #%%
 # NN parameters
-title = 'Autoencoder1H'
+title = 'AutoencoderArray'
 timestr = time.strftime("%Y%m%d-%H%M%S")
 numEpochs = 2**16
 batchSize = 256
-train_p = 0.0
+train_p = 0.03
 
 path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5'
 checkpointPath = 'Checkpoints/'+title+'/'+timestr+'_'+title+'_Mep_{epoch:02d}-{loss:.8f}.h5'
@@ -110,16 +110,16 @@ def tensorBSC(x):
 def plotBERp(globalErrorMLNN, legendEntry):
     avgGlobalErrorMLNN = np.average(globalErrorMLNN,0)
     fig = plt.figure(figsize=(8, 6), dpi=80)
-    plt.scatter(pOptions,avgGlobalErrorMLNN, color='g', marker='^', zorder=3, s=markerSize)
-    plt.plot(pOptions,avgGlobalError, color='b', linewidth=lineWidth, linestyle='--')
-    plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=lineWidth)
+    plt.plot(pOptions,avgGlobalErrorMLNN, '--g', marker='^', zorder=3, markersize=markerSize, linewidth=lineWidth)
+    plt.plot(pOptions,avgGlobalError, color='k', linewidth=lineWidth, linestyle='--')
+    plt.plot(pOptions,avgGlobalErrorMAP, color='k', linewidth=lineWidth)
     plt.grid(True, which='both')
     #plt.title('Training $p = $ '+ str(train_p))
     plt.xlabel('$p$')
     plt.ylabel('BER')
     plt.yscale('log')
     #plt.legend(['No Decoding', 'MAP Algorithm', legendEntry+ ', $p_t=$'+str(train_p)])
-    plt.legend(['No Decoding', 'MAP Algorithm', legendEntry])
+    plt.legend([legendEntry, 'No Decoding', 'MAP Algorithm'])
     plt.show()
     
     fig.set_size_inches(width, height)

@@ -19,8 +19,8 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([32, 32])
-DecoderNodes = [32, 32]
+encoderNodes = np.array([256, 256, 64])
+DecoderNodes = [256, 256]
 #%
 '''
     Architecture
@@ -34,7 +34,7 @@ Encoder = tf.keras.Sequential([
         #layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         # Coded Layer
         layers.Dense(n, activation='sigmoid', name='Codedfloat'),
-        ], name='Encoder')
+        ], name='Encoder')  
 
 NoiseL = tf.keras.Sequential([
         # Rounded codeword
@@ -45,13 +45,13 @@ NoiseL = tf.keras.Sequential([
                       output_shape=(n,), name='Noise'),
         ], name='Noise')
 
-Decoder1H = tf.keras.Sequential([ # Array to define layers
+Decoder = tf.keras.Sequential([ # Array to define layers
         layers.Dense(DecoderNodes[0], activation='relu', input_shape=(n,), name='DHL1'),
         layers.Dense(DecoderNodes[1], activation='relu', name='DHL2'),
         layers.Dense(256, activation='softmax', name='1H_Output')
         ], name = 'Decoder')
 
-Autoencoder1H = tf.keras.Sequential([Encoder,NoiseL, Decoder1H])
+Autoencoder1H = tf.keras.Sequential([Encoder,NoiseL, Decoder])
 plot_model(Autoencoder1H,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',show_shapes=True)
 
 '''
@@ -94,22 +94,7 @@ t.tic()
 globalReps = 100
 globalErrorAutoencoder1H = fn.onehotAutoencoderPrediction(Encoder, Decoder, 
                                messages, pOptions, globalReps, N, n, k)
-'''
-globalErrorAutoencoder1H = np.empty([globalReps, len(pOptions)])
-for i_global in range(globalReps):
-    for i_p in range(np.size(pOptions)):
-        p = pOptions[i_p]
-        u = fn.generateU(N,k)
-        u1h = fn.messages2onehot(u)
-        x = np.round(Encoder.predict(u1h))
-        xflat = np.reshape(x, [-1])
-        yflat = fn.BSC(xflat,p)
-        y = yflat.reshape(N,2*k) # noisy codewords
-        prediction = Decoder1H.predict(y)
-        predictedMessages = fn.multipleOneshot2messages(prediction, messages)
 
-        globalErrorAutoencoder1H[i_global][i_p] = fn.bitErrorFunction(predictedMessages, u)
-'''
 #% Plotting
 plotBERp(globalErrorAutoencoder1H, 'One-hot Autoencoder')
 

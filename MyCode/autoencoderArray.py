@@ -26,9 +26,8 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([256, 128, 64, 16])
-DecoderNodes = [128, 64, 32, k]
-n = 8
+encoderNodes = np.array([256, 256, 256])
+DecoderNodes = [256, 256, 32]
 #%
 '''
     Architecture
@@ -61,9 +60,9 @@ Decoder = tf.keras.Sequential([ # Array to define layers
         # Add another: L2
         layers.Dense(DecoderNodes[1], activation='relu', name='DHL2'),
         # Add another: L3
-        layers.Dense(DecoderNodes[2], activation='relu', name='DHL3'),
+        #layers.Dense(DecoderNodes[2], activation='relu', name='DHL3'),
         # Add layer with k output units: output
-        layers.Dense(DecoderNodes[3], activation='sigmoid', name='Output')
+        layers.Dense(k, activation='sigmoid', name='Output')
         ], name = 'Decoder')
 
 Autoencoder = tf.keras.Sequential([Encoder,NoiseL, Decoder])

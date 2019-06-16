@@ -4,6 +4,7 @@ Created on Mon Jun  3 15:15:26 2019
 
 @author: user
 """
+#%%
 '''
     DNN One Hot Model Decoder
 '''
@@ -27,14 +28,9 @@ u_val_labels = fn.messages2onehot(u_val_labels)
 '''
 
 MLNN1H = tf.keras.Sequential([ # Array to define layers
-              # Adds a densely-connected layer with n units to the model: L1
               #layers.Dense(32, activation='relu', input_shape=(n,), name='HL1'),
-              # Add another: L2
-              layers.Dense(64, activation='relu', input_shape=(n,), name='HL1'),
-              # Add another: L3
-              #layers.Dense(128, activation='relu',input_shape=(n,), name='HL1'),
-              # Add layer with k output units:
-              layers.Dense(256, activation='softmax', name='Output')
+              # Add layer with 2**k output units:
+              layers.Dense(256, activation='softmax', input_shape=(n,),name='Output')
 ])
 
 plot_model(MLNN1H,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',show_shapes=True)
@@ -62,28 +58,7 @@ history = MLNN1H.fit(x_train_data, u_train_labels, epochs=numEpochs,
 #          validation_data=(x_val, u_val_labels))
 
 # summarize history for loss
-trainingFig = plt.figure(figsize=(8, 6), dpi=80)
-plt.title('Batch size = '+str(batchSize))
-plt.plot(history.history['loss']) # all outputs: ['acc', 'loss', 'val_acc', 'val_loss']
-#plt.plot(history.history['metricBER1H'])
-plt.grid(True, which='both')
-#plt.plot(history.history['val_loss'])
-plt.xlabel('$M_{ep}$')
-plt.xscale('log')
-plt.legend([lossFunc + ' loss'])
-plt.show()
-trainingFig.set_size_inches(width, height)
-trainingFig.savefig('training_history/'+title+'/'+timestr + '_'+title+'_train.png', bbox_inches='tight', dpi=300)
-'''
-    evaluate the inference-model
-''' 
-
-evaluation = MLNN1H.evaluate(x_val, u_val_labels)
-
-u = fn.generateU(1,k)
-y = fn.generteCodeWord(1, n, u, G)
-prediction = MLNN1H.predict(y)
-predictedMessage = fn.onehot2singleMessage(prediction, messages)
+plotTraining(history)
 
 '''
     Saving model

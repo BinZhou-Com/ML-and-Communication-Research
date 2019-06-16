@@ -162,9 +162,9 @@ f(y) &= \underset{x\in \mathcal{X}}{\text{arg max}} P_{X|Y}(x|y)\label{eq:MAPF1}
 P_X(x)P_{Y|X}(y|x).\label{eq:MAPF2}
 \end{align}
 
-However, the MAP decoder is practically nonviable to implement \cite{journals/ett/RobertsonHV97}. Thus, its variants cited in this paragraph are better suited for practical cases. The Log-MAP is an optimal decoder, having equivalent performance to the MAP decoder. While the Max-Log-MAP is a suboptimal decoder and will not be treated in this paper.  these variants are widely used as decoders for turbo codes \cite{b7}. Refer to \cite{journals/ett/RobertsonHV97} for specific details in the derivation of the Log-MAP algorithm. Furthermore, the Bahl-Cocke-Jelinek-Raviv (BCJR) algorithm is a bit-wise MAP rule with lower complexity widely used in practice, even for long data packets.
+However, the MAP decoder is practically nonviable to implement \cite{journals/ett/RobertsonHV97}. Thus, its variants cited in this paragraph are better suited for practical cases. The Log-MAP is an optimal decoder, having equivalent performance to the MAP decoder. While the Max-Log-MAP is a suboptimal decoder and will not be treated in this paper.  these variants are widely used as decoders for turbo codes \cite{HagenauerJ}. Refer to \cite{journals/ett/RobertsonHV97} for specific details in the derivation of the Log-MAP algorithm. Furthermore, the Bahl-Cocke-Jelinek-Raviv (BCJR) algorithm is a bit-wise MAP rule with lower complexity widely used in practice, even for long data packets.
 
-Turbo decoding using Log-MAP decoder for an additive white Gaussian noise (AWGN) channel and for a BSC was studied in \cite{b5}. They analyzed the BER for small SNR and concluded that the results are sensible to SNR estimation of the real channel, since the estimation of this parameter is required for the metric calculation of the algorithm \cite{journals/ett/RobertsonHV97}. It means that if the real SNR is smaller, the decoder will not perform well. Hence, for channel characteristics that change over time, the application of a MAP algorithm is debatable. This conclusion serve as motivation for ML autoencoders, which could adapt to different SNR conditions, outperforming the MAP decoder for realistic applications.
+Turbo decoding using Log-MAP decoder for an additive white Gaussian noise (AWGN) channel and for a BSC was studied in \cite{JordanMA}. They analyzed the BER for small SNR and concluded that the results are sensible to SNR estimation of the real channel, since the estimation of this parameter is required for the metric calculation of the algorithm \cite{journals/ett/RobertsonHV97}. It means that if the real SNR is smaller, the decoder will not perform well. Hence, for channel characteristics that change over time, the application of a MAP algorithm is debatable. This conclusion serve as motivation for ML autoencoders, which could adapt to different SNR conditions, outperforming the MAP decoder for realistic applications.
 
 \subsection{Neural network basics}
 
@@ -237,13 +237,14 @@ where $\textbf{W}_{l}\in \mathbb{R} ^{N_{l}\times N_{l-1}}$ is the weight matrix
 
 % TODO: WRITE WHICH ACTIVATION FUNCTION I WILL USE
 %
-Two common activation functions are the rectified linear unit (ReLU) and the sigmoid function. Both will be applied in the NN treated in this paper. Their mathematical expressions are shown below.
+Two common activation functions are the rectified linear unit (ReLU) and the sigmoid function. Both will be applied to the DNNs treated in this paper. In addition, the Softmax activation function is commonly used in multi classification problems and will be used to the One-hot decoding DNN architectures. Their mathematical expressions are shown below.
 
 \begin{align}
 	\text{ReLU: } \sigma_1 (x)& = max\{0, x\} \label{eq:relu}\\ 
-	\text{Sigmoid: } \sigma_2 (x)& = \frac{1}{1+e^{- \lambda x}} \label{eq:sig}
+	\text{Sigmoid: } \sigma_2 (x)& = \frac{1}{1+e^{- \lambda x}} \label{eq:sig}\\
+	\text{Softmax: } \sigma_3 (\textbf{z})& = \frac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}}
 \end{align}
-where $x \in \mathbb{R}$ and $\lambda>0$.
+where $x \in \mathbb{R}$, $\lambda>0$, $i = 1,...,K$ and $\textbf{z} = (z_1,...,z_K) \in \mathbb{R}^K$.
 
 For a classification problem in communication, the \textit{categorical cross-entropy} loss function $l(\textbf{p},\textbf{q}):\mathbb{R} ^{N_L}\times \mathbb{R} ^{N_L}\mapsto \mathbb{R}$ defined in \eqref{eq:c-e} is most common. It is derived from the log-likelihood of a training set where $q_j$ is the estimated probability of the outcome $j$ and $p_{j}$ is the true probability. Basically, the function measures the dissimilarity between $p_{j}$ (what you expected) and $q_{j}$ (what you obtained) \cite{murphy2013machine} where $j=1,...,N_L$.
 \begin{equation}\label{eq:c-e}
@@ -257,7 +258,7 @@ L\left( \theta \right) =\dfrac {1}{S}\sum ^{S}_{i=1}l\left({\mathbf{u}}_i^k  , \
 
 This problem is an optimization problem and can be solved through different algorithms. For NN, an efficient way of computing this minimization is implementing the back-propagation (BP) algorithm. 	BP is classified as a supervised learning algorithm that is able to optimize a function based on some parameter and is highly parallelizable in computational terms \cite{Ibnkahla}\cite{nielsenneural}.
 
-One of the greatest advantage of NN is its ability to generalize the training set, delivering the right results even for input data not contained in the training set. With the weight matrix trained, the NN finds the correct output values for unseen inputs. In order to validate this principle, a \textit{validation data set} is used and the loss is mesured. Based on this value, we can evaluate the NN overall accuracy.
+One of the greatest advantage of NN is its ability to generalize the training set, delivering the right results even for input data not contained in the training set. With the weight matrix trained, the NN finds the correct output values for unseen inputs. In order to validate this principle, a \textit{validation data set} is used and the loss is measured. Based on this value, we can evaluate the NN overall accuracy.
 
 For implementing all the algorithms, Keras, a high-level python API for ML, will be used together with TensorFlow 1.13.1, a ML python friendly open-source library \cite{DBLP:journals/corr/AbadiABBCCCDDDG16} \cite{chollet2015keras}. Both are available on a free license terms.
 
@@ -313,7 +314,7 @@ The pseudo code of the MAP decoder algorithm is available below.
 
 \begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.5\textwidth]{images/20190607-160812_MAP}
+    \includegraphics[width=0.5\textwidth]{images/MAP-alone-curve}
     \caption{MAP algorithm performance in terms of BER versus channel crossover probability.}\label{fig:MAP}
 \end{figure}
 
@@ -354,10 +355,11 @@ Architecture, Training parameters, cite choice of p train \cite{DBLP:conf/acssc/
 
   \begin{tabular}{ l  |  l }
     \thickhline
-    \multirow{3}{*}{Decoder} & Dense: X, activation: ReLU, input size: $n$ \\
- & Dense: X, activation: ReLU  \\
+    \multirow{3}{*}{Decoder} & Dense: 128, activation: ReLU, input size: $n$ \\
+ & Dense: 64, activation: ReLU  \\
+ & Dense: 32, activation: ReLU  \\
  & Dense: $k$, activation: Sigmoid  \\ \hline
-    \multicolumn{2}{l}{\textbf{Total parameters: }XX}\\
+    \multicolumn{2}{l}{\textbf{Total parameters: $12776$}}\\
     \thickhline
   \end{tabular}
     \label{tab:arraydecoder}
@@ -375,10 +377,8 @@ Architecture, Training parameters, Explain what is a One hot decoding, talk abou
 
   \begin{tabular}{ l  |  l }
     \thickhline
-    \multirow{3}{*}{Decoder} & Dense: X, activation: ReLU, input size: $n$ \\
- & Dense: X, activation: ReLU  \\
- & Dense: $2^k$, activation: Sigmoid  \\ \hline
-    \multicolumn{2}{l}{\textbf{Total parameters: }XX}\\
+    \multirow{1}{*}{Decoder} & Dense: 256, activation: Softmax, input size: $n$ \\ \hline
+    \multicolumn{2}{l}{\textbf{Total parameters: }$4352$}\\
     \thickhline
   \end{tabular}
     \label{tab:onehotdecoder}
@@ -412,7 +412,8 @@ Architecture, Training and simulation parameters, procedure to find a M epoch su
 \end{center}
 \end{table}
 
-
+\subsection{Monte Carlo Simulation}
+Explain the prediction simulation (global reps, values of p, etc)
 \section{Results and Analysis}
 
 \subsection{Decoders}
@@ -420,15 +421,16 @@ BER Curves from both decoders, analyse why the number of epochs is so different.
 
 \begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.5\textwidth]{images/MAP_MLNN1H_p_0}
-    \caption{One hot decoding BER performance. NN decoder trained with a channel crossover probability error of $p_t=0$.}\label{fig:1HD}
+    \includegraphics[width=0.5\textwidth]{images/MLNN_Mep_65536_ptrain_007}
+    \caption{Array decoding BER performance. NN trained with a channel crossover probability error of $p_t=0.07$.}\label{fig:ArrayD}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.5\textwidth]{images/20190529-142119_MAP_MLNN_Mep_65536}
-    \caption{Array decoding BER performance. NN trained with a channel crossover probability error of $p_t=0.07$.}\label{fig:ArrayD}
+    \includegraphics[width=0.5\textwidth]{images/MLNN1H_Mep_16384_ptrain_0}
+    \caption{One hot decoding BER performance. NN decoder trained with a channel crossover probability error of $p_t=0$.}\label{fig:1HD}
 \end{figure}
+
 
 \subsection{Autoencoder}
 BER Curves of simulation varying p, best choice of p, analyse autoencoder with best choice of p
@@ -437,16 +439,30 @@ BER Curves of simulation varying p, best choice of p, analyse autoencoder with b
 \subsection{Decoding time analysis}
 compare time in decoding between map, autoencoder and a decoder.
 
+\begin{table}
+\caption{Decoding time comparison between the MAP algorithm and the DNN decoders and autoencoders. The data is normalized to the mean MAP algorithm decoding time. } 
+\begin{center}
+
+  \begin{tabular}{ l | l | l | l | l }
+    \thickhline
+    MAP & A. Dec. & One-hot Dec. & A. Auto. & One-hot Auto. \\ \hline
+    $1.00 \pm 0.02$ & $0.74 \pm 0.03$ & $0.76 \pm 0.02$ & $ \pm $ & $ \pm $ \\ 
+    \thickhline
+  \end{tabular}
+    \label{tab:timeanalysis}
+\end{center}
+\end{table}
+
 \section{Conclusions}
 
 
 \section*{Acknowledgment}
 The authors would like to thank...
 
-\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18}
+\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, HagenauerJ, JordanMA,Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18}
 
 \bibliographystyle{ieeetr}
-\bibliography{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18}
+\bibliography{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/HagenauerJ,bib/JordanMA,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18}
 
 %\bibitem{b1} C. E. Shannon, ``A mathematical theory of communication," Bell System Technical Journal, vol. 27, no. 3, pp. 379–423, Jul. 1948.
 

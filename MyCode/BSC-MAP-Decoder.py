@@ -5,6 +5,7 @@ Created on Sun May 12 12:02:48 2019
 @author: user
 """
 #%% Initialization
+globalReps = 1000
 MAPpredictTime = TicToc('MAPPredict')
 globalError = np.empty([globalReps, len(pOptions)])
 globalErrorHamming = np.empty([globalReps, len(pOptions)])
@@ -57,8 +58,8 @@ avgGlobalErrorMAP = np.average(globalErrorMAP, 0)
 
 fig = plt.figure(figsize=(8, 6), dpi=80)
 
-plt.plot(pOptions,avgGlobalError, color='b', linewidth=lineWidth, linestyle='--')
-plt.plot(pOptions,avgGlobalErrorMAP, color='r', linewidth=lineWidth)
+plt.plot(pOptions,avgGlobalError, color='k', linewidth=lineWidth, linestyle='--')
+plt.plot(pOptions,avgGlobalErrorMAP, color='k', linewidth=lineWidth)
 
 plt.grid(True, which="both")
 plt.xlabel('$p$')
