@@ -417,21 +417,13 @@ The choices of training parameters is a mix between what other works in literatu
 
 The architecture of the one-hot decoder is much simpler when compared to the array decoder. It contains only one layer of $256$ units which maps the input of size 16 to the $2^8=256$ possible messages. Hence, this characterizes a multi-class classification problem, meaning that the chosen activation function is the Softmax (Eq. \ref{eq:soft}). This training technique is known in the literature as \textit{one-hot}. 
 
-The denomination one-hot comes from the output vector that is usually a long vector of zeros with one element equals to one. This \textit{hot} vector element indicates which class the NN has classified the input. In this context, which message the code word refers to.
+The denomination one-hot comes from the output vector which is usually a long vector of zeros with one element equals to one. This \textit{hot} vector element indicates which class the NN has classified the input. In this context, which message encoded in 256 different classes the code word refers to. Basically, a message is mapped into a class and a class only.
 
-Tranformation from one-hot to messagges
+A straight forward consequence of this shallower NN is the number of training parameters almost three times less than the array decoder. Because of that, we could expect a lower training time. Also, we observed that the number of training epochs is substantially smaller for the one-hot decoder. It was necessary only $2^{14}$ epochs to achieve the results for the same batch size of $256$ and Adam optimizer.
 
-Abscence of noise layer
+Despite the NN complexity benefits of the one-hot decoder, it is required to transform the predicted vector into a message. Consequently, an additional operation is needed. To transform from a one-hot vector to a message, a ordered collection of the messages was stored in memory and the correspondent message is determined by a $argmax$ operation in the one-hot vector, which identifies which message is the most likely to have been transmitted through the channel.
 
-Lower complexity of the NN
-
-Loss function choice
-
-Optimizer choice
-
-Num epochs choice
-
-Batchsize choice
+The one-hot decoder was trained both with and without a noise layer. The model without a integrated channel converged faster to the solution. Tables \ref{tab:onehotdecoder} and \ref{tab:onehotdecoderTrain} resume all the training variables.
 
 \begin{table}
 \caption{DNN one-hot decoder architecture.} 

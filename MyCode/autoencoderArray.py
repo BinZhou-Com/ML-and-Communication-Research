@@ -27,7 +27,7 @@ x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
 #encoderNodes = np.array([512, 256]) - best so far
-encoderNodes = np.array([8192, 256, 256])
+encoderNodes = np.array([512, 256, 256])
 DecoderNodes = [128, 64, 32]
 #%
 '''
@@ -38,10 +38,13 @@ Encoder = tf.keras.Sequential([
         layers.Dense(encoderNodes[0], activation='relu', input_shape=(k,), name='Input'),
         #layers.Dropout(rate=0.1),
         # Hidden Layer
-        #layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
+        layers.BatchNormalization(),
+        layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
+        layers.BatchNormalization(),
         #layers.Dropout(rate=0.1), 
         # Hidden Layer
-        #layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
+        layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
+        layers.BatchNormalization(),
         # Coded Layer
         layers.Dense(n, activation='sigmoid', name='Codedfloat')
         ], name='Encoder')
