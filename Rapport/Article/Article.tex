@@ -138,6 +138,25 @@ The Hamming distance $d_H:\mathcal{X}\mapsto \mathbb{Z}$ is a metric in the word
 d_H(\textbf{x},\textbf{y}) = \sum_{i=1}^{n} y_i \text{ XOR } x_i 
 \end{equation}  
 
+\subsection{Binary Symmetric Channel}
+
+Briefly, a BSC is a noisy channel with a binary input $X\in{0,1}$ and a binary output $Y\in{0,1}$. They are linked through a stochastic model characterized by a crossover probability of value $p$ as illustrated in Fig. \ref{fig:BSC}. Typically $p$ is smaller than $0.10$.
+
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/BSC}
+    \caption{Illustration of a binary symmetric channel with crossover probability $p$.}\label{fig:BSC}
+\end{figure}
+
+A BSC is translated mathematically as follows.
+
+\begin{align*}
+Pr[ Y = 0 | X = 0 ] &= 1 - p \\
+Pr[ Y = 0 | X = 1 ] &= p \\
+Pr[ Y = 1 | X = 0 ] &= p \\
+Pr[ Y = 1 | X = 1 ] &= 1 - p
+\end{align*}
 
 \subsection{Maximum a posteriori decoder}
 
@@ -242,7 +261,7 @@ Two common activation functions are the rectified linear unit (ReLU) and the sig
 \begin{align}
 	\text{ReLU: } \sigma_1 (x)& = max\{0, x\} \label{eq:relu}\\ 
 	\text{Sigmoid: } \sigma_2 (x)& = \frac{1}{1+e^{- \lambda x}} \label{eq:sig}\\
-	\text{Softmax: } \sigma_3 (\textbf{z})& = \frac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}}
+	\text{Softmax: } \sigma_3 (\textbf{z})& = \frac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}}\label{eq:soft}
 \end{align}
 where $x \in \mathbb{R}$, $\lambda>0$, $i = 1,...,K$ and $\textbf{z} = (z_1,...,z_K) \in \mathbb{R}^K$.
 
@@ -289,11 +308,19 @@ A common architecture of DNN autoencoders is shown in Fig. \ref{fig:DDNNAutoenco
 
 
 \section{Implementation and Methodology}
-This section explains the main implementation procedures in order to replicate the results and understand in depth the methodology behind the work. For organizational purposes, the section is divided into three subsections. First, the MAP algorithm for a linear code is shown, then the experiments relating to the ML based decoders are assessed and finally the implementation of the ML based autoencoder is explained. 
+This section explains the main implementation procedures in order to replicate the results and understand in depth the methodology behind the work. For organizational purposes, the section is divided into four subsections. First, the predictions and error corrections statistical relevance are justified through the Monte Carlo simulations conducted. Second, the MAP algorithm for a linear code is shown. Then the experiments relating to the ML based decoders are assessed. Finally the implementation of the ML based autoencoder is explained. 
+
+\subsection{Monte Carlo Simulation}
+
+For calculating the BER versus the crossover probability $p$ with confidence over the results, a Monte Carlo simulation was elaborated. This stochastic computational algorithm uses pseudo-random sampling to solve different problems. Hence, we can work with a wide variety of transmission scenarios.
+
+Applied to the context of this research, the messages are repeatedly randomly generated for a specific BSC of crossover probability $p$. They are coded by a linear block code or by a DNN encoder and then transmitted through the channel. Their information arrives corrupted by noise in the decoder and is subsequently partially corrected by a decoder. Finally the average BER is calculated and plotted. The interval of the horizontal axis is in between $0$ and $0.10$.
+
+Every channel is tested with $100000$ messages. As a consequence of the \textit{law of large numbers}, the empirical sampling of the BER represents sufficiently well the real distribution. 
 
 \subsection{MAP Rule}
 
-The pseudo code of the MAP decoder algorithm is available below.
+The MAP algorithm as cited previously, has a high time complexity $(\mathcal{O}(2^k))$, since it computes the Hamming distance between the received code word and every code word from the code book. For more details, the pseudo code of the algorithm is available below.
 
 \begin{algorithm}
 \caption{MAP rule for BSC and linear block code.}\label{alg:MAP}
@@ -312,14 +339,8 @@ The pseudo code of the MAP decoder algorithm is available below.
 \end{algorithmic}
 \end{algorithm}
 
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.5\textwidth]{images/MAP-alone-curve}
-    \caption{MAP algorithm performance in terms of BER versus channel crossover probability.}\label{fig:MAP}
-\end{figure}
+The linear encoding matrix $\textbf{G}_{8\times16}$ was used for the encoding of the messages. Its dimension is equal to the linear block code name represented by the double $(n,k)=(16,8)$. Thus, the \textit{rate} of the code is equal to $0.5$. The linear block name and = rate is constant throughout the work.
 
-\subsection{Decoder}
-The linear encoding matrix $\textbf{G}_{8\times16}$ is shown below.
 
 \begin{flalign*}
     &\textbf{G}=&
@@ -341,24 +362,37 @@ The linear encoding matrix $\textbf{G}_{8\times16}$ is shown below.
 \right ]
 \]
 
+To establish a reference model to use as comparison base to the DNN models and MAP decoder, the BER results for a scenario without codification was calculated. The ensemble of the no decoding curve and the MAP algorithm curve of Fig. \ref{fig:MAP} are replicated for comparison purposes with the methods of interest.
 
-Introduce encoding equations
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/MAP-alone-curve}
+    \caption{No decoding and MAP algorithm performance in terms of BER versus channel crossover probability.}\label{fig:MAP}
+\end{figure}
 
+\subsection{Decoder}
 
+This section is divided in two for better identify the differences between the implementation of the array DNN decoder and the one-hot DNN decoder.
 
 \subsubsection{Array Decoder}
-Architecture, Training parameters, cite choice of p train \cite{DBLP:conf/acssc/BenammarP18}, number of epochs, Talk about noise layer and its removal in prediction, 
+
+The architecture of the DNN necessary to achieve a great performance in terms of BER is available in table \ref{tab:arraydecoder}. What should be remarked is the first layer of the DNN. A \textit{Lambda} layer is a layer in which the activation operations are user defined and the parameters are non-trainable. Thus, we were able to define a layer that act as a BSC to force our DNN to learn its effects in the training data. The fact that the parameters are non-trainable means that the noise layer is applied in forward propagation only.
+
+The choice of the crossover probability of the training channel, $p_{t}$, was based on \cite{DBLP:conf/acssc/BenammarP18} which shows $p_{t}=0.07$ to be the best in terms of decoding precision after the DNN is trained. In addition, a deeper NN showed best results in \cite{ DBLP:journals/corr/OSheaH17} and were adopted to solve the problem. The training parameters are displayed in table \ref{tab:arraydecoderTrain}.
+
+The choices of training parameters is a mix between what other works in literature uses and a hyper parametric analytic approach, where several trials lead to the decision. First, the binary cross-entropy as loss function is widely used in literature and  showed to converge to the desired result consistently during tests. For the optimizer, the \textit{Adam} built-in Keras optimizer was chosen. Adam optimizer algorithm is similar to a classic stochastic gradient descent algorithm, but computes individual adaptive learning rates for different parameters from estimates of first and second moments of the gradients \cite{chollet2015keras}. Next, the BATCH SIZE. Finally, the necessary number of epochs to training is sensitive to the problem, since it impacts directly the training computational cost. As a result, we tried several training epoch sizes and found $2^{16}$ to have precise results and be computationally viable.
 
 \begin{table}
-\caption{DNN array decoder architecture and parameters.} 
+\caption{DNN array decoder architecture.} 
 \begin{center}
 
   \begin{tabular}{ l  |  l }
     \thickhline
-    \multirow{3}{*}{Decoder} & Dense: 128, activation: ReLU, input size: $n$ \\
+    Channel &  Lambda: $\textbf{x}\oplus \text{noise}$\\ \hline
+    \multirow{3}{*}{Decoder} & Dense: 128, activation: ReLU, input size: 16 \\
  & Dense: 64, activation: ReLU  \\
  & Dense: 32, activation: ReLU  \\
- & Dense: $k$, activation: Sigmoid  \\ \hline
+ & Dense: 8, activation: Sigmoid  \\ \hline
     \multicolumn{2}{l}{\textbf{Total parameters: $12776$}}\\
     \thickhline
   \end{tabular}
@@ -366,18 +400,46 @@ Architecture, Training parameters, cite choice of p train \cite{DBLP:conf/acssc/
 \end{center}
 \end{table}
 
+\begin{table}
+\caption{DNN array decoder training parameters.} 
+\begin{center}
+\begin{tabular}{ l  |  l | l | l  }
+    \thickhline
+ Loss func. & Optimizer & N. Epochs & Batch Size \\ \hline
+ Binary cross-entropy & Adam & $2^{16}$ & $256$ \\
+    \thickhline
+  \end{tabular}
+    \label{tab:arraydecoderTrain}
+\end{center}
+\end{table}
+
 \subsubsection{One-hot Decoder}
-Architecture, Training parameters, Explain what is a One hot decoding, talk about the matrix transformation from one hot to messages, p train equals 0, number of epochs
 
+The architecture of the one-hot decoder is much simpler when compared to the array decoder. It contains only one layer of $256$ units which maps the input of size 16 to the $2^8=256$ possible messages. Hence, this characterizes a multi-class classification problem, meaning that the chosen activation function is the Softmax (Eq. \ref{eq:soft}). This training technique is known in the literature as \textit{one-hot}. 
 
+The denomination one-hot comes from the output vector that is usually a long vector of zeros with one element equals to one. This \textit{hot} vector element indicates which class the NN has classified the input. In this context, which message the code word refers to.
+
+Tranformation from one-hot to messagges
+
+Abscence of noise layer
+
+Lower complexity of the NN
+
+Loss function choice
+
+Optimizer choice
+
+Num epochs choice
+
+Batchsize choice
 
 \begin{table}
-\caption{DNN one-hot decoder architecture and parameters.} 
+\caption{DNN one-hot decoder architecture.} 
 \begin{center}
 
   \begin{tabular}{ l  |  l }
     \thickhline
-    \multirow{1}{*}{Decoder} & Dense: 256, activation: Softmax, input size: $n$ \\ \hline
+    \multirow{1}{*}{Decoder} & Dense: 256, activation: Softmax, input size: 16 \\ \hline
     \multicolumn{2}{l}{\textbf{Total parameters: }$4352$}\\
     \thickhline
   \end{tabular}
@@ -385,25 +447,38 @@ Architecture, Training parameters, Explain what is a One hot decoding, talk abou
 \end{center}
 \end{table}
 
+\begin{table}
+\caption{DNN one-hot decoder training parameters.} 
+\begin{center}
+\begin{tabular}{ l  |  l | l | l  }
+    \thickhline
+ Loss func. & Optimizer & N. Epochs & Batch Size \\ \hline
+ Binary cross-entropy & Adam & $2^{14}$ & $256$ \\
+    \thickhline
+  \end{tabular}
+    \label{tab:onehotdecoderTrain}
+\end{center}
+\end{table}
+
 \subsection{Autoencoder}
 Architecture, Training and simulation parameters, procedure to find a M epoch suitable, choices of p train, Talk about NN separation, 
 
 \begin{table}
-\caption{DNN array autoencoder architecture and parameters.} 
+\caption{DNN array autoencoder architecture.} 
 \begin{center}
 
   \begin{tabular}{ l  |  l }
     \thickhline
-    \multirow{3}{*}{Encoder} & Dense: X, activation: ReLU, input size: $k$ \\
+    \multirow{3}{*}{Encoder} & Dense: X, activation: ReLU, input size: 8 \\
  & Dense: X, activation: ReLU  \\
- & Dense: $n$, activation: Sigmoid  \\ \hline
+ & Dense: 16, activation: Sigmoid  \\ \hline
  
     \multirow{2}{*}{Channel} & Lambda: $Round(\textbf{x})$, input size: $n$ \\
  & Lambda: $\textbf{x}\oplus \text{noise}$\\ \hline
  
- \multirow{2}{*}{Decoder} & Dense: X, input size: $n$ \\
+ \multirow{2}{*}{Decoder} & Dense: X, input size: 16 \\
  & Dense: X, activation: ReLU  \\
- & Dense: $k$, activation: Sigmoid  \\ \hline
+ & Dense: 8, activation: Sigmoid  \\ \hline
  
     \multicolumn{2}{l}{\textbf{Total parameters: }XX}\\
     \thickhline
@@ -412,8 +487,20 @@ Architecture, Training and simulation parameters, procedure to find a M epoch su
 \end{center}
 \end{table}
 
-\subsection{Monte Carlo Simulation}
-Explain the prediction simulation (global reps, values of p, etc)
+\begin{table}
+\caption{DNN array autodecoder training parameters.} 
+\begin{center}
+\begin{tabular}{ l  |  l | l | l  }
+    \thickhline
+ Loss func. & Optimizer & N. Epochs & Batch Size \\ \hline
+ Binary cross-entropy & Adam & $2^{14}$ & $256$ \\
+    \thickhline
+  \end{tabular}
+    \label{tab:arrayautoencoderTrain}
+\end{center}
+\end{table}
+
+
 \section{Results and Analysis}
 
 \subsection{Decoders}

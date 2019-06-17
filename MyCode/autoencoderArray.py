@@ -26,8 +26,9 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([256, 256, 256])
-DecoderNodes = [256, 256, 32]
+#encoderNodes = np.array([512, 256]) - best so far
+encoderNodes = np.array([8192, 256, 256])
+DecoderNodes = [128, 64, 32]
 #%
 '''
     Architecture
@@ -37,10 +38,10 @@ Encoder = tf.keras.Sequential([
         layers.Dense(encoderNodes[0], activation='relu', input_shape=(k,), name='Input'),
         #layers.Dropout(rate=0.1),
         # Hidden Layer
-        layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
+        #layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
         #layers.Dropout(rate=0.1), 
         # Hidden Layer
-        layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
+        #layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         # Coded Layer
         layers.Dense(n, activation='sigmoid', name='Codedfloat')
         ], name='Encoder')
@@ -71,7 +72,7 @@ plot_model(Autoencoder,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',sho
 '''
     Overall Settings/ Compilationl
 '''
-lossFunc = 'mse'
+lossFunc = 'logcosh'
 Autoencoder.compile(loss=lossFunc ,
               optimizer='adam',
               )
@@ -101,7 +102,7 @@ Autoencoder.save(path)  # creates a HDF5 file
 '''
     Prediction Array
 '''
-globalReps = 100
+globalReps = 1000
 globalErrorAutoencoder = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
     for i_p in range(np.size(pOptions)):

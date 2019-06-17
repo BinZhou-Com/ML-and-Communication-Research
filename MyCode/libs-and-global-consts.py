@@ -86,7 +86,7 @@ globalReps = 1000
 # NN parameters
 title = 'AutoencoderArray'
 timestr = time.strftime("%Y%m%d-%H%M%S")
-numEpochs = 2**16
+numEpochs = 2**15
 batchSize = 256
 train_p = 0.03
 

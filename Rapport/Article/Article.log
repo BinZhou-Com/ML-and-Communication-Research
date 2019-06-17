@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  16 JUN 2019 15:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  17 JUN 2019 15:12
 entering extended mode
 **./Article.tex
 (Article.tex
@@ -1036,59 +1036,67 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 91--92
 [1{C:/Users/user/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
- <./simple_sys.png>] [2] [3]
-<images/DNN_autoencoder.png, id=44, 633.567pt x 287.27325pt>
-File: images/DNN_autoencoder.png Graphic file (type png)
-<use images/DNN_autoencoder.png>
-Package pdftex.def Info: images/DNN_autoencoder.png  used on input line 285.
-(pdftex.def)             Requested size: 206.39685pt x 93.58186pt.
-<images/MAP-alone-curve.png, id=45, 238.2501pt x 155.3805pt>
-File: images/MAP-alone-curve.png Graphic file (type png)
-<use images/MAP-alone-curve.png>
-Package pdftex.def Info: images/MAP-alone-curve.png  used on input line 317.
-(pdftex.def)             Requested size: 258.0pt x 168.28023pt.
+ <./simple_sys.png>]
+<images/BSC.png, id=26, 2657.93pt x 759.83875pt>
+File: images/BSC.png Graphic file (type png)
+<use images/BSC.png>
+Package pdftex.def Info: images/BSC.png  used on input line 148.
+(pdftex.def)             Requested size: 258.0pt x 73.75064pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 317--318
+Overfull \hbox (6.0pt too wide) in paragraph at lines 148--149
  [][] 
  []
 
-
-Overfull \hbox (1.33362pt too wide) detected at line 342
+[2 <./images/BSC.png>] [3]
+<images/DNN_autoencoder.png, id=46, 633.567pt x 287.27325pt>
+File: images/DNN_autoencoder.png Graphic file (type png)
+<use images/DNN_autoencoder.png>
+Package pdftex.def Info: images/DNN_autoencoder.png  used on input line 304.
+(pdftex.def)             Requested size: 206.39685pt x 93.58186pt.
+ [4 <./images/DNN_autoencoder.png>]
+Overfull \hbox (1.33362pt too wide) detected at line 363
 []
  []
 
+<images/MAP-alone-curve.png, id=52, 238.2501pt x 155.3805pt>
+File: images/MAP-alone-curve.png Graphic file (type png)
+<use images/MAP-alone-curve.png>
+Package pdftex.def Info: images/MAP-alone-curve.png  used on input line 369.
+(pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Underfull \vbox (badness 1107) has occurred while \output is active []
+Overfull \hbox (6.0pt too wide) in paragraph at lines 369--370
+ [][] 
+ []
 
- [4 <./images/DNN_autoencoder.png> <./images/MAP-alone-curve.png>]
-<images/MLNN_Mep_65536_ptrain_007.png, id=51, 238.2501pt x 155.3805pt>
+[5 <./images/MAP-alone-curve.png>]
+<images/MLNN_Mep_65536_ptrain_007.png, id=58, 238.2501pt x 155.3805pt>
 File: images/MLNN_Mep_65536_ptrain_007.png Graphic file (type png)
 <use images/MLNN_Mep_65536_ptrain_007.png>
 Package pdftex.def Info: images/MLNN_Mep_65536_ptrain_007.png  used on input li
-ne 424.
+ne 511.
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 424--425
+Overfull \hbox (6.0pt too wide) in paragraph at lines 511--512
  [][] 
  []
 
-<images/MLNN1H_Mep_16384_ptrain_0.png, id=52, 238.2501pt x 155.3805pt>
+<images/MLNN1H_Mep_16384_ptrain_0.png, id=59, 238.2501pt x 155.3805pt>
 File: images/MLNN1H_Mep_16384_ptrain_0.png Graphic file (type png)
 <use images/MLNN1H_Mep_16384_ptrain_0.png>
 Package pdftex.def Info: images/MLNN1H_Mep_16384_ptrain_0.png  used on input li
-ne 430.
+ne 517.
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 430--431
+Overfull \hbox (6.0pt too wide) in paragraph at lines 517--518
  [][] 
  []
 
 
-Overfull \hbox (8.71089pt too wide) in paragraph at lines 446--453
+Overfull \hbox (8.71089pt too wide) in paragraph at lines 533--540
  [] 
  []
 
-(Article.bbl [5 <./images/MLNN_Mep_65536_ptrain_007.png> <./images/MLNN1H_Mep_1
+(Article.bbl [6 <./images/MLNN_Mep_65536_ptrain_007.png> <./images/MLNN1H_Mep_1
 6384_ptrain_0.png>]
 Underfull \hbox (badness 1924) in paragraph at lines 26--28
 \OT1/ptm/m/n/8 decoding with-out snr es-ti-ma-tion,'' \OT1/ptm/m/it/8 IEEE Com-
@@ -1113,14 +1121,14 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6
+[7
 
 ] (Article.aux) ) 
 Here is how much of TeX's memory you used:
- 27379 strings out of 492925
- 696981 string characters out of 3134506
- 931329 words of memory out of 3000000
- 30762 multiletter control sequences out of 15000+200000
+ 27389 strings out of 492925
+ 697155 string characters out of 3134506
+ 928329 words of memory out of 3000000
+ 30771 multiletter control sequences out of 15000+200000
  49932 words of font info for 108 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  78i,14n,136p,988b,837s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1133,19 +1141,20 @@ e1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
 /amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10
 .pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/P
-rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/sym
-bols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><
-C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files
-/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/urw/times/utmri8a.pfb>
-Output written on Article.pdf (6 pages, 447917 bytes).
+rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+msy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm1
+0.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program
+ Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw
+/times/utmri8a.pfb>
+Output written on Article.pdf (7 pages, 482578 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
+ 135 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 78 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 83 words of extra memory for PDF output out of 10000 (max. 10000000)
 
