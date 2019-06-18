@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  17 JUN 2019 16:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  18 JUN 2019 16:50
 entering extended mode
 **./Article.tex
 (Article.tex
@@ -1037,17 +1037,12 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 91--92
 
 
  <./simple_sys.png>]
-<images/BSC.png, id=26, 2657.93pt x 759.83875pt>
+<images/BSC.png, id=26, 928.06725pt x 451.6875pt>
 File: images/BSC.png Graphic file (type png)
 <use images/BSC.png>
 Package pdftex.def Info: images/BSC.png  used on input line 148.
-(pdftex.def)             Requested size: 258.0pt x 73.75064pt.
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 148--149
- [][] 
- []
-
-[2 <./images/BSC.png>] [3]
+(pdftex.def)             Requested size: 206.39685pt x 100.44673pt.
+ [2 <./images/BSC.png>] [3]
 <images/DNN_autoencoder.png, id=46, 633.567pt x 287.27325pt>
 File: images/DNN_autoencoder.png Graphic file (type png)
 <use images/DNN_autoencoder.png>
@@ -1069,35 +1064,42 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 369--370
  []
 
 [5 <./images/MAP-alone-curve.png>]
-<images/MLNN_Mep_65536_ptrain_007.png, id=58, 238.2501pt x 155.3805pt>
+<images/MLNN_Mep_65536_ptrain_007.png, id=57, 238.2501pt x 155.3805pt>
 File: images/MLNN_Mep_65536_ptrain_007.png Graphic file (type png)
 <use images/MLNN_Mep_65536_ptrain_007.png>
 Package pdftex.def Info: images/MLNN_Mep_65536_ptrain_007.png  used on input li
-ne 503.
+ne 507.
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 503--504
+Overfull \hbox (6.0pt too wide) in paragraph at lines 507--508
  [][] 
  []
 
-<images/MLNN1H_Mep_16384_ptrain_0.png, id=59, 238.2501pt x 155.3805pt>
+<images/MLNN1H_Mep_16384_ptrain_0.png, id=58, 238.2501pt x 155.3805pt>
 File: images/MLNN1H_Mep_16384_ptrain_0.png Graphic file (type png)
 <use images/MLNN1H_Mep_16384_ptrain_0.png>
 Package pdftex.def Info: images/MLNN1H_Mep_16384_ptrain_0.png  used on input li
-ne 509.
+ne 513.
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 509--510
+Overfull \hbox (6.0pt too wide) in paragraph at lines 513--514
  [][] 
  []
 
+<images/AutoencoderArray_Mep_65536_ptrain_003_logcosh.png, id=59, 238.2501pt x 
+155.3805pt>
+File: images/AutoencoderArray_Mep_65536_ptrain_003_logcosh.png Graphic file (ty
+pe png)
+<use images/AutoencoderArray_Mep_65536_ptrain_003_logcosh.png>
+Package pdftex.def Info: images/AutoencoderArray_Mep_65536_ptrain_003_logcosh.p
+ng  used on input line 523.
+(pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (8.71089pt too wide) in paragraph at lines 525--532
- [] 
+Overfull \hbox (6.0pt too wide) in paragraph at lines 523--524
+ [][] 
  []
 
-[6 <./images/MLNN_Mep_65536_ptrain_007.png> <./images/MLNN1H_Mep_16384_ptrain_0
-.png>] (Article.bbl
+[6 <./images/MLNN_Mep_65536_ptrain_007.png>] (Article.bbl
 Underfull \hbox (badness 1924) in paragraph at lines 26--28
 \OT1/ptm/m/n/8 decoding with-out snr es-ti-ma-tion,'' \OT1/ptm/m/it/8 IEEE Com-
 mu-ni-ca-tions Let-ters\OT1/ptm/m/n/8 ,
@@ -1121,40 +1123,39 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7
-
-] (Article.aux) ) 
+[7 <./images/MLNN1H_Mep_16384_ptrain_0.png> <./images/AutoencoderArray_Mep_6553
+6_ptrain_003_logcosh.png>] (Article.aux) ) 
 Here is how much of TeX's memory you used:
- 27389 strings out of 492925
- 697155 string characters out of 3134506
- 928329 words of memory out of 3000000
- 30771 multiletter control sequences out of 15000+200000
+ 27396 strings out of 492925
+ 697502 string characters out of 3134506
+ 931329 words of memory out of 3000000
+ 30777 multiletter control sequences out of 15000+200000
  49932 words of font info for 108 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 78i,14n,136p,988b,837s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/P
-rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program F
-iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10
-.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/P
-rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-msy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm1
-0.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program
- Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw
-/times/utmri8a.pfb>
-Output written on Article.pdf (7 pages, 483920 bytes).
+ 78i,14n,136p,1327b,837s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/en
+c/dvips/base/8r.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/
+Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program F
+iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmr5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb>
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/tim
+es/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/M
+iKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Article.pdf (7 pages, 542261 bytes).
 PDF statistics:
- 135 PDF objects out of 1000 (max. 8388607)
+ 137 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 83 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 88 words of extra memory for PDF output out of 10000 (max. 10000000)
 

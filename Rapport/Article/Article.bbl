@@ -82,4 +82,9 @@ M.~Benammar and P.~Piantanida, ``Optimal training channel statistics for
   Systems, and Computers, {ACSSC} 2018, Pacific Grove, CA, USA, October 28-31,
   2018} (M.~B. Matthews, ed.), pp.~2157--2161, {IEEE}, 2018.
 
+\bibitem{DBLP:journals/corr/KeskarMNST16}
+N.~S. Keskar, D.~Mudigere, J.~Nocedal, M.~Smelyanskiy, and P.~T.~P. Tang, ``On
+  large-batch training for deep learning: Generalization gap and sharp
+  minima,'' {\em CoRR}, vol.~abs/1609.04836, 2016.
+
 \end{thebibliography}

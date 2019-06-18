@@ -5,9 +5,10 @@ Created on Wed Jun  5 13:47:36 2019
 @author: user
 """
 #%%
+
 numEpochs = 2**16
-directory = 'Retrain\Autoencoder1H\\'
-fileName = 'Autoencoder1H_Mep_65536_bs_256_32_32-32_32.h5'
+directory = 'Retrain/Autoencoder1H/'
+fileName = 'Autoencoder1H_Mep_65536_bs_256_1024-256.h5'
 Autoencoder = tf.keras.models.load_model(directory+'OriginalModel\\'+fileName)
 print("Loaded models from disk")
 path = directory+'TrainedModel\\'+fileName
@@ -15,7 +16,7 @@ path = directory+'TrainedModel\\'+fileName
 '''
     Overall Settings/ Compilationl
 '''
-lossFunc = 'mse'
+lossFunc = 'logcosh'
 Autoencoder.compile(loss=lossFunc ,
               optimizer='adam',
               )
@@ -47,7 +48,7 @@ Decoder = Autoencoder.layers[2]
 globalErrorAutoencoder=fn.onehotAutoencoderPrediction(Encoder, Decoder, messages, pOptions, globalReps, N, n, k)
 #% Plotting
 numEpochs = 2**17
-figPath = directory+'Autoencoder1H_Mep_'+str(numEpochs)+'_bs_256_32_32-32_32_p_train_0.png'
+figPath = directory+'Autoencoder1H_Mep_'+str(numEpochs)+'_bs_1024-256_p_train_0.png'
 plotBERp(globalErrorAutoencoder, 'One-hot Autoencoder')
 
 

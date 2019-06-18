@@ -84,11 +84,11 @@ globalReps = 1000
 
 #%%
 # NN parameters
-title = 'AutoencoderArray'
+title = 'Autoencoder1H'
 timestr = time.strftime("%Y%m%d-%H%M%S")
 numEpochs = 2**16
 batchSize = 256
-train_p = 0.03
+train_p = 0.0
 
 path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5'
 checkpointPath = 'Checkpoints/'+title+'/'+timestr+'_'+title+'_Mep_{epoch:02d}-{loss:.8f}.h5'
@@ -106,6 +106,9 @@ def tensorBSC(x):
     noiseFloat = K.cast(noise, dtype=tf.float32)
     result = tf.math.add(noiseFloat, x)%2
     return result
+
+def roundCode(x):
+    return tf.stop_gradient(K.round(x)-x)+x
 
 def plotBERp(globalErrorMLNN, legendEntry):
     avgGlobalErrorMLNN = np.average(globalErrorMLNN,0)

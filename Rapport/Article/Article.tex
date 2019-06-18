@@ -140,16 +140,16 @@ d_H(\textbf{x},\textbf{y}) = \sum_{i=1}^{n} y_i \text{ XOR } x_i
 
 \subsection{Binary Symmetric Channel}
 
-Briefly, a BSC is a noisy channel with a binary input $X\in{0,1}$ and a binary output $Y\in{0,1}$. They are linked through a stochastic model characterized by a crossover probability of value $p$ as illustrated in Fig. \ref{fig:BSC}. Typically $p$ is smaller than $0.10$.
+Briefly, a BSC is a noisy channel with a binary input $X\in \{0,1\}$ on the left and a binary output $Y\in \{0,1\}$ on the right. They are linked through a stochastic model characterized by a crossover probability of value $p$ as illustrated in Fig. \ref{fig:BSC}. Typically, $p$ is smaller than $0.10$.
 
 
 \begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.5\textwidth]{images/BSC}
+    \includegraphics[width=0.4\textwidth]{images/BSC}
     \caption{Illustration of a binary symmetric channel with crossover probability $p$.}\label{fig:BSC}
 \end{figure}
 
-A BSC is translated mathematically as follows.
+A BSC could be represented mathematically through conditional probabilities as follows.
 
 \begin{align*}
 Pr[ Y = 0 | X = 0 ] &= 1 - p \\
@@ -378,9 +378,9 @@ This section is divided in two for better identify the differences between the i
 
 The architecture of the DNN necessary to achieve a great performance in terms of BER is available in table \ref{tab:arraydecoder}. What should be remarked is the first layer of the DNN. A \textit{Lambda} layer is a layer in which the activation operations are user defined and the parameters are non-trainable. Thus, we were able to define a layer that act as a BSC to force our DNN to learn its effects in the training data. The fact that the parameters are non-trainable means that the noise layer is applied in forward propagation only.
 
-The choice of the crossover probability of the training channel, $p_{t}$, was based on \cite{DBLP:conf/acssc/BenammarP18} which shows $p_{t}=0.07$ to be the best in terms of decoding precision after the DNN is trained. In addition, a deeper NN showed best results in \cite{ DBLP:journals/corr/OSheaH17} and were adopted to solve the problem. The training parameters are displayed in table \ref{tab:arraydecoderTrain}.
+The choice of the crossover probability of the training channel, $p_{t}$, was based in the work of \cite{DBLP:conf/acssc/BenammarP18} which shows $p_{t}=0.07$ to be the best in terms of decoding precision after the DNN is trained. In addition, a deeper NN showed best results in \cite{DBLP:journals/corr/OSheaH17} and were adopted to solve the problem. The training parameters are displayed in table \ref{tab:arraydecoderTrain}.
 
-The choices of training parameters is a mix between what other works in literature uses and a hyper parametric analytic approach, where several trials lead to the decision. First, the binary cross-entropy as loss function is widely used in literature and  showed to converge to the desired result consistently during tests. For the optimizer, the \textit{Adam} built-in Keras optimizer was chosen. Adam optimizer algorithm is similar to a classic stochastic gradient descent algorithm, but computes individual adaptive learning rates for different parameters from estimates of first and second moments of the gradients \cite{chollet2015keras}. Next, the BATCH SIZE. Finally, the necessary number of epochs to training is sensitive to the problem, since it impacts directly the training computational cost. As a result, we tried several training epoch sizes and found $2^{16}$ to have precise results and be computationally viable.
+The choices of training parameters is a mix between what other works in literature uses and a hyper parametric analytic approach, where several trials lead to the decision. First, the binary cross-entropy as loss function is widely used in literature and  showed to converge to the desired result consistently during tests. For the optimizer, the \textit{Adam} built-in Keras optimizer was chosen. Adam optimizer algorithm is similar to a classic stochastic gradient descent algorithm, but computes individual adaptive learning rates for different parameters from estimates of first and second moments of the gradients \cite{chollet2015keras}. Next, a batch size matching the size of the training set which is sufficiently small to still operate in the regime of small batch was chosen. In \cite{DBLP:journals/corr/KeskarMNST16}, the authors demonstrated better performance for a NN training with stochastic gradient descent and its variants operating in a small-batch regime, usually between 32-512 data points. Finally, the necessary number of epochs to training is sensitive to the problem, since it impacts directly the training computational cost. As a result, we tried several training epoch sizes and found $2^{16}$ to have precise results and be computationally viable.
 
 \begin{table}
 \caption{DNN array decoder architecture.} 
@@ -423,7 +423,7 @@ A straight forward consequence of this shallower NN is the number of training pa
 
 Despite the NN complexity benefits of the one-hot decoder, it is required to transform the predicted vector into a message. Consequently, an additional operation is needed. To transform from a one-hot vector to a message, a ordered collection of the messages was stored in memory and the correspondent message is determined by a $argmax$ operation in the one-hot vector, which identifies which message is the most likely to have been transmitted through the channel.
 
-The one-hot decoder was trained both with and without a noise layer. The model without a integrated channel converged faster to the solution. Tables \ref{tab:onehotdecoder} and \ref{tab:onehotdecoderTrain} resume all the training variables.
+The one-hot decoder was trained both with and without a noise layer. The model without a integrated channel converged faster to the solution. Tables \ref{tab:onehotdecoder} and \ref{tab:onehotdecoderTrain} resume the architecture and training variables, respectively.
 
 \begin{table}
 \caption{DNN one-hot decoder architecture.} 
@@ -495,37 +495,54 @@ Architecture, Training and simulation parameters, procedure to find a M epoch su
 
 \section{Results and Analysis}
 
+Explain any different training procedure
+
 \subsection{Decoders}
-BER Curves from both decoders, analyse why the number of epochs is so different. 
+BER Curves from both decoders, analyze why the number of epochs is so different, .
+
+We can infer from figures \ref{fig:ArrayD} and \ref{fig:1HD} that both the array decoder and the one-hot decoder are able to learn a decodification function. Moreover,  its performances replicate the MAP algorithm's decoding capability. Hence, DNN decoders could substitute the mathematically optimal MAP decoder for a stochastic channel, without compromising the bit error probability.
 
 \begin{figure}[!ht]
   \centering
     \includegraphics[width=0.5\textwidth]{images/MLNN_Mep_65536_ptrain_007}
-    \caption{Array decoding BER performance. NN trained with a channel crossover probability error of $p_t=0.07$.}\label{fig:ArrayD}
+    \caption{Array decoding BER performance. DNN array decoder trained with a channel crossover probability error of $p_t=0.07$.}\label{fig:ArrayD}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
     \includegraphics[width=0.5\textwidth]{images/MLNN1H_Mep_16384_ptrain_0}
-    \caption{One hot decoding BER performance. NN decoder trained with a channel crossover probability error of $p_t=0$.}\label{fig:1HD}
+    \caption{One hot decoding BER performance. DNN one-hot decoder trained with a channel crossover probability error of $p_t=0$.}\label{fig:1HD}
 \end{figure}
 
 
 \subsection{Autoencoder}
 BER Curves of simulation varying p, best choice of p, analyse autoencoder with best choice of p
 
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/AutoencoderArray_Mep_65536_ptrain_003_logcosh}
+    \caption{Array autoencoder BER performance. DNN array autoencoder trained with a channel crossover probability error of $p_t=0.03$.}\label{fig:arrayautoencoder}
+\end{figure}
+
 
 \subsection{Decoding time analysis}
+
+In order to analyze the delay in decoding for each technique studied, a monte carlo simulation was conducted. There were selected 20 different BSC channels. For each channel, $100000$ messages were transmitted and decodified for each decoder. This process was timed and repeated several times. In the end, an average time and standard deviation of the results were recorded. A normalization for the average MAP decoding time was done. The results are available in the table \ref{tab:timeanalysis}.  
+
+
 compare time in decoding between map, autoencoder and a decoder.
 
 \begin{table}
 \caption{Decoding time comparison between the MAP algorithm and the DNN decoders and autoencoders. The data is normalized to the mean MAP algorithm decoding time. } 
 \begin{center}
 
-  \begin{tabular}{ l | l | l | l | l }
+  \begin{tabular}{ c | c | c}
     \thickhline
-    MAP & A. Dec. & One-hot Dec. & A. Auto. & One-hot Auto. \\ \hline
-    $1.00 \pm 0.02$ & $0.74 \pm 0.03$ & $0.76 \pm 0.02$ & $ \pm $ & $ \pm $ \\ 
+    MAP & Array Decoder & One-hot Decoder\\
+    $1.00 \pm 0.02$ & $0.74 \pm 0.03$ & $0.76 \pm 0.02$ \\ \hline
+    \multicolumn{2}{c|}{Array. Autoencoder}  & One-hot Autoencoder\\
+   
+     \multicolumn{2}{c|}{$0.00 \pm 0.00 $} & $0.00 \pm 0.00$ \\ 
     \thickhline
   \end{tabular}
     \label{tab:timeanalysis}
@@ -534,14 +551,16 @@ compare time in decoding between map, autoencoder and a decoder.
 
 \section{Conclusions}
 
+Talk about feasibility of decoders, improved performance of the channel delay with DNN decoders, challenges in implementing this architecture in real life, challenges in training the NNs, Future work, what else could be done with NN in error correction, 
 
 \section*{Acknowledgment}
 The authors would like to thank...
 
-\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, HagenauerJ, JordanMA,Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18}
+
+\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, HagenauerJ, JordanMA,Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18, DBLP:journals/corr/KeskarMNST16}
 
 \bibliographystyle{ieeetr}
-\bibliography{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/HagenauerJ,bib/JordanMA,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18}
+\bibliography{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/HagenauerJ,bib/JordanMA,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18,bib/KeskarMNST16}
 
 %\bibitem{b1} C. E. Shannon, ``A mathematical theory of communication," Bell System Technical Journal, vol. 27, no. 3, pp. 379–423, Jul. 1948.
 

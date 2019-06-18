@@ -21,7 +21,6 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Illustration of a binary symmetric channel with crossover probability $p$.}}{2}\protected@file@percent }
 \newlabel{fig:BSC}{{2}{2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-C}}Maximum a posteriori decoder}{2}\protected@file@percent }
-\newlabel{eq:MAP1}{{4}{2}}
 \citation{journals/ett/RobertsonHV97}
 \citation{HagenauerJ}
 \citation{journals/ett/RobertsonHV97}
@@ -32,6 +31,7 @@
 \citation{Ibnkahla}
 \citation{DBLP:journals/corr/OSheaH17}
 \citation{murphy2013machine}
+\newlabel{eq:MAP1}{{4}{3}}
 \newlabel{eq:MAP2}{{5}{3}}
 \newlabel{eq:MAP3}{{6}{3}}
 \newlabel{eq:MAPF1}{{7}{3}}
@@ -57,41 +57,40 @@
 \newlabel{fig:DDNNAutoencoder}{{4}{4}}
 \@writefile{toc}{\contentsline {section}{\numberline {III}Implementation and Methodology}{4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-A}}Monte Carlo Simulation}{4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-B}}MAP Rule}{4}\protected@file@percent }
 \citation{DBLP:conf/acssc/BenammarP18}
 \citation{DBLP:journals/corr/OSheaH17}
 \citation{chollet2015keras}
+\citation{DBLP:journals/corr/KeskarMNST16}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-B}}MAP Rule}{5}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces MAP rule for BSC and linear block code.}}{5}\protected@file@percent }
 \newlabel{alg:MAP}{{1}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-C}}Decoder}{5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {III-C}1}Array Decoder}{5}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces No decoding and MAP algorithm performance in terms of BER versus channel crossover probability.}}{5}\protected@file@percent }
 \newlabel{fig:MAP}{{5}{5}}
 \@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces DNN array decoder architecture.}}{5}\protected@file@percent }
 \newlabel{tab:arraydecoder}{{I}{5}}
-\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces DNN array decoder training parameters.}}{5}\protected@file@percent }
-\newlabel{tab:arraydecoderTrain}{{II}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-C}}Decoder}{5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {III-C}1}Array Decoder}{5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {III-C}2}One-hot Decoder}{5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces DNN array decoder training parameters.}}{6}\protected@file@percent }
+\newlabel{tab:arraydecoderTrain}{{II}{6}}
 \@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces DNN one-hot decoder architecture.}}{6}\protected@file@percent }
 \newlabel{tab:onehotdecoder}{{III}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-D}}Autoencoder}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Results and Analysis}{6}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces DNN one-hot decoder training parameters.}}{6}\protected@file@percent }
 \newlabel{tab:onehotdecoderTrain}{{IV}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-D}}Autoencoder}{6}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces DNN array autoencoder architecture.}}{6}\protected@file@percent }
 \newlabel{tab:arrayautoencoder}{{V}{6}}
 \@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces DNN array autodecoder training parameters.}}{6}\protected@file@percent }
 \newlabel{tab:arrayautoencoderTrain}{{VI}{6}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Results and Analysis}{6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}}Decoders}{6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Array decoding BER performance. NN trained with a channel crossover probability error of $p_t=0.07$.}}{6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Array decoding BER performance. DNN array decoder trained with a channel crossover probability error of $p_t=0.07$.}}{6}\protected@file@percent }
 \newlabel{fig:ArrayD}{{6}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces One hot decoding BER performance. NN decoder trained with a channel crossover probability error of $p_t=0$.}}{6}\protected@file@percent }
-\newlabel{fig:1HD}{{7}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Autoencoder}{6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-C}}Decoding time analysis}{6}\protected@file@percent }
-\citation{Shannon:2001:MTC:584091.584093,DBLP:journals/corr/CalabreseWGPS16,DBLP:journals/corr/OSheaH17,2016arXiv160806409O,2017arXiv171008379G,Worm00turbo-decodingwithout,Viterbi,journals/ett/RobertsonHV97,HagenauerJ,JordanMA,Ibnkahla,nielsenneural,murphy2013machine,DBLP:journals/corr/AbadiABBCCCDDDG16,chollet2015keras,doi:10.1162/neco.2006.18.7.1527,DBLP:conf/acssc/BenammarP18}
+\citation{Shannon:2001:MTC:584091.584093,DBLP:journals/corr/CalabreseWGPS16,DBLP:journals/corr/OSheaH17,2016arXiv160806409O,2017arXiv171008379G,Worm00turbo-decodingwithout,Viterbi,journals/ett/RobertsonHV97,HagenauerJ,JordanMA,Ibnkahla,nielsenneural,murphy2013machine,DBLP:journals/corr/AbadiABBCCCDDDG16,chollet2015keras,doi:10.1162/neco.2006.18.7.1527,DBLP:conf/acssc/BenammarP18,DBLP:journals/corr/KeskarMNST16}
 \bibstyle{ieeetr}
-\bibdata{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/HagenauerJ,bib/JordanMA,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18}
+\bibdata{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/HagenauerJ,bib/JordanMA,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18,bib/KeskarMNST16}
 \bibcite{Shannon:2001:MTC:584091.584093}{1}
 \bibcite{DBLP:journals/corr/CalabreseWGPS16}{2}
 \bibcite{DBLP:journals/corr/OSheaH17}{3}
@@ -109,7 +108,12 @@
 \bibcite{chollet2015keras}{15}
 \bibcite{doi:10.1162/neco.2006.18.7.1527}{16}
 \bibcite{DBLP:conf/acssc/BenammarP18}{17}
+\bibcite{DBLP:journals/corr/KeskarMNST16}{18}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces One hot decoding BER performance. DNN one-hot decoder trained with a channel crossover probability error of $p_t=0$.}}{7}\protected@file@percent }
+\newlabel{fig:1HD}{{7}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Array autoencoder BER performance. DNN array autoencoder trained with a channel crossover probability error of $p_t=0.03$.}}{7}\protected@file@percent }
+\newlabel{fig:arrayautoencoder}{{8}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusions}{7}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces Decoding time comparison between the MAP algorithm and the DNN decoders and autoencoders. The data is normalized to the mean MAP algorithm decoding time. }}{7}\protected@file@percent }
 \newlabel{tab:timeanalysis}{{VII}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusions}{7}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{References}{7}\protected@file@percent }

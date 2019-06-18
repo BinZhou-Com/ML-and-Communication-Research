@@ -19,8 +19,8 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([256, 256, 64])
-DecoderNodes = [256, 256]
+encoderNodes = np.array([2048, 128, 64])
+DecoderNodes = [128, 256]
 #%
 '''
     Architecture
@@ -29,7 +29,7 @@ Encoder = tf.keras.Sequential([
         # Input Layer
         layers.Dense(encoderNodes[0], activation='relu', input_shape=(256,), name='Input'),
         # Hidden Layer
-        layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
+        #layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
         # Hidden Layer
         #layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         # Coded Layer
@@ -38,7 +38,7 @@ Encoder = tf.keras.Sequential([
 
 NoiseL = tf.keras.Sequential([
         # Rounded codeword
-        layers.Lambda(fn.roundCode, input_shape=(n,), 
+        layers.Lambda(roundCode, input_shape=(n,), 
                       output_shape=(n,), name='Codeword'),
         # Noise Layer
         layers.Lambda(tensorBSC,input_shape=(n,), 
@@ -47,7 +47,7 @@ NoiseL = tf.keras.Sequential([
 
 Decoder = tf.keras.Sequential([ # Array to define layers
         layers.Dense(DecoderNodes[0], activation='relu', input_shape=(n,), name='DHL1'),
-        layers.Dense(DecoderNodes[1], activation='relu', name='DHL2'),
+        #layers.Dense(DecoderNodes[1], activation='relu', name='DHL2'),
         layers.Dense(256, activation='softmax', name='1H_Output')
         ], name = 'Decoder')
 
@@ -57,7 +57,7 @@ plot_model(Autoencoder1H,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',s
 '''
     Overall Settings/ Compilation
 '''
-lossFunc = 'mse'
+lossFunc = 'logcosh'
 Autoencoder1H.compile(loss=lossFunc ,
               optimizer='adam',
               )
@@ -91,7 +91,7 @@ t = TicToc('name')
 t.tic()
 
 
-globalReps = 100
+globalReps = 1000
 globalErrorAutoencoder1H = fn.onehotAutoencoderPrediction(Encoder, Decoder, 
                                messages, pOptions, globalReps, N, n, k)
 

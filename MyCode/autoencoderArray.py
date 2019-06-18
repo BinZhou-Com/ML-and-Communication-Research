@@ -51,7 +51,7 @@ Encoder = tf.keras.Sequential([
 
 NoiseL = tf.keras.Sequential([
         # Rounded codeword
-        layers.Lambda(fn.roundCode, input_shape=(n,), 
+        layers.Lambda(roundCode, input_shape=(n,), 
                       output_shape=(n,), name='Codeword'),
         # Noise Layer
         layers.Lambda(tensorBSC,input_shape=(n,), 
