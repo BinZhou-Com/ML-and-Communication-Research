@@ -19,7 +19,7 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([2048, 128, 64])
+encoderNodes = np.array([256, 128, 96, 64, 32]) # add a 192 layer at the beginning
 DecoderNodes = [128, 256]
 #%
 '''
@@ -28,10 +28,19 @@ DecoderNodes = [128, 256]
 Encoder = tf.keras.Sequential([
         # Input Layer
         layers.Dense(encoderNodes[0], activation='relu', input_shape=(256,), name='Input'),
+        layers.BatchNormalization(),
         # Hidden Layer
-        #layers.Dense(encoderNodes[1], activation='relu', name='EHL1'),
+        layers.Dense(encoderNodes[1], activation='relu', name='EHL'),
+        layers.BatchNormalization(),
         # Hidden Layer
-        #layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
+        layers.Dense(encoderNodes[2], activation='relu', name='EHL1'),
+        layers.BatchNormalization(),
+        # Hidden Layer
+        layers.Dense(encoderNodes[3], activation='relu', name='EHL2'),
+        layers.BatchNormalization(),
+        # Hidden Layer
+        layers.Dense(encoderNodes[4], activation='relu', name='EHL3'),
+        layers.BatchNormalization(),
         # Coded Layer
         layers.Dense(n, activation='sigmoid', name='Codedfloat'),
         ], name='Encoder')  
@@ -60,6 +69,7 @@ plot_model(Autoencoder1H,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',s
 lossFunc = 'logcosh'
 Autoencoder1H.compile(loss=lossFunc ,
               optimizer='adam',
+              metrics=[fn.metricBER1H]
               )
 '''
     Summaries and checkpoints (to do)

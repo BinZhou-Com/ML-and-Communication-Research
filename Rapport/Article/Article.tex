@@ -380,6 +380,8 @@ The architecture of the DNN necessary to achieve a great performance in terms of
 
 The choice of the crossover probability of the training channel, $p_{t}$, was based in the work of \cite{DBLP:conf/acssc/BenammarP18} which shows $p_{t}=0.07$ to be the best in terms of decoding precision after the DNN is trained. In addition, a deeper NN showed best results in \cite{DBLP:journals/corr/OSheaH17} and were adopted to solve the problem. The training parameters are displayed in table \ref{tab:arraydecoderTrain}.
 
+Trainin set for array decoding.
+
 The choices of training parameters is a mix between what other works in literature uses and a hyper parametric analytic approach, where several trials lead to the decision. First, the binary cross-entropy as loss function is widely used in literature and  showed to converge to the desired result consistently during tests. For the optimizer, the \textit{Adam} built-in Keras optimizer was chosen. Adam optimizer algorithm is similar to a classic stochastic gradient descent algorithm, but computes individual adaptive learning rates for different parameters from estimates of first and second moments of the gradients \cite{chollet2015keras}. Next, a batch size matching the size of the training set which is sufficiently small to still operate in the regime of small batch was chosen. In \cite{DBLP:journals/corr/KeskarMNST16}, the authors demonstrated better performance for a NN training with stochastic gradient descent and its variants operating in a small-batch regime, usually between 32-512 data points. Finally, the necessary number of epochs to training is sensitive to the problem, since it impacts directly the training computational cost. As a result, we tried several training epoch sizes and found $2^{16}$ to have precise results and be computationally viable.
 
 \begin{table}
@@ -423,7 +425,11 @@ A straight forward consequence of this shallower NN is the number of training pa
 
 Despite the NN complexity benefits of the one-hot decoder, it is required to transform the predicted vector into a message. Consequently, an additional operation is needed. To transform from a one-hot vector to a message, a ordered collection of the messages was stored in memory and the correspondent message is determined by a $argmax$ operation in the one-hot vector, which identifies which message is the most likely to have been transmitted through the channel.
 
+Trainin set for one-hot decoding, say how was pseudo-randomly generated, sa that the stastistic was checked to have 1/2 of 1s and 1/2 of 0s.
+
 The one-hot decoder was trained both with and without a noise layer. The model without a integrated channel converged faster to the solution. Tables \ref{tab:onehotdecoder} and \ref{tab:onehotdecoderTrain} resume the architecture and training variables, respectively.
+
+
 
 \begin{table}
 \caption{DNN one-hot decoder architecture.} 
@@ -452,8 +458,10 @@ The one-hot decoder was trained both with and without a noise layer. The model w
 \end{center}
 \end{table}
 
+However, we still need a decoding matrix.... Introduces autoencoder that could train without G
+
 \subsection{Autoencoder}
-Architecture, Training and simulation parameters, procedure to find a M epoch suitable, choices of p train, Talk about NN separation, 
+Architecture, Training and simulation parameters, procedure to find a M epoch suitable, choices of p train, Talk about NN separation, no necessity for G, a slight different trainin approach (training data and labels are identical), same channel rate (16 units) for a message of 8 bits, 
 
 \begin{table}
 \caption{DNN array autoencoder architecture.} 

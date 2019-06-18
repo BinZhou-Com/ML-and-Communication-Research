@@ -8,7 +8,7 @@ Created on Wed Jun  5 13:47:36 2019
 
 numEpochs = 2**16
 directory = 'Retrain/Autoencoder1H/'
-fileName = 'Autoencoder1H_Mep_65536_bs_256_1024-256.h5'
+fileName = 'Autoencoder1H_Mep_65536_bs_256_-2048-128.h5'
 Autoencoder = tf.keras.models.load_model(directory+'OriginalModel\\'+fileName)
 print("Loaded models from disk")
 path = directory+'TrainedModel\\'+fileName
@@ -48,7 +48,7 @@ Decoder = Autoencoder.layers[2]
 globalErrorAutoencoder=fn.onehotAutoencoderPrediction(Encoder, Decoder, messages, pOptions, globalReps, N, n, k)
 #% Plotting
 numEpochs = 2**17
-figPath = directory+'Autoencoder1H_Mep_'+str(numEpochs)+'_bs_1024-256_p_train_0.png'
+figPath = directory+'images/Autoencoder1H_Mep_'+str(numEpochs)+'_bs_2048-128_p_train_0.png'
 plotBERp(globalErrorAutoencoder, 'One-hot Autoencoder')
 
 

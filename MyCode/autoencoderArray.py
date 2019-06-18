@@ -78,16 +78,17 @@ plot_model(Autoencoder,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',sho
 lossFunc = 'logcosh'
 Autoencoder.compile(loss=lossFunc ,
               optimizer='adam',
+              metric=[fn.metricBER]
               )
 '''
     Summaries and checkpoints (to do)
 '''
 summary = Autoencoder.summary()
-'''checkpoint = tf.keras.callbacks.ModelCheckpoint(
+checkpoint = tf.keras.callbacks.ModelCheckpoint(
         checkpointPath, monitor='loss', 
         verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=checkpointPeriod)
-'''
-callbacks_list = []
+
+callbacks_list = [checkpoint]
 ''' 
     Training
 '''

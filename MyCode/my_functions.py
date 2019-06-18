@@ -259,7 +259,7 @@ def metricBER(y_true, y_pred):
 
 def metricBER1H(y_true, y_pred):
     #return K.mean(K.not_equal(K.argmax(y_true),K.argmax(y_pred)))
-    return K.mean(K.not_equal(y_true,K.round(y_pred)))
+    return K.mean(K.not_equal(y_true,K.round(y_pred))) #????
 
 def tensorPossibleMessages(name):
     n = name[0]
