@@ -19,8 +19,8 @@ u_train_labels = np.repeat(u_train_labels, 1, axis=0)
 x_train_data = np.repeat(x_train_data, 1, axis=0)
 trainSize = np.size(x_train_data, 0)
 
-encoderNodes = np.array([256, 128, 96, 64, 32]) # add a 192 layer at the beginning
-DecoderNodes = [128, 256]
+encoderNodes = np.array([196, 128, 96, 64, 32]) # add a 192 layer at the beginning
+DecoderNodes = [128, 192]
 #%
 '''
     Architecture
@@ -56,7 +56,7 @@ NoiseL = tf.keras.Sequential([
 
 Decoder = tf.keras.Sequential([ # Array to define layers
         layers.Dense(DecoderNodes[0], activation='relu', input_shape=(n,), name='DHL1'),
-        #layers.Dense(DecoderNodes[1], activation='relu', name='DHL2'),
+        layers.BatchNormalization(),
         layers.Dense(256, activation='softmax', name='1H_Output')
         ], name = 'Decoder')
 
@@ -68,9 +68,9 @@ plot_model(Autoencoder1H,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',s
 '''
 lossFunc = 'logcosh'
 Autoencoder1H.compile(loss=lossFunc ,
-              optimizer='adam',
-              metrics=[fn.metricBER1H]
+              optimizer='adam'
               )
+#metrics=[fn.metricBER1H]
 '''
     Summaries and checkpoints (to do)
 '''
@@ -78,6 +78,9 @@ summary = Autoencoder1H.summary()
 checkpoint = tf.keras.callbacks.ModelCheckpoint(
         checkpointPath, monitor='loss', 
         verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=checkpointPeriod)
+            
+es =  tf.keras.callbacks.EarlyStopping(monitor='loss', min_delta=0.0000000001, patience=256, verbose=1, mode='auto')          
+#es = tf.keras.callbacks.EarlyStopping(monitor='loss', mode='min', verbose=1, patience=1024)
 callbacks_list = [checkpoint]
 ''' 
     Training
@@ -101,7 +104,7 @@ t = TicToc('name')
 t.tic()
 
 
-globalReps = 1000
+globalReps = 100
 globalErrorAutoencoder1H = fn.onehotAutoencoderPrediction(Encoder, Decoder, 
                                messages, pOptions, globalReps, N, n, k)
 

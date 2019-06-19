@@ -165,4 +165,42 @@ fn.createDir(figPath)
 fig.set_size_inches(width, height)
 fig.savefig(figPath+'\MAP_'+title+'_Mep_'+str(numEpochs)+'.png', bbox_inches='tight', dpi=300)
 
+#%%%
+'''
+    Check checkedpoints autoencoders
+'''
+'''
+    Constants
+'''
+numEpochs = 2**13  #2**16 approx 65000
+batchSize = 256
+train_p = 0.0
+timestr = time.strftime("%Y%m%d-%H%M%S")
+title = 'Autoencoder1H'
+path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5'
+directory = 'Fine-tuning/full-models/'
+fileNames = ['20190619-143023_Autoencoder1H_Mep_12288-0.00000000.h5', 
+             '20190619-143023_Autoencoder1H_Mep_16384-0.00000000.h5',
+             '20190619-143023_Autoencoder1H_Mep_20480-0.00000000.h5',
+             '20190619-143023_Autoencoder1H_Mep_40960-0.00000000.h5',
+             '20190619-143023_Autoencoder1H_Mep_45056-0.00000000.h5',
+             '20190619-143023_Autoencoder1H_Mep_49152-0.00000000.h5']
+
+for i in range(len(fileNames)):  
+    '''
+        Load model
+    '''
+    fileName = fileNames[i]
+    loadedModel = tf.keras.models.load_model(directory+fileName)
+    print("Loaded model from disk")
+    
+    Encoder = loadedModel.layers[0]
+    Decoder = loadedModel.layers[2]
+    
+    globalReps = 100
+    globalErrorAutoencoder1H = fn.onehotAutoencoderPrediction(Encoder, Decoder, 
+                               messages, pOptions, globalReps, N, n, k)
+    
+    plotBERp(globalErrorAutoencoder1H, 'One-hot Autoencoder')
+
 

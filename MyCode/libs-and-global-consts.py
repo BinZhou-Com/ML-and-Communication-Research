@@ -86,7 +86,7 @@ globalReps = 1000
 # NN parameters
 title = 'Autoencoder1H'
 timestr = time.strftime("%Y%m%d-%H%M%S")
-numEpochs = 2**13
+numEpochs = 2**17
 batchSize = 256
 train_p = 0.0
 
@@ -133,7 +133,7 @@ def plotTraining(history):
     trainingFig = plt.figure(figsize=(8, 6), dpi=80)
     #plt.title('Batch size = '+str(batchSize))
     plt.plot(history.history['loss']) # all outputs: ['acc', 'loss', 'val_acc', 'val_loss']
-    plt.plot(history.history['metricBER1H'])
+    #plt.plot(history.history['metricBER1H'])
     plt.grid(True, which='both')
     #plt.plot(history.history['val_loss'])
     plt.xlabel('$M_{ep}$')
