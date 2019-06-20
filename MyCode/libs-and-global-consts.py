@@ -88,7 +88,7 @@ title = 'Autoencoder1H'
 timestr = time.strftime("%Y%m%d-%H%M%S")
 numEpochs = 2**17
 batchSize = 256
-train_p = 0.0
+train_p = 0.03
 
 path = 'Trained_'+title+'/'+timestr+'_'+title+'_Mep_'+str(numEpochs)+'_bs_'+str(batchSize)+'.h5'
 checkpointPath = 'Checkpoints/'+title+'/'+timestr+'_'+title+'_Mep_{epoch:02d}-{loss:.8f}.h5'

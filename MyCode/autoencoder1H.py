@@ -56,7 +56,6 @@ NoiseL = tf.keras.Sequential([
 
 Decoder = tf.keras.Sequential([ # Array to define layers
         layers.Dense(DecoderNodes[0], activation='relu', input_shape=(n,), name='DHL1'),
-        layers.BatchNormalization(),
         layers.Dense(256, activation='softmax', name='1H_Output')
         ], name = 'Decoder')
 
@@ -66,7 +65,7 @@ plot_model(Autoencoder1H,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',s
 '''
     Overall Settings/ Compilation
 '''
-lossFunc = 'logcosh'
+lossFunc = 'mse'
 Autoencoder1H.compile(loss=lossFunc ,
               optimizer='adam'
               )

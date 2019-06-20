@@ -379,7 +379,7 @@ This section is divided in two for better identify the differences between the i
 
 \subsubsection{Array Decoder}
 
-The architecture of the DNN necessary to achieve a great performance in terms of BER is not evident. What should be remarked though is the first layer of the DNN. A \textit{Lambda} layer is a layer in which the activation operations are user defined and the parameters are non-trainable. Thus, we were able to define a layer that act as a BSC to force our DNN to learn its effects in the training data. The fact that the parameters are non-trainable means that the noise layer is applied in forward propagation only.
+The architecture of the DNN necessary to achieve a great performance in terms of BER is not evident. To begin we must define which layers were used and why. A \textit{Lambda} layer is a layer in which the activation function is user defined and the parameters are non-trainable. Thus, we were able to define a layer that act as a BSC to force our DNN to learn its effects in the training data. The fact that the parameters are non-trainable means that the noise layer is applied in forward propagation only. A Dense layer is a densely connected layer, which means that each neuron receives input from all the neurons in the previous layer. Thus it is often used to change the dimensions of a vector. In other words, it applies a rotation, scaling and translation transform to a vector as shown in equation \ref{eq:eqFP}. The values in the weight matrix are trainable parameters which are updated during BP \cite{chollet2015keras}.
 
 The choice of the crossover probability of the training channel, $p_{t}$, was based in the work of \cite{DBLP:conf/acssc/BenammarP18} which shows $p_{t}=0.07$ to be the best in terms of decoding precision after the DNN is trained. In addition, a deeper DNN showed best results in \cite{DBLP:journals/corr/OSheaH17} where 3 hidden layers were used. Consequently, the same architecture were adopted to solve the problem as shown in table \ref{tab:arraydecoder}. 
 
@@ -401,14 +401,6 @@ The choice of the crossover probability of the training channel, $p_{t}$, was ba
 \end{center}
 \end{table}
 
-The training set for the array decoder contained all the possible messages as training labels and its correspondents code words as training data. Because of the chosen encoding, the training data is a $256\times16$ matrix and the training label is a $256\times8$ matrix. To generate a possible message, a stochastic algorithm was developed to fabricate random 8-length vectors of integers 1s and 0s which the average value considering all elements was around $0.5$. In this way we could guarantee that our training environment were representative of a real life application. Where different bits are transmitted with the same probability.
-
-Even though it is not recommended to train a NN with all the available data - because it might lead to over-fitting -, for this case does not seems to be a problem. WHY????? (noisy channel? onehot decodeR?)
-
-The choices of training parameters is a mix between what other works in literature uses and a hyper parametric analytic approach, where several trials lead to the decision. First, the binary cross-entropy as loss function is widely used in literature and  showed to converge to the desired result consistently during tests. For the optimizer, the \textit{Adam} built-in Keras optimizer was chosen. Adam optimizer algorithm is similar to a classic stochastic gradient descent algorithm, but computes individual adaptive learning rates for different parameters from estimates of first and second moments of the gradients \cite{chollet2015keras}. Next, a batch size matching the size of the training set which is sufficiently small to still operate in the regime of small batch was chosen. In \cite{DBLP:journals/corr/KeskarMNST16}, the authors demonstrated better performance for a NN training with stochastic gradient descent and its variants operating in a small-batch regime, usually between 32-512 data points. Finally, the necessary number of epochs to training is sensitive to the problem, since it impacts directly the training computational cost. As a result, we tried several training epoch sizes and found $2^{16}$ to have precise results and be computationally viable. The training parameters are displayed in table \ref{tab:arraydecoderTrain}.
-
-
-
 \begin{table}
 \caption{DNN array decoder training parameters.} 
 \begin{center}
@@ -421,6 +413,13 @@ The choices of training parameters is a mix between what other works in literatu
     \label{tab:arraydecoderTrain}
 \end{center}
 \end{table}
+
+The training set for the array decoder contained all the possible messages as training labels and its correspondents code words as training data. Because of the chosen encoding, the training data is a $256\times16$ matrix and the training label is a $256\times8$ matrix. To generate a possible message, a stochastic algorithm was developed to fabricate random 8-length vectors of integers 1s and 0s which the average value considering all elements was around $0.5$. In this way we could guarantee that our training environment were representative of a real life application. Where different bits are transmitted with the same probability.
+
+Even though it is not recommended to train a NN with all the available data - because it might lead to over-fitting -, for this case does not seems to be a problem. WHY????? (noisy channel? onehot decodeR?)
+
+The choices of training parameters is a mix between what other works in literature uses and a hyper parametric analytic approach, where several trials lead to the decision. First, the binary cross-entropy as loss function is widely used in literature and  showed to converge to the desired result consistently during tests. For the optimizer, the \textit{Adam} built-in Keras optimizer was chosen. Adam optimizer algorithm is similar to a classic stochastic gradient descent algorithm, but computes individual adaptive learning rates for different parameters from estimates of first and second moments of the gradients \cite{chollet2015keras}. Next, a batch size matching the size of the training set which is sufficiently small to still operate in the regime of small batch was chosen. In \cite{DBLP:journals/corr/KeskarMNST16}, the authors demonstrated better performance for a NN training with stochastic gradient descent and its variants operating in a small-batch regime, usually between 32-512 data points. Finally, the necessary number of epochs to training is sensitive to the problem, since it impacts directly the training computational cost. As a result, we tried several training epoch sizes and found $2^{16}$ to have precise results and be computationally viable. The training parameters are displayed in table \ref{tab:arraydecoderTrain}.
+
 
 \subsubsection{One-hot Decoder}
 
@@ -463,7 +462,7 @@ The one-hot decoder was trained both with and without a noise layer. The model w
 \end{center}
 \end{table}
 
-Despite of this, an encoding matrix is still needed. A commonly used method in ML for image recognition without training labels is the autoencoder. In this context, the NN is able to learn not only a decoding algorithm, but also a decoding one as introduced in the following section.
+Even though DNN encoders are useful, an encoding matrix is still needed. With a view to eliminate completely the need of an explicit encoding, a technique commonly used method in ML for image recognition is explored. The autoencoder is able to learn not only a decoding algorithm, but also a decoding one as introduced in the following section.
 
 \subsection{Autoencoder}
 Architecture, Training and simulation parameters, procedure to find a M epoch suitable, choices of p train, Talk about NN separation, no necessity for G, a slight different trainin approach (training data and labels are identical), same channel rate (16 units) for a message of 8 bits, 
@@ -509,7 +508,7 @@ Architecture, Training and simulation parameters, procedure to find a M epoch su
 
 \subsubsection{One-hot Autoencoder}
 
-Briefly state that it is basically the same, apart from the input and output layers AND it demands a tremendously different architecture.
+Briefly state that it is basically the same, apart from the input and output layers AND it demands a tremendously different architecture, batch normalization.
 
 \begin{table}
 \caption{DNN one-hot autoencoder architecture.} 
@@ -525,7 +524,7 @@ Briefly state that it is basically the same, apart from the input and output lay
  & Lambda: $\textbf{x}\oplus \text{noise}$\\ \hline
  
  \multirow{2}{*}{Decoder} & Dense: 128, input size: 16 \\
- & Dense: 256, activation: Sigmoid  \\ \hline
+ & Dense: 256, activation: Softmax  \\ \hline
  
     \multicolumn{2}{l}{\textbf{Total parameters: }XX}\\
     \thickhline
@@ -587,7 +586,7 @@ In order to analyze the delay in decoding for each technique studied, a monte ca
 say that only the decoding part was measured  for autoencoders
 
 \begin{table}
-\caption{Decoding time comparison between the MAP algorithm and the DNN decoders and autoencoders. The data is normalized to the mean MAP algorithm decoding time. } 
+\caption{Decoding time comparison between the MAP algorithm and the DNN decoders and autoencoders. The data is normalized to the average MAP algorithm decoding time. } 
 \begin{center}
 
   \begin{tabular}{ c | c | c}
@@ -605,7 +604,7 @@ say that only the decoding part was measured  for autoencoders
 
 \section{Conclusions}
 
-Talk about feasibility of decoders, improved performance of the channel delay with DNN decoders, challenges in implementing this architecture in real life, challenges in training the NNs, Future work, what else could be done with NN in error correction, 
+Talk about feasibility of decoders, improved performance of the channel delay with DNN decoders, challenges in implementing this architecture in real life, challenges in training the NNs, Future work, what else could be done with NN in error correction, Advantages and disadvantages in comparison with linear decoding.
 
 \section*{Acknowledgment}
 The authors would like to thank...
