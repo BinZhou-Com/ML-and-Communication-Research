@@ -87,4 +87,9 @@ N.~S. Keskar, D.~Mudigere, J.~Nocedal, M.~Smelyanskiy, and P.~T.~P. Tang, ``On
   large-batch training for deep learning: Generalization gap and sharp
   minima,'' {\em CoRR}, vol.~abs/1609.04836, 2016.
 
+\bibitem{DBLP:journals/corr/IoffeS15}
+S.~Ioffe and C.~Szegedy, ``Batch normalization: Accelerating deep network
+  training by reducing internal covariate shift,'' {\em CoRR},
+  vol.~abs/1502.03167, 2015.
+
 \end{thebibliography}

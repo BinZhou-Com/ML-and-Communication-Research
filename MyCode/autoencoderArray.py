@@ -43,8 +43,8 @@ Encoder = tf.keras.Sequential([
         layers.BatchNormalization(),
         #layers.Dropout(rate=0.1), 
         # Hidden Layer
-        layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
-        layers.BatchNormalization(),
+        #layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
+        #layers.BatchNormalization(),
         # Coded Layer
         layers.Dense(n, activation='sigmoid', name='Codedfloat')
         ], name='Encoder')
@@ -78,7 +78,6 @@ plot_model(Autoencoder,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',sho
 lossFunc = 'logcosh'
 Autoencoder.compile(loss=lossFunc ,
               optimizer='adam',
-              metric=[fn.metricBER]
               )
 '''
     Summaries and checkpoints (to do)
@@ -88,6 +87,7 @@ checkpoint = tf.keras.callbacks.ModelCheckpoint(
         checkpointPath, monitor='loss', 
         verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=checkpointPeriod)
 
+es =  tf.keras.callbacks.EarlyStopping(monitor='loss', min_delta=0.00000000001, patience=256, verbose=1, mode='auto')          
 callbacks_list = [checkpoint]
 ''' 
     Training
@@ -105,7 +105,7 @@ Autoencoder.save(path)  # creates a HDF5 file
 #%%
 '''
     Prediction Array
-'''
+
 globalReps = 1000
 globalErrorAutoencoder = np.empty([globalReps, len(pOptions)])
 for i_global in range(globalReps):
@@ -123,7 +123,7 @@ for i_global in range(globalReps):
 
 #% Plotting
 plotBERp(globalErrorAutoencoder, 'Array Autoencoder')
-
+'''
 
 
 

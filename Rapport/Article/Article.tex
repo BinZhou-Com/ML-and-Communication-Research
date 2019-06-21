@@ -465,9 +465,26 @@ The one-hot decoder was trained both with and without a noise layer. The model w
 Even though DNN encoders are useful, an encoding matrix is still needed. With a view to eliminate completely the need of an explicit encoding, a technique commonly used method in ML for image recognition is explored. The autoencoder is able to learn not only a decoding algorithm, but also a decoding one as introduced in the following section.
 
 \subsection{Autoencoder}
-Architecture, Training and simulation parameters, procedure to find a M epoch suitable, choices of p train, Talk about NN separation, no necessity for G, a slight different trainin approach (training data and labels are identical), same channel rate (16 units) for a message of 8 bits, 
+For the DNN autoencoder, two different concepts were studied. The array autoencoder takes as input the messages and it tries to replicate them, encoding it in a 16 bit code word, transmitting through a noisy channel and decoding it in the second portion of the NN. A one-hot autoencoder is inputted by a one-hot vector representing one unique k-bit message. It encodes the vector into a n-bit long code word, transmits it through a noisy channel and decode it in the second part of the NN. 
+
+This end-to-end approach for both architectures is promising for digital communication, since there is no need for a predefined linear encoding. Theoretically, the DNN could learn the best encoding and associated decoding to a specific channel. Once trained, they could perform optimally in terms of encoding and decoding for a channel. To be clear during the discussion of this and the following sessions, the autoencoder will be divided in: the encoder, the channel and the decoder portions as shown in Fig. \ref{fig:DDNNAutoencoder}. In total, there were tested 71 array and 80 one-hot autoencoders different architecture or training configuration.
 
 \subsubsection{Array Autoencoder}
+
+Even though in theory the autoencoder could be able to achieve at least the same MAP performance, finding the parameters which unveils its capabilities requires multiple testing and a rigorous hyper-parametric analysis. For the array autoencoder, we first experimented with the depth of the encoder. The number of hidden layers in a DNN has influence in the BP algorithm. Extremely deep NN, with more than 4 hidden layers, may encounter problems in the gradient calculations due to vanishing weights. When the weights becomes too small, they may be source of underflow, depending on the machine precision. 
+
+The encoder portion was first analyzed in a standalone session. We trained the encoder to replicate the linear encoding proposed in the preceding sections as we studied the effects of each parameter in the training performance. A more wide architecture showed faster convergence and the use of three hidden layers had no positive effects. In the end, for the integrated model we opted for using two hidden layers, with 512 and 256 densely connected units as detailed in table \ref{tab:arrayautoencoder}. The activation functions remained the same as in the DNN decoders discussed in the previous section.
+
+Integrating the channel in the autoencoder model posed a challenge.  The prediction of the encoder outputs a real vector with elements in the codomain $(0,1)$ of the sigmoid function. Henceforth, a rounding function is mandatory for the channel transmission. The issue is that a rounding function is not differentiable in zero. This would stop the BP as no gradient would be computed. The solution was to only round values in the forward propagation and ignore this function during BP. The command \textit{tf.keras.backend.stop\textunderscore gradient} in a python environment with \textit{tf.keras} as backend does exactly what we wanted and was implemented in the rounding lambda layer. 
+
+The decoder architecture was also based on the standalone array decoder. In spite of this, there were no difference outstanding in decoding with or without the last hidden layer of the decoder. In the other hand, the tests with a condensate NN with one hidden layer demanded a greater training time to arrive in the same results. The final test was done with the entire autoencoder and the final tweaks were done.
+
+While training the autoencoder we noticed that the binary cross-entropy loss function would need more training epochs than the MSE and \textit{logcosh} loss functions, even though they converged in similar results. The batch size was maintained as the size of the first dimension of the training set and there was no reason for changing the optimizer. Notwithstanding, the ensemble of changes and optimizations were not enough to find a suitable architecture for channels with $p<0.2$ as the MAP algorithm for the 1/2 rate encoder would do better in this scenario. Table \ref{tab:arrayautoencoderTrain} summarizes the array autoencoder training parameters.
+
+Furthermore, adding batch normalization layers inside the DNN was fundamental. With greater training parameters, achieving convergence in a reasonable time requires more computing power without any specific technique. The constant changes of weight values in the intermediate layers in every training step is the principal contributor to training cost. This problem is known as \textit{internal covariance shift}. What batch normalization does is normalize the input of a layer by its batch statistics and then scale and shift it. For further details, refer to \cite{DBLP:journals/corr/IoffeS15}.
+
+The final parameter to determine is the training channel cross over probability. Once the architecture and training parameters were defined, a simulation for the same DNN with different $p_t$ was done and the trained models were analyzed in terms of BER. A $p_t=0.03$ yielded best performance.
+
 
 \begin{table}
 \caption{DNN array autoencoder architecture.} 
@@ -475,18 +492,22 @@ Architecture, Training and simulation parameters, procedure to find a M epoch su
 
   \begin{tabular}{ l  |  l }
     \thickhline
-    \multirow{3}{*}{Encoder} & Dense: X, activation: ReLU, input size: 8 \\
- & Dense: X, activation: ReLU  \\
+    \multirow{3}{*}{Encoder} & Dense: 512, activation: ReLU, input size: 8 \\
+   &  Batch normalization \\
+ & Dense: 256, activation: ReLU \\
+ &  Batch normalization \\
  & Dense: 16, activation: Sigmoid  \\ \hline
  
-    \multirow{2}{*}{Channel} & Lambda: $Round(\textbf{x})$, input size: $n$ \\
+    \multirow{2}{*}{Channel} & Lambda: $Round(\textbf{x})$, input size: $16$ \\
  & Lambda: $\textbf{x}\oplus \text{noise}$\\ \hline
  
- \multirow{2}{*}{Decoder} & Dense: X, input size: 16 \\
- & Dense: X, activation: ReLU  \\
+ \multirow{2}{*}{Decoder} & Dense: 128, input size: 16 \\
+ &  Batch normalization \\
+ & Dense: 64, activation: ReLU  \\
+ &  Batch normalization \\
  & Dense: 8, activation: Sigmoid  \\ \hline
  
-    \multicolumn{2}{l}{\textbf{Total parameters: }XX}\\
+    \multicolumn{2}{l}{\textbf{Total parameters: }154072}\\
     \thickhline
   \end{tabular}
     \label{tab:arrayautoencoder}
@@ -508,7 +529,13 @@ Architecture, Training and simulation parameters, procedure to find a M epoch su
 
 \subsubsection{One-hot Autoencoder}
 
-Briefly state that it is basically the same, apart from the input and output layers AND it demands a tremendously different architecture, batch normalization.
+The procedure to implement the one-hot autoencoder was similar to the array's autoencoder one. Briefly, it was shown experimentally that for this model, a deeper encoder with layers of gradually decreasing number of units were more suited. We tried both a wider and shallower architecture and a deeper and narrow architecture. The second had better BER performance. The final architecture is available in table \ref{tab:onehotautoencoder}.
+
+In terms of noise, their presence in the channel degraded vastly the results, as the DNN was not able to learn. The challenge of the one-hot encoder implementation is the fact that we are trying to represent a 256 size length vector into a 16 length vector to transmit through the specified channel. The hypothesis is that it requires several steps to converge into a representative state. Thus, no noise channel was implemented, only a rounding layer.
+
+The decoder utilized has fewer layers than the array autoencoder, however more parameters. In terms of activation functions, there is no difference from the DNN one-hot decoder, which utilized a multi-class classification framework as well. In addition, batch normalization proved to be valuable and accelerated the overall training of the DNN.
+
+Apart from the number of training epochs, the other training parameters are identical to the array autoencoder. As table \ref{tab:onehotautoencoderTrain} shows, the one-hot autoencoder utilized two times less training epochs to converge.
 
 \begin{table}
 \caption{DNN one-hot autoencoder architecture.} 
@@ -516,17 +543,25 @@ Briefly state that it is basically the same, apart from the input and output lay
 
   \begin{tabular}{ l  |  l }
     \thickhline
-    \multirow{3}{*}{Encoder} & Dense: X, activation: ReLU, input size: 256 \\
- & Dense: X, activation: ReLU  \\
+    \multirow{3}{*}{Encoder} & Dense: 196, activation: ReLU, input size: 256\\
+   & Batch normalization \\
+ & Dense: 128, activation: ReLU  \\
+ & Batch normalization \\
+ & Dense: 96, activation: ReLU  \\
+ & Batch normalization \\
+ & Dense: 64, activation: ReLU  \\
+ & Batch normalization \\
+ & Dense: 32, activation: ReLU  \\
+ & Batch normalization \\
  & Dense: 16, activation: Sigmoid  \\ \hline
  
-    \multirow{2}{*}{Channel} & Lambda: $Round(\textbf{x})$, input size: $n$ \\
- & Lambda: $\textbf{x}\oplus \text{noise}$\\ \hline
+   Channel & Lambda: $Round(\textbf{x})$, input size: $16$ \\ \hline
  
- \multirow{2}{*}{Decoder} & Dense: 128, input size: 16 \\
+ Decoder & Dense: 128, activation: ReLU, input size: 16 \\
+ & Batch normalization \\
  & Dense: 256, activation: Softmax  \\ \hline
  
-    \multicolumn{2}{l}{\textbf{Total parameters: }XX}\\
+    \multicolumn{2}{l}{\textbf{Total parameters: }134052}\\
     \thickhline
   \end{tabular}
     \label{tab:onehotautoencoder}
@@ -539,7 +574,7 @@ Briefly state that it is basically the same, apart from the input and output lay
 \begin{tabular}{ l  |  l | l | l  }
     \thickhline
  Loss func. & Optimizer & N. Epochs & Batch Size \\ \hline
- MSE & Adam & $2^{17}$ & $256$ \\
+ MSE & Adam & $2^{16}$ & $256$ \\
     \thickhline
   \end{tabular}
     \label{tab:onehotautoencoderTrain}
@@ -572,12 +607,26 @@ We can infer from figures \ref{fig:ArrayD} and \ref{fig:1HD} that both the array
 \subsection{Autoencoders}
 BER Curves of simulation varying p, best choice of p, analyse autoencoder with best choice of p
 
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_analysis}
+    \caption{CAPTION}\label{fig:parrayanalysis}
+\end{figure}
+
+
 \begin{figure}[!ht]
   \centering
     \includegraphics[width=0.5\textwidth]{images/AutoencoderArray_Mep_65536_ptrain_003_logcosh}
     \caption{Array autoencoder BER performance. DNN array autoencoder trained with a channel crossover probability error of $p_t=0.03$.}\label{fig:arrayautoencoder}
 \end{figure}
 
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128}
+    \caption{CAPTION.}\label{fig:1hautoencoder}
+\end{figure}
 
 \subsection{Decoding time analysis}
 
@@ -610,10 +659,10 @@ Talk about feasibility of decoders, improved performance of the channel delay wi
 The authors would like to thank...
 
 
-\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, HagenauerJ, JordanMA,Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18, DBLP:journals/corr/KeskarMNST16}
+\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, HagenauerJ, JordanMA,Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18, DBLP:journals/corr/KeskarMNST16, DBLP:journals/corr/IoffeS15}
 
 \bibliographystyle{ieeetr}
-\bibliography{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/HagenauerJ,bib/JordanMA,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18,bib/KeskarMNST16}
+\bibliography{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/HagenauerJ,bib/JordanMA,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18,bib/KeskarMNST16,bib/IoffeS15}
 
 %\bibitem{b1} C. E. Shannon, ``A mathematical theory of communication," Bell System Technical Journal, vol. 27, no. 3, pp. 379–423, Jul. 1948.
 
