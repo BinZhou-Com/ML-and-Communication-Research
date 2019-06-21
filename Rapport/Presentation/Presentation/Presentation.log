@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  21 JUN 2019 14:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  21 JUN 2019 16:11
 entering extended mode
 **./Presentation.tex
 (Presentation.tex
@@ -1356,8 +1356,8 @@ thkerncmss.
 )
 [1
 
-{C:/Users/user/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./images/ISA
-E.png>] (Presentation.toc) [2
+{C:/Users/user/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+(Presentation.toc) [2
 
 ] [3
 
@@ -1380,21 +1380,20 @@ E.png>] (Presentation.toc) [2
 ] [12
 
 ]
-<images/algorithm.png, id=548, 638.98724pt x 330.63525pt>
+<images/algorithm.png, id=545, 638.98724pt x 330.63525pt>
 File: images/algorithm.png Graphic file (type png)
 <use images/algorithm.png>
 Package pdftex.def Info: images/algorithm.png  used on input line 232.
 (pdftex.def)             Requested size: 273.83728pt x 141.69615pt.
-
-[13
+ [13
 
  <./images/algorithm.png>]
-<images/MLNN.png, id=579, 489.027pt x 452.892pt>
+<images/MLNN.png, id=577, 489.027pt x 452.892pt>
 File: images/MLNN.png Graphic file (type png)
 <use images/MLNN.png>
 Package pdftex.def Info: images/MLNN.png  used on input line 376.
 (pdftex.def)             Requested size: 136.91603pt x 126.79506pt.
-<images/DNN_autoencoder.png, id=580, 633.567pt x 287.27325pt>
+<images/DNN_autoencoder.png, id=578, 633.567pt x 287.27325pt>
 File: images/DNN_autoencoder.png Graphic file (type png)
 <use images/DNN_autoencoder.png>
 Package pdftex.def Info: images/DNN_autoencoder.png  used on input line 376.
@@ -1421,7 +1420,7 @@ Package pdftex.def Info: images/DNN_autoencoder.png  used on input line 376.
 ] [21
 
 ]
-<images/MLNN_Mep_65536_ptrain_007.png, id=848, 238.2501pt x 155.3805pt>
+<images/MLNN_Mep_65536_ptrain_007.png, id=846, 238.2501pt x 155.3805pt>
 File: images/MLNN_Mep_65536_ptrain_007.png Graphic file (type png)
 <use images/MLNN_Mep_65536_ptrain_007.png>
 Package pdftex.def Info: images/MLNN_Mep_65536_ptrain_007.png  used on input li
@@ -1434,7 +1433,7 @@ Overfull \vbox (9.48415pt too high) detected at line 418
 [22
 
  <./images/MLNN_Mep_65536_ptrain_007.png>]
-<images/MLNN1H_Mep_16384_ptrain_0.png, id=880, 238.2501pt x 155.3805pt>
+<images/MLNN1H_Mep_16384_ptrain_0.png, id=878, 238.2501pt x 155.3805pt>
 File: images/MLNN1H_Mep_16384_ptrain_0.png Graphic file (type png)
 <use images/MLNN1H_Mep_16384_ptrain_0.png>
 Package pdftex.def Info: images/MLNN1H_Mep_16384_ptrain_0.png  used on input li
@@ -1447,7 +1446,7 @@ Overfull \vbox (9.48415pt too high) detected at line 428
 [23
 
  <./images/MLNN1H_Mep_16384_ptrain_0.png>]
-<images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_analysis.png, id=910, 238.2
+<images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_analysis.png, id=908, 238.2
 501pt x 155.3805pt>
 File: images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_analysis.png Graphic f
 ile (type png)
@@ -1455,7 +1454,7 @@ ile (type png)
 Package pdftex.def Info: images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_ana
 lysis.png  used on input line 446.
 (pdftex.def)             Requested size: 273.83728pt x 178.61029pt.
-<images/AutoencoderArray_Mep_65536_ptrain_003_logcosh.png, id=911, 238.2501pt x
+<images/AutoencoderArray_Mep_65536_ptrain_003_logcosh.png, id=909, 238.2501pt x
  155.3805pt>
 File: images/AutoencoderArray_Mep_65536_ptrain_003_logcosh.png Graphic file (ty
 pe png)
@@ -1475,14 +1474,14 @@ ng  used on input line 446.
 
 
 ]
-<images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128.png, id=1029
+<images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128.png, id=1027
 , 238.2501pt x 155.3805pt>
 File: images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128.png Gra
 phic file (type png)
 <use images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128.png>
 Package pdftex.def Info: images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_9
 6_64_32-128.png  used on input line 456.
-(pdftex.def)             Requested size: 273.83728pt x 178.61029pt.
+(pdftex.def)             Requested size: 256.72147pt x 167.44803pt.
  [28
 
  <./images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128.png>] [29
@@ -1531,13 +1530,13 @@ Package rerunfilecheck Info: File `Presentation.out' has not changed.
 (rerunfilecheck)             Checksum: A5196673AFBAE2E2FE41773801A6B2FF;821.
  ) 
 Here is how much of TeX's memory you used:
- 34336 strings out of 492925
- 835945 string characters out of 3134506
+ 34331 strings out of 492925
+ 835887 string characters out of 3134506
  1089840 words of memory out of 3000000
- 37397 multiletter control sequences out of 15000+200000
+ 37395 multiletter control sequences out of 15000+200000
  18732 words of font info for 68 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 78i,15n,136p,781b,622s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 78i,15n,136p,781b,620s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Program Files/MiKT
@@ -1548,9 +1547,9 @@ c/amsfonts/cm/cmssi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
 nts/cm/cmssi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
 msy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pf
 b>
-Output written on Presentation.pdf (37 pages, 888356 bytes).
+Output written on Presentation.pdf (37 pages, 873013 bytes).
 PDF statistics:
- 1430 PDF objects out of 1440 (max. 8388607)
+ 1432 PDF objects out of 1440 (max. 8388607)
  124 named destinations out of 1000 (max. 500000)
- 672 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 679 words of extra memory for PDF output out of 10000 (max. 10000000)
 

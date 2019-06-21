@@ -57,24 +57,25 @@
 
 
 \author{
-\IEEEauthorblockN{Eduardo Dadalto Camara Gomes\IEEEauthorrefmark{1},
-Meryem Benammar\IEEEauthorrefmark{2}}
+\IEEEauthorblockN{Eduardo Dadalto Camara Gomes\IEEEauthorrefmark{1}}
+
+%%Meryem Benammar\IEEEauthorrefmark{2}}
 
 \IEEEauthorblockA{\IEEEauthorrefmark{1}Institut Supérieur de l'Aéronautique et de l'Espace (ISAE-SUPAERO), Université de Toulouse, 31055 Toulouse, FRANCE\\
 Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr
 }
-\IEEEauthorblockA{\IEEEauthorrefmark{2}Institut Supérieur de l'Aéronautique et de l'Espace (ISAE-SUPAERO), Université de Toulouse, 31055 Toulouse, FRANCE\\
-Email: meryem.benammar@isae-supaero.fr
-}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Institut Supérieur de l'Aéronautique et de l'Espace (ISAE-SUPAERO), Université de Toulouse, 31055 Toulouse, FRANCE\\
+%Email: meryem.benammar@isae-supaero.fr
+%}
 }
 
-\IEEEspecialpapernotice{(Final report)}
+%\IEEEspecialpapernotice{(Final report)}
 
 \maketitle
 
 \begin{abstract}
 
-Communication channel error correction is key to enable digital critical communication systems to work efficiently. The maximum a posteriori (MAP) decoder is proven to be the mathematically optimal solution for the problem. However, its implementation cripples the system applicability. This is because the MAP rule introduces a large delay for long code words. In this context, a deep neural network (DNN) is proposed to optimize the channel with an end-to-end autoencoder. The trained DNN autoencoder has a \textit{one-shot} capability which outperforms a MAP decoder for a given encoder in terms of delay. ONE PHRASE FOR RESULTS
+Communication channel error correction is key to enable digital critical communication systems to work efficiently. The maximum a posteriori (MAP) decoder is proven to be the mathematically optimal solution for the problem. However, its implementation cripples the system applicability. This is because the MAP rule introduces a large delay for long code words. In this context, a deep neural network (DNN) is proposed to optimize the channel with an end-to-end autoencoder. The trained DNN autoencoder has a \textit{one-shot} capability which outperforms a MAP decoder for a given encoder in terms of delay. The decoders proved to be around 25\% faster than the MAP and they achieved the same BER performance. There are still opportunities for enhancement for the autoencoders.
 
 \end{abstract}
 
@@ -610,7 +611,7 @@ BER Curves of simulation varying p, best choice of p, analyse autoencoder with b
 
 In the beginning we expected that the autoencoders would beat the MAP algorithm performance for a fixed linear block encoding. They were supposed to learn a non linear encoding and its particular MAP rule which would perform better than the studied MAP for a low crossover probability range. It turned out, however, since there are an enormous amount of possible non-linear codes, it is difficult to the learning algorithm to find the best one. Often during training, the DNN would find a local minimum which its cost function would be very close to zero, even though its performance during prediction phase was far from optimal.
 
-We observed during training, while experimenting with different architecture, that the array autoencoders would have a BER performance which looked like the no decoding curve, but translated in the y axis. This phenomenon can be observed in figure \ref{fig:parrayanalysis} where we tested several $p_t$ options to find the best one for implementing a more refined training. It is remarkable how the curves tend to replicate the same type of behavior. I believe it shows how the local minimums of the solution space of a NN are indeed close to each other, and the weight values may not be indeed that different.
+We observed during training, while experimenting with different architecture, that the array autoencoders would have a BER performance which looked like the no decoding curve, but translated in the $y$ axis. This phenomenon can be observed in figure \ref{fig:parrayanalysis} where we tested several $p_t$ options to find the best one for implementing a more refined training. It is remarkable how the curves tend to replicate the same type of behavior. I believe it shows how the local minimums of the solution space of a NN are indeed close to each other, and the weight values may not be indeed that different.
 
 \begin{figure}[!ht]
   \centering
@@ -629,24 +630,27 @@ However, it is noticeable the difference in error decoding in terms of a DNN tra
 
 We can observe from Fig. \ref{fig:arrayautoencoder} that for $p<0.02$, the autoencoder performance is actually worse than the tested MAP algorithm. Several hypothesis were considered for this comportment. In order to test them, we calculated the MAP rule for the encoder learned by the array autoencoder. The error correction yielded the same results as the DNN decoder learned by the autoencoder. Thus, the decoder replicates well the MAP for this specific encoding. Then, we experimented with training parameters and architecture, but could not find a configuration which would perform better than the traced MAP for low values of $p$.
 
-\ref{fig:1Hautoencoder}
+
+The one-hot autoencoder could not outperform the MAP traced for any value of $p$. As observed in Fig. \ref{fig:1Hautoencoder}, even though it learned a similar encoding, the resulting BER estimation is not optimal. Equally to the array autoencoder, we tested a MAP rule for the learned encoder and found that the DNN decoder portion performs just like the MAP. Thus, once again the problem is in the learned encoding. We tried 80 different configurations, though we could not find one which could outperform the reference model. We can also highlight the trace of the BER curve, approximating the reference model one. Other one-hot autoencoders showed similar curves but translated up in the $y$ axis.
+
+
 
 \begin{figure}[!ht]
   \centering
     \includegraphics[width=0.5\textwidth]{images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128}
-    \caption{One-hot autoencdoer BER performance. Trained without a noise channel.}\label{fig:1Hautoencoder}
+    \caption{One-hot autoencdoer BER performance. Trained without a noisy channel. The DNN was trained with $2^{16}$ training epochs.}\label{fig:1Hautoencoder}
 \end{figure}
 
 \subsection{Decoding time analysis}
 
-In order to analyze the delay in the communication for each technique studied, a monte carlo simulation was conducted. There were selected 20 different BSC channels. For each channel, $100000$ messages were codified, transmitted and decodified for each decoder, autoencoder and MAP. This process was timed and repeated several times. In the end, an average time and standard deviation of the results were recorded. A normalization for the average MAP decoding time was done. The results are available in the table \ref{tab:timeanalysis}.  
+In order to analyze the delay in the communication for each technique studied, a Monte Carlo simulation was conducted. There were selected 20 different BSC channels. For each channel, $100000$ messages were codified, transmitted and decodified for each decoder, autoencoder and MAP. This process was timed and repeated several times. In the end, an average time and standard deviation of the results were recorded. A normalization for the average MAP decoding time was done. The results are available in the table \ref{tab:timeanalysis}.  
 
 Both decoders using the linear encoding performed around 25\% faster than the MAP rule. This is due their fairly low dimensional complexity and one shot feature. While the MAP rule must calculate the distance between the received codeword to every possible codeword, the decoders once trained are able to decode the received code word into the message of highest probability with simple matrix multiplications. The latter efficiency is potentialized when using decoding computers equipped with GPUs.
 
 In spite of the one-hot decoder has considerably fewer parameters than the array decoder, it must calculate a $argmax$ function to deliver the actual message that was transmitted. This extra costly computation is also the reason for the increased time for the one-hot autoencoder. It must first encode the message, then transmit it and finally decode it, performing two times per message a $argmax$ operation.
 
 \begin{table}
-\caption{Decoding time comparison between the MAP algorithm and the DNN decoders and autoencoders. The data is normalized to the average MAP algorithm decoding time. } 
+\caption{Decoding time comparison between the MAP algorithm and the DNN decoders and autoencoders. The data is normalized to the average MAP algorithm decoding time. The simulation was based on CPU calculations. } 
 \begin{center}
 
   \begin{tabular}{ c | c | c}
@@ -662,15 +666,27 @@ In spite of the one-hot decoder has considerably fewer parameters than the array
 \end{center}
 \end{table}
 
+paragraph that talks about CPU, not GPU.
+
 \section{Conclusions}
 
-Talk about feasibility of decoders, improved performance of the channel delay with DNN decoders, challenges in implementing this architecture in real life, challenges in training the NNs, Future work, what else could be done with NN in error correction, Advantages and disadvantages in comparison with linear decoding.
+The feasibility of a machine learning based channel decoder and the end-to-end application of a deep neural network autoencoder were demonstrated for a communication system with a binary symmetric channel. Their performances were assessed and analyzed in terms of bit error rate performance and communication delay. A few hyper-parametric analysis were conducted to find the best solution for each technique.
+
+The designed decoders improved around 25\% the channel delay when compared to the maximum a posteriori rule for a $(n,k)$ code with $\textbf{G}$ aforementioned as linear encoding matrix. Their small number of parameters aligned with a GPU equipped decoding computer is promissory to be a substitute of the MAP rule and achieve same bit error correction rate. In addition, their training and architecture are straightforward and can be trained with a commercial computer. Once trained, they work as a non-linear decoder to a specific channel encoding.
+
+We also proved that autoencoders can learn a non linear encoding function and its decoding function for a binary symmetric channel. Thus there is no need for a generator matrix for error correction. There are still some challenges in training to solve, such as ameliorate the architecture so it can outperform the reference model in every channel condition. In addition, because of the number of parameters, their calculation in CPU is slow and they showed a greater delay when compared to the MAP rule. Though, they must take the most advantage of GPU based calculations and the delay time could be improved using this technology.
+
+A more rigorous hyper-parametric analysis could find a combination of parameters which yields better BER performance for the autoencoders and is strongly suggested for future work. In addition, in the future, a real implementation of the DNN decoders could be tested to confirm their capabilities as it is not the main focus of this work. We suggest using more advanced NN topology such as a recurrent neural network (RNN) or a generative adversarial network (GAN). Their implementation and training are more complex, however they have recently demonstrated outstanding results in other fields.
+
+
+%Talk about feasibility of decoders, improved performance of the channel delay with DNN decoders, challenges in implementing this architecture in real life, challenges in training the NNs, Future work, what else could be done with NN in error correction, Advantages and disadvantages in comparison with linear decoding.
 
 \section*{Acknowledgment}
-The authors would like to thank...
+
+I would like to thank the guidance and advice from my supervisor Meryem Benammar, Ph.D, my colleague Rémy Zawislak who worked in the same theme and collaborated indirectly to the research and Marjorie Grzeskowiak Lucas, Ph.D, who through the Institut Supérieur de l'Aéronautique et de l'Espace (ISAE-SUPAERO) enabled the confection of the project.
 
 
-\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, HagenauerJ, JordanMA,Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18, DBLP:journals/corr/KeskarMNST16, DBLP:journals/corr/IoffeS15,2018arXiv181103378N}
+%\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, HagenauerJ, JordanMA,Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18, DBLP:journals/corr/KeskarMNST16, DBLP:journals/corr/IoffeS15,2018arXiv181103378N}
 
 \bibliographystyle{ieeetr}
 \bibliography{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/HagenauerJ,bib/JordanMA,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18,bib/KeskarMNST16,bib/IoffeS15,bib/ActivationF}
