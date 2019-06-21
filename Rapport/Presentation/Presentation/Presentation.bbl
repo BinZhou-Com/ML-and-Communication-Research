@@ -36,6 +36,14 @@ P.~Robertson, P.~A. Hoeher, and E.~Villebrun, ``Optimal and sub-optimal maximum
   a posteriori algorithms suitable for turbo decoding.,'' {\em European
   Transactions on Telecommunications}, vol.~8, no.~2, pp.~119--125, 1997.
 
+\bibitem{HagenauerJ}
+H.~J., R.~P., and P.~L., ``iterative turbo decoding of systematic convolutional
+  codes with the map and sova algorithms,'' pp.~21 -- 29, 10 1994.
+
+\bibitem{JordanMA}
+M.~Jordan and R.~Nichols, ``The effects of channel characteristics on turbo
+  code performance,'' pp.~17 -- 21 vol.1, 11 1996.
+
 \bibitem{Ibnkahla}
 M.~Ibnkahla, ``Applications of neural networks to digital
   communications-survey,'' {\em Signal Processing}, vol.~80, pp.~1185--1215, 07
@@ -73,5 +81,15 @@ M.~Benammar and P.~Piantanida, ``Optimal training channel statistics for
   neural-based decoders,'' in {\em 52nd Asilomar Conference on Signals,
   Systems, and Computers, {ACSSC} 2018, Pacific Grove, CA, USA, October 28-31,
   2018} (M.~B. Matthews, ed.), pp.~2157--2161, {IEEE}, 2018.
+
+\bibitem{DBLP:journals/corr/KeskarMNST16}
+N.~S. Keskar, D.~Mudigere, J.~Nocedal, M.~Smelyanskiy, and P.~T.~P. Tang, ``On
+  large-batch training for deep learning: Generalization gap and sharp
+  minima,'' {\em CoRR}, vol.~abs/1609.04836, 2016.
+
+\bibitem{DBLP:journals/corr/IoffeS15}
+S.~Ioffe and C.~Szegedy, ``Batch normalization: Accelerating deep network
+  training by reducing internal covariate shift,'' {\em CoRR},
+  vol.~abs/1502.03167, 2015.
 
 \end{thebibliography}

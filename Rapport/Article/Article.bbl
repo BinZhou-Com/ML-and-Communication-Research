@@ -92,4 +92,9 @@ S.~Ioffe and C.~Szegedy, ``Batch normalization: Accelerating deep network
   training by reducing internal covariate shift,'' {\em CoRR},
   vol.~abs/1502.03167, 2015.
 
+\bibitem{2018arXiv181103378N}
+C.~{Nwankpa}, W.~{Ijomah}, A.~{Gachagan}, and S.~{Marshall}, ``{Activation
+  Functions: Comparison of trends in Practice and Research for Deep
+  Learning},'' {\em arXiv e-prints}, Nov. 2018.
+
 \end{thebibliography}

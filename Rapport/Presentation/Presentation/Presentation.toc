@@ -2,11 +2,10 @@
 \beamer@sectionintoc {2}{Methodology}{13}{0}{2}
 \beamer@subsectionintoc {2}{1}{Reference Model}{13}{0}{2}
 \beamer@subsectionintoc {2}{2}{Design \& Architecture}{14}{0}{2}
-\beamer@subsectionintoc {2}{3}{Training}{16}{0}{2}
-\beamer@subsectionintoc {2}{4}{Error Correction \& Predictions}{17}{0}{2}
-\beamer@sectionintoc {3}{Results \& Discussions}{19}{0}{3}
-\beamer@subsectionintoc {3}{1}{DNN Decoders}{19}{0}{3}
-\beamer@subsectionintoc {3}{2}{DNN Autoencoders}{21}{0}{3}
-\beamer@subsectionintoc {3}{3}{Time Analysis}{22}{0}{3}
-\beamer@sectionintoc {4}{Conclusions}{23}{0}{4}
-\beamer@sectionintoc {5}{Future Work}{24}{0}{5}
+\beamer@subsectionintoc {2}{3}{Error Correction \& Predictions}{20}{0}{2}
+\beamer@sectionintoc {3}{Results \& Discussions}{22}{0}{3}
+\beamer@subsectionintoc {3}{1}{DNN Decoders}{22}{0}{3}
+\beamer@subsectionintoc {3}{2}{DNN Autoencoders}{24}{0}{3}
+\beamer@subsectionintoc {3}{3}{Time Analysis}{29}{0}{3}
+\beamer@sectionintoc {4}{Conclusions}{30}{0}{4}
+\beamer@sectionintoc {5}{Future Work}{31}{0}{5}

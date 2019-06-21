@@ -479,7 +479,7 @@ Integrating the channel in the autoencoder model posed a challenge.  The predict
 
 The decoder architecture was also based on the standalone array decoder. In spite of this, there were no difference outstanding in decoding with or without the last hidden layer of the decoder. In the other hand, the tests with a condensate NN with one hidden layer demanded a greater training time to arrive in the same results. The final test was done with the entire autoencoder and the final tweaks were done.
 
-While training the autoencoder we noticed that the binary cross-entropy loss function would need more training epochs than the MSE and \textit{logcosh} loss functions, even though they converged in similar results. The batch size was maintained as the size of the first dimension of the training set and there was no reason for changing the optimizer. Notwithstanding, the ensemble of changes and optimizations were not enough to find a suitable architecture for channels with $p<0.2$ as the MAP algorithm for the 1/2 rate encoder would do better in this scenario. Table \ref{tab:arrayautoencoderTrain} summarizes the array autoencoder training parameters.
+While training the autoencoder we noticed that the binary cross-entropy loss function would need more training epochs than the MSE and \textit{logcosh} loss functions, even though they converged in similar results. The batch size was maintained as the size of the first dimension of the training set and there was no reason for changing the optimizer. Notwithstanding, the ensemble of changes and optimizations were not enough to find a suitable architecture for channels with $p<0.02$ as the MAP algorithm for the 1/2 rate encoder would do better in this scenario. Table \ref{tab:arrayautoencoderTrain} summarizes the array autoencoder training parameters.
 
 Furthermore, adding batch normalization layers inside the DNN was fundamental. With greater training parameters, achieving convergence in a reasonable time requires more computing power without any specific technique. The constant changes of weight values in the intermediate layers in every training step is the principal contributor to training cost. This problem is known as \textit{internal covariance shift}. What batch normalization does is normalize the input of a layer by its batch statistics and then scale and shift it. For further details, refer to \cite{DBLP:journals/corr/IoffeS15}.
 
@@ -584,12 +584,11 @@ Apart from the number of training epochs, the other training parameters are iden
 
 \section{Results and Analysis}
 
-This section is divided in three parts. The first shows the results obtained to the two implemented decoders. Observations during the training of the DNN are made. Secondly, the results for the autoencoders is brought with some observations during the training period. The discussion and analysis for these two subsections is around the BER performance for the decoders and autoencoders. Finally, a decoding time performance analysis is explained and the results are shown and discussed.
+This section is divided in three parts. The first shows the results obtained to the two decoders. Secondly, the results for the autoencoders is brought with some observations during the training period. The discussion and analysis for these two subsections is around the BER performance. Finally, a decoding time performance analysis is done and the results are shown and discussed.
 
 \subsection{Decoders}
-BER Curves from both decoders, analyze why the number of epochs is so different, .
 
-We can infer from figures \ref{fig:ArrayD} and \ref{fig:1HD} that both the array decoder and the one-hot decoder are able to learn a decodification function. Moreover,  its performances replicate the MAP algorithm's decoding capability. Hence, DNN decoders could substitute the mathematically optimal MAP decoder for a stochastic channel, without compromising the bit error probability.
+We can infer from figures \ref{fig:ArrayD} and \ref{fig:1HD} that both the array decoder and the one-hot decoder are able to learn a decodification function. Moreover,  its performances replicate the MAP algorithm's decoding capability for this specific encoding. Hence, DNN decoders could substitute the mathematically optimal MAP decoder for a stochastic channel, without compromising the bit error probability.
 
 \begin{figure}[!ht]
   \centering
@@ -603,36 +602,48 @@ We can infer from figures \ref{fig:ArrayD} and \ref{fig:1HD} that both the array
     \caption{One hot decoding BER performance. DNN one-hot decoder trained without a noisy channel.}\label{fig:1HD}
 \end{figure}
 
+The MAP decoder and the DNN decoders were tested with the same number of messages and channels. As a result, since they express the same results, we can assume that the DNN decoder was able to learn the MAP algorithm during training phase. More interestingly, is the convergence period for each decoder. The one-hot decoder reached its peak performance much faster in comparison with the array decoder in terms of training epochs. I would attribute this increased performance to the activation function of the last layer. The sigmoid function used in the array decoder may lead to sharp damp gradients, gradient saturation or slow convergence during BP. While the one-hot decoder uses the softmax function which its partial derivatives have a better behavior during BP. Refer to \cite{2018arXiv181103378N} for deeper details in each activation function characteristics.
+
 
 \subsection{Autoencoders}
 BER Curves of simulation varying p, best choice of p, analyse autoencoder with best choice of p
 
+In the beginning we expected that the autoencoders would beat the MAP algorithm performance for a fixed linear block encoding. They were supposed to learn a non linear encoding and its particular MAP rule which would perform better than the studied MAP for a low crossover probability range. It turned out, however, since there are an enormous amount of possible non-linear codes, it is difficult to the learning algorithm to find the best one. Often during training, the DNN would find a local minimum which its cost function would be very close to zero, even though its performance during prediction phase was far from optimal.
+
+We observed during training, while experimenting with different architecture, that the array autoencoders would have a BER performance which looked like the no decoding curve, but translated in the y axis. This phenomenon can be observed in figure \ref{fig:parrayanalysis} where we tested several $p_t$ options to find the best one for implementing a more refined training. It is remarkable how the curves tend to replicate the same type of behavior. I believe it shows how the local minimums of the solution space of a NN are indeed close to each other, and the weight values may not be indeed that different.
 
 \begin{figure}[!ht]
   \centering
     \includegraphics[width=0.5\textwidth]{images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_analysis}
-    \caption{CAPTION}\label{fig:parrayanalysis}
+    \caption{Training crossover probability simulation for the array autoencoder. $P_t=0.03$ demonstrated to have best performance to this particular architecture. The DNNs were trained with $2^{16}$ training epochs.}\label{fig:parrayanalysis}
 \end{figure}
 
 
 \begin{figure}[!ht]
   \centering
     \includegraphics[width=0.5\textwidth]{images/AutoencoderArray_Mep_65536_ptrain_003_logcosh}
-    \caption{Array autoencoder BER performance. DNN array autoencoder trained with a channel crossover probability error of $p_t=0.03$.}\label{fig:arrayautoencoder}
+    \caption{Array autoencoder BER performance. DNN array autoencoder trained with a channel crossover probability error of $p_t=0.03$. The DNN was trained with $2^{17}$ training epochs.}\label{fig:arrayautoencoder}
 \end{figure}
 
+However, it is noticeable the difference in error decoding in terms of a DNN trained with a $p_t=0$ and $p_t=0.3$ in Fig. \ref{fig:parrayanalysis}. Just similar to the array decoder, introducing a channel noise of some kind is beneficial to having a better error correction capability. Using noise also helps in the regularization of the DNN and approximates the training to the real application. 
+
+We can observe from Fig. \ref{fig:arrayautoencoder} that for $p<0.02$, the autoencoder performance is actually worse than the tested MAP algorithm. Several hypothesis were considered for this comportment. In order to test them, we calculated the MAP rule for the encoder learned by the array autoencoder. The error correction yielded the same results as the DNN decoder learned by the autoencoder. Thus, the decoder replicates well the MAP for this specific encoding. Then, we experimented with training parameters and architecture, but could not find a configuration which would perform better than the traced MAP for low values of $p$.
+
+\ref{fig:1Hautoencoder}
 
 \begin{figure}[!ht]
   \centering
     \includegraphics[width=0.5\textwidth]{images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128}
-    \caption{CAPTION.}\label{fig:1hautoencoder}
+    \caption{One-hot autoencdoer BER performance. Trained without a noise channel.}\label{fig:1Hautoencoder}
 \end{figure}
 
 \subsection{Decoding time analysis}
 
-In order to analyze the delay in decoding for each technique studied, a monte carlo simulation was conducted. There were selected 20 different BSC channels. For each channel, $100000$ messages were transmitted and decodified for each decoder. This process was timed and repeated several times. In the end, an average time and standard deviation of the results were recorded. A normalization for the average MAP decoding time was done. The results are available in the table \ref{tab:timeanalysis}.  
+In order to analyze the delay in the communication for each technique studied, a monte carlo simulation was conducted. There were selected 20 different BSC channels. For each channel, $100000$ messages were codified, transmitted and decodified for each decoder, autoencoder and MAP. This process was timed and repeated several times. In the end, an average time and standard deviation of the results were recorded. A normalization for the average MAP decoding time was done. The results are available in the table \ref{tab:timeanalysis}.  
 
-say that only the decoding part was measured  for autoencoders
+Both decoders using the linear encoding performed around 25\% faster than the MAP rule. This is due their fairly low dimensional complexity and one shot feature. While the MAP rule must calculate the distance between the received codeword to every possible codeword, the decoders once trained are able to decode the received code word into the message of highest probability with simple matrix multiplications. The latter efficiency is potentialized when using decoding computers equipped with GPUs.
+
+In spite of the one-hot decoder has considerably fewer parameters than the array decoder, it must calculate a $argmax$ function to deliver the actual message that was transmitted. This extra costly computation is also the reason for the increased time for the one-hot autoencoder. It must first encode the message, then transmit it and finally decode it, performing two times per message a $argmax$ operation.
 
 \begin{table}
 \caption{Decoding time comparison between the MAP algorithm and the DNN decoders and autoencoders. The data is normalized to the average MAP algorithm decoding time. } 
@@ -642,9 +653,9 @@ say that only the decoding part was measured  for autoencoders
     \thickhline
     MAP & Array Decoder & One-hot Decoder\\
     $1.00 \pm 0.02$ & $0.74 \pm 0.03$ & $0.76 \pm 0.02$ \\ \hline
-    \multicolumn{2}{c|}{Array. Autoencoder}  & One-hot Autoencoder\\
+    \multicolumn{2}{c|}{Array Autoencoder}  & One-hot Autoencoder\\
    
-     \multicolumn{2}{c|}{$0.00 \pm 0.00 $} & $0.00 \pm 0.00$ \\ 
+     \multicolumn{2}{c|}{$1.33 \pm 0.05 $} & $3.02 \pm 0.06$ \\ 
     \thickhline
   \end{tabular}
     \label{tab:timeanalysis}
@@ -659,10 +670,10 @@ Talk about feasibility of decoders, improved performance of the channel delay wi
 The authors would like to thank...
 
 
-\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, HagenauerJ, JordanMA,Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18, DBLP:journals/corr/KeskarMNST16, DBLP:journals/corr/IoffeS15}
+\cite{Shannon:2001:MTC:584091.584093, DBLP:journals/corr/CalabreseWGPS16, DBLP:journals/corr/OSheaH17, 2016arXiv160806409O, 2017arXiv171008379G, Worm00turbo-decodingwithout, Viterbi, journals/ett/RobertsonHV97, HagenauerJ, JordanMA,Ibnkahla, nielsenneural, murphy2013machine, DBLP:journals/corr/AbadiABBCCCDDDG16, chollet2015keras, doi:10.1162/neco.2006.18.7.1527, DBLP:conf/acssc/BenammarP18, DBLP:journals/corr/KeskarMNST16, DBLP:journals/corr/IoffeS15,2018arXiv181103378N}
 
 \bibliographystyle{ieeetr}
-\bibliography{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/HagenauerJ,bib/JordanMA,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18,bib/KeskarMNST16,bib/IoffeS15}
+\bibliography{bib/ShannonCE1948,bib/CalabreseWGPS16,bib/OSheaH17,bib/Oshea2,bib/Gruber,bib/Worm,bib/Viterbi,bib/RobertsonHV97,bib/HagenauerJ,bib/JordanMA,bib/Ibnkahla,bib/Nielsen,bib/Murphy,bib/AbadiABBCCCDDDG16,bib/Keras,bib/mit_neco18_1527,bib/BenammarP18,bib/KeskarMNST16,bib/IoffeS15,bib/ActivationF}
 
 %\bibitem{b1} C. E. Shannon, ``A mathematical theory of communication," Bell System Technical Journal, vol. 27, no. 3, pp. 379–423, Jul. 1948.
 

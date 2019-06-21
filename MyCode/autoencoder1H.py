@@ -65,7 +65,7 @@ plot_model(Autoencoder1H,to_file='graphNN/'+title+'/'+timestr+'_'+title+'.pdf',s
 '''
     Overall Settings/ Compilation
 '''
-lossFunc = 'mse'
+lossFunc = 'logcosh'
 Autoencoder1H.compile(loss=lossFunc ,
               optimizer='adam'
               )
