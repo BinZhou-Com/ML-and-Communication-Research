@@ -32,6 +32,7 @@
 
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{outlines}
 
 \usepackage{graphicx}
 \usepackage{textcomp}
@@ -83,7 +84,7 @@
 
 \title[Machine Learning and Communication]{Machine Learning Autoencoder Applied to Communication Channels}
 
-\author{E.~Dadalto Camara Gomes\inst{1} \and M.~Benammar\inst{2}}
+\author{E.~Dadalto Camara Gomes\inst{1}}
 % - Give the names in the same order as the appear in the paper.
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
@@ -95,12 +96,13 @@
    Université de Toulouse\\
     31055, Toulouse, France\\
 Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr
-  \and
-  \inst{2}%
-  Department of Electronics, Optronics, and Signal processing\\
-  ISAE-SUPAERO\\
-  31055, Toulouse, France\\
-  Email: meryem.benammar@isae-supaero.fr}
+%  \and
+ % \inst{2}%
+ % Department of Electronics, Optronics, and Signal processing\\
+ % ISAE-SUPAERO\\
+ % 31055, Toulouse, France\\
+ % Email: meryem.benammar@isae-supaero.fr
+ }
 % - Use the \inst command only if there are several affiliations.
 % - Keep it simple, no one is interested in your street address.
 
@@ -144,85 +146,111 @@ Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr
 % Section and subsections will appear in the presentation overview
 % and table of contents.
 \section{Introduction}
-
-\begin{frame}{Context}{Communication system context in general - what field will I be treating}
-  \begin{itemize}
-  \item {
-    My first point.
-  }
-  \item {
-    My second point.
-  }
-  \end{itemize}
+\subsection{Context}
+\begin{frame}{Context I}{Digital communication system definition}
+  
+  
+\begin{figure}
+  \centering
+   \includegraphics[width=0.6\textwidth]{images/Communication_system_schema_from_book}
+  \caption{Block diagram representation of a communication system.}%%\label{fig:cs}
+\end{figure}   
+  
+\begin{figure}
+  \centering
+   \includegraphics[width=0.65\textwidth]{images/simple_sys}
+  \caption{Simplified communication system. Where $\textbf{u}^k$ is a source message, $\textbf{x}^n$ a code word, $\textbf{y}^n$ the received code word and $\hat{\textbf{u}}^k$ the decoded message.}\label{fig:cs}
+\end{figure}  
+  
 \end{frame}
 
 
-\begin{frame}{Context}{Machine Learning applications - what could we do in communication system}
-  \begin{itemize}
-  \item {
-    My first point.
-  }
-  \item {
-    My second point.
-  }
-  \end{itemize}
+\begin{frame}{Context II}{Machine learning applied to communication system}
+
+
+  \begin{figure}
+  \centering
+   \includegraphics[width=0.35\textwidth]{images/BSC}
+  \caption{Binary symmetric channel (BSC) representation.}%%\label{fig:cs}
+\end{figure}
+
+
+  \begin{figure}
+  \centering
+   \includegraphics[width=0.85\textwidth]{images/autoencoder}
+  \caption{Deep neural network (DNN) based autoencoder.}%%\label{fig:cs}
+\end{figure}
+
 \end{frame}
 
-\begin{frame}{Relevance \& Challenges}{Explain why the work is relevant and explain what are the challenges}
-  \begin{itemize}
-  \item {
-    My first point.
-  }
-  \item {
-    My second point.
-  }
-  \end{itemize}
+\begin{frame}{Motivation \& Challenges}
+
+\begin{outline}
+ \1 Low latency and high bandwidth wireless communication are key to critical systems.
+   \2 i.g. airplanes, satellites, cellular communication and 5G operations.
+\pause
+ \1 As opposite to structured algorithms, machine learning (ML) algorithms do not require rigidly designed models and can take non-linearities effortlessly into account.
+\pause
+ \1  ML based communication systems could be a better representation of realistic systems and could optimize information transmission of different blocklengths.
+   \2 It translates to lower decoding latency, resulting ultimately in gain of bandwidth over standard methods.
+  
+\end{outline} 
+  
 \end{frame}
 
-\begin{frame}{Problem Statement}{What exactly I will solve in this work}
-  \begin{itemize}
-  \item {
-    My first point.
-  }
-  \item {
-    My second point.
-  }
-  \end{itemize}
+
+\subsection{Problem Statement}
+\begin{frame}{Problem Statement}
+
+\begin{outline}
+\1 Could ML based decoders and autoencoders for a BSC perform similarly to the MAP decoder in real applications and have lower communication delay?
+\pause
+\1 This work aims to contribute to set up a higher standard in terms of performance in bit-error correction and demonstrate that ML based models can reduce delay for digital communication applications. 
+\end{outline}
+  
 \end{frame}
 
 
 % You can reveal the parts of a slide one at a time
 % with the \pause command:
-\begin{frame}{Second Slide Title}
-  \begin{itemize}
-  \item {
-    First item.
-    \pause % The slide will pause after showing the first item
-  }
-  \item {   
-    Second item.
-  }
+%\begin{frame}{Second Slide Title}
+%%  \begin{itemize}
+ % \item {
+%    First item.
+%%    \pause % The slide will pause after showing the first item
+ % }
+ %% \item {   
+  %  Second item.
+%  }
   % You can also specify when the content should appear
   % by using <n->:
-  \item<3-> {
-    Third item.
-  }
-  \item<4-> {
-    Fourth item.
-  }
+%  \item<3-> {
+%    Third item.
+%  }
+%  \item<4-> {
+%    Fourth item.
+%  }
   % or you can use the \uncover command to reveal general
   % content (not just \items):
-  \item<5-> {
-    Fifth item. \uncover<6->{Extra text in the fifth item.}
-  }
-  \end{itemize}
-\end{frame}
+%  \item<5-> {
+ %   Fifth item. \uncover<6->{Extra text in the fifth item.}
+%  }
+%  \end{itemize}
+%\end{frame}
 
 
 \section{Methodology}
 
 \subsection{Reference Model}
 \begin{frame}{Maximum a Posterior (MAP) Rule}{Implementation of a MAP decoder for a linear block code through a BSC.}
+
+\begin{itemize}
+\item{The concept of a MAP decoder algorithm for sequences is choosing a message which maximizes the a posterior probability.}
+\end{itemize}
+
+\begin{center}
+$f(y) = \underset{x\in \mathcal{X}}{\text{arg max}} P_{X|Y}(x|y)$
+\end{center}
 
  \begin{figure}[!ht]
   \centering
@@ -232,19 +260,19 @@ Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr
 \end{frame}
 
 \subsection{Design \& Architecture}
-\begin{frame}[allowframebreaks]{Neural Network's Design and Architecture}{Show the architecture used for each case and remarks some important parameters}
-
+\begin{frame}{Neural Network's Design and Architecture Basics}{}
+%Show the architecture used for each case and remarks some important parameters
 	\begin{figure}[!ht]
   \centering
     \includegraphics[width=0.4\textwidth]{images/MLNN}
-    \caption{MLNN representative diagram, where $\textbf{y}^n$ is the input vector, $\textbf{r}_{l}^{j}$ is a hidden layer vector
+    \caption{NN representative diagram, where $\textbf{y}^n$ is the input vector, $\textbf{r}_{l}^{j}$ is a hidden layer vector
 and $\hat{\textbf{u}}^{k}$ is the output vector.} \label{fig:NN}
 \end{figure}
-
+\end{frame}
 	\framebreak
-
+\begin{frame}{Array Decoder DNN Architecture and Implementation}{}
     \begin{table}
-\caption{DNN array decoder architecture and parameters.} 
+\caption{DNN array decoder architecture and training parameters. The input is a code word of size $n$ and the output is the decoded message of size $k$.} 
 \begin{center}
 
   \begin{tabular}{ l  |  l }
@@ -263,17 +291,17 @@ and $\hat{\textbf{u}}^{k}$ is the output vector.} \label{fig:NN}
 \begin{center}
 \begin{tabular}{ l  |  l | l | l  }
     \thickhline
- Loss func. & Optimizer & N. Epochs & Batch Size \\ \hline
+ Loss function & Optimizer & N. Epochs & Batch Size \\ \hline
  Binary cross-entropy & Adam & $2^{16}$ & $256$ \\
     \thickhline
   \end{tabular}
     \label{tab:arraydecoderTrain}
 \end{center}
-
+\end{frame}
   \framebreak
- 
+\begin{frame}{One-hot Decoder DNN Architecture and Implementation}
     \begin{table}
-\caption{DNN one-hot decoder architecture and parameters.} 
+\caption{DNN one-hot decoder architecture and parameters. The input is a code word of size $n$ and the output is a unique one-hot vector of size $2^k$ which is mapped into its correspondent message.} 
 \begin{center}
 
   \begin{tabular}{ l  |  l }
@@ -289,25 +317,25 @@ and $\hat{\textbf{u}}^{k}$ is the output vector.} \label{fig:NN}
 \begin{center}
 \begin{tabular}{ l  |  l | l | l  }
     \thickhline
- Loss func. & Optimizer & N. Epochs & Batch Size \\ \hline
+ Loss function & Optimizer & N. Epochs & Batch Size \\ \hline
  Binary cross-entropy & Adam & $2^{14}$ & $256$ \\
     \thickhline
   \end{tabular}
     \label{tab:onehotdecoderTrain}
 \end{center}
-
-	\framebreak
+\end{frame}
 	
+\begin{frame}{DNN Autoencoder Design}{}
 	\begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.8\textwidth]{images/DNN_autoencoder}
-    \caption{Representation of a DNN autoencoder composed of dense layers.}\label{fig:DDNNAutoencoder}
+    \includegraphics[width=0.6\textwidth]{images/DNN_autoencoder}
+    \caption{Representation of a DNN autoencoder composed of dense layers. Each block represents a DNN which together learn the channel encoding and decoding in an end-to-end manner. They also operate together in bit error correction.}\label{fig:DDNNAutoencoder}
 \end{figure}
+\end{frame}
 	
-	\framebreak
-
+\begin{frame}{Array Autoencoder DNN Architecture and Implementation}{This design yielded best error correction results out of 80 models tried}
     \begin{table}
-\caption{DNN array autoencoder architecture.} 
+\caption{DNN array autoencoder architecture and training parameters.} 
 \begin{center}
   \begin{tabular}{ l  |  l }
     \thickhline
@@ -329,7 +357,7 @@ and $\hat{\textbf{u}}^{k}$ is the output vector.} \label{fig:NN}
 \begin{center}
 \begin{tabular}{ l  |  l | l | l  }
     \thickhline
- Loss func. & Optimizer & N. Epochs & Batch Size \\ \hline
+ Loss function & Optimizer & N. Epochs & Batch Size \\ \hline
  MSE & Adam & $2^{17}$ & $256$ \\
     \thickhline
   \end{tabular}
@@ -337,11 +365,11 @@ and $\hat{\textbf{u}}^{k}$ is the output vector.} \label{fig:NN}
 \end{center}
 
 \footnotetext{Batch Normalization (BN)}
-
-	\framebreak
-  
+\end{frame}
+	
+\begin{frame}{One-hot Autoencoder DNN Architecture}{This design yielded best error correction results out of 71 models tried}
     \begin{table}
-\caption{DNN one-hot autoencoder architecture.} 
+\caption{DNN one-hot autoencoder architecture and training parameters.} 
 \begin{center}
 
   \begin{tabular}{ l  |  l }
@@ -365,7 +393,7 @@ and $\hat{\textbf{u}}^{k}$ is the output vector.} \label{fig:NN}
 \begin{center}
 \begin{tabular}{ l  |  l | l | l  }
     \thickhline
- Loss func. & Optimizer & N. Epochs & Batch Size \\ \hline
+ Loss function & Optimizer & N. Epochs & Batch Size \\ \hline
  MSE & Adam & $2^{16}$ & $256$ \\
     \thickhline
   \end{tabular}
@@ -376,81 +404,74 @@ and $\hat{\textbf{u}}^{k}$ is the output vector.} \label{fig:NN}
 \end{frame}
 
 
-\subsection{Error Correction \& Predictions}
-\begin{frame}{Error Correction and Monte Carlo Simulations}{Explain how we could use NN to predict the results with certain confidence.}
-  \begin{itemize}
-  \item {
-    My first point.
-  }
-  \item {
-    My second point.
-  }
-  \end{itemize}
-\end{frame}
+%\subsection{Error Correction \& Predictions}
+%\begin{frame}{Error Correction and Monte Carlo Simulations}{Explain how we could use NN to predict the results with certain confidence.}
+  
+%\end{frame}
 
 
-\begin{frame}{Blocks}
-\begin{block}{Block Title}
-You can also highlight sections of your presentation in a block, with it's own title
-\end{block}
-\begin{theorem}
-There are separate environments for theorems, examples, definitions and proofs.
-\end{theorem}
-\begin{example}
-Here is an example of an example block.
-\end{example}
-\end{frame}
+%\begin{frame}{Blocks}
+%\begin{block}{Block Title}
+%You can also highlight sections of your presentation in a block, %%with it's own title
+%\end{block}
+%\begin{theorem}
+%%There are separate environments for theorems, examples, definitions and proofs.
+%\end{theorem}
+%%\begin{example}
+%Here is an example of an example block.
+%\end{example}
+%\end{frame}
 
 % Placing a * after \section means it will not show in the
 % outline or table of contents.
 
 \section{Results \& Discussions}
-\subsection{DNN Decoders}
-\begin{frame}{DNN Array Decoder}{Show the results for the array decoder in terms of train p, Mep, Parameters, etc}
+\subsection{Deep Neural Network Based Decoders}
+\begin{frame}{DNN Array Decoder Error Correction Performance}{For each of 20 different channels, 100000 messages were sent. The average error was calculated and traced. The same procedure was applied throughout the work.}
  
  \begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.8\textwidth]{images/MLNN_Mep_65536_ptrain_007}
-    \caption{Array decoding BER performance. NN trained with a channel crossover probability error of $p_t=0.07$.}\label{fig:ArrayD}
+    \includegraphics[width=0.7\textwidth]{images/MLNN_Mep_65536_ptrain_007}
+    \caption{Array decoding BER performance. DNN trained with a channel crossover probability error of $p_t=0.07$. The decoder successfully learned the reference MAP algorithm.}\label{fig:ArrayD}
 \end{figure}
  
 
 \end{frame}
 
-\begin{frame}{DNN One-hot Decoder}{Show the results for the one-hot decoder in terms of train p, Mep, Parameters, etc}
-    
+\begin{frame}{DNN One-hot Decoder Error Correction Performance}
+
    \begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.8\textwidth]{images/MLNN1H_Mep_16384_ptrain_0}
-    \caption{One hot decoding BER performance. NN decoder trained with a channel crossover probability error of $p_t=0$.}\label{fig:1HD}
+    \includegraphics[width=0.7\textwidth]{images/MLNN1H_Mep_16384_ptrain_0}
+    \caption{One hot decoding BER performance. NN decoder trained with a channel crossover probability error of $p_t=0$. The decoder successfully learned the reference MAP algorithm.}\label{fig:1HD}
 \end{figure}
 
 \end{frame}
 
-\subsection{DNN Autoencoders}
-\begin{frame}[allowframebreaks]{DNN Array Autoencoder}{Show the results for the autoencoder in terms of train p, Mep, Parameters, etc}
+\subsection{Deep Neural Network Based Autoencoders}
+\begin{frame}[allowframebreaks]{DNN Array Autoencoder Error Correction Performance}
 
 \begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.8\textwidth]{images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_analysis}
-    \caption{Training crossover probability simulation for the array autoencoder. $P_t=0.3$ demonstrated to have best performance to this particular architecture.}\label{fig:parrayanalysis}
+    \includegraphics[width=0.7\textwidth]{images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_analysis}
+    \caption{Training crossover probability simulation for the array autoencoder. $P_t=0.03$ demonstrated to have best performance to this particular architecture.}\label{fig:parrayanalysis}
 \end{figure}
 
 
 \begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.8\textwidth]{images/AutoencoderArray_Mep_65536_ptrain_003_logcosh}
-    \caption{Array autoencoder BER performance. DNN array autoencoder trained with a channel crossover probability error of $p_t=0.03$.}\label{fig:arrayautoencoder}
+    \includegraphics[width=0.7\textwidth]{images/AutoencoderArray_Mep_65536_ptrain_003_logcosh}
+    \caption{Array autoencoder BER performance. DNN array autoencoder trained with a channel crossover probability error of $p_t=0.03$. The array autoencoder could not outperform the reference MAP algorithm for channels with $p<0.02$.}\label{fig:arrayautoencoder}
 \end{figure}
 
 \end{frame}
 
-\begin{frame}{DNN One-hot Autoencoder}{Show the results for the autoencoder in terms of train p, Mep, Parameters, etc}
+\begin{frame}{DNN One-hot Autoencoder Error Correction Performance}
 
 \begin{figure}[!ht]
   \centering
-    \includegraphics[width=0.75\textwidth]{images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128}
-    \caption{One-hot autoencdoer BER performance. Trained without a noisy channel.}\label{fig:1hautoencoder}
+    \includegraphics[width=0.7\textwidth]{images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128}
+    \caption{One-hot autoencdoer BER performance. Trained without a noisy channel. No architecture could outperform the reference MAP algorithm in terms of BER.}\label{fig:1hautoencoder}
 \end{figure}
 
 \end{frame}
@@ -458,9 +479,9 @@ Here is an example of an example block.
 
 
 \subsection{Time Analysis}
-\begin{frame}{Delay Time Analysis}{Comparison of encoding, transmission and decoding time for each method.}
+\begin{frame}{Delay Time Analysis}{Calculations done by CPU}
   \begin{table}
-\caption{Decoding time comparison between the MAP algorithm and the DNN decoders and autoencoders. The data is normalized to the average MAP algorithm decoding time. } 
+\caption{Decoding time comparison between the reference MAP algorithm and the DNN decoders and autoencoders. The data is normalized to the average MAP algorithm decoding time. The decoders had around a 25\% improvement in delay time in comparison to the MAP.} 
 \begin{center}
 
   \begin{tabular}{ c | c | c}
@@ -479,13 +500,23 @@ Here is an example of an example block.
 \end{frame}
 
 \section{Conclusions}
+
 \begin{frame}{Conclusions}
   \begin{itemize}
   \item {
-    My first point.
+    The feasibility of a machine learning based channel decoder were demonstrated for a communication system with a binary symmetric channel.
   }
   \item {
-    My second point.
+    The designed decoders improved around 25\% the channel delay when compared to the maximum a posteriori rule for a $(16,8)$ code.
+  }
+  \item{
+Their small number of parameters aligned with a GPU equipped decoding computer is promissory to be a substitute of the MAP rule and achieve same bit error correction rate in a real application. \\
+  }
+  \item{
+We also proved that autoencoders can learn a non linear encoding function and its decoding function for a BSC.  
+  }
+  \item{
+   There are still some challenges in training to solve.
   }
   \end{itemize}
 \end{frame}
@@ -494,26 +525,26 @@ Here is an example of an example block.
 \begin{frame}{Future Work}
   \begin{itemize}
   \item {
-    My first point.
+    A more rigorous hyper-parametric analysis could find a combination of parameters which yields better BER performance for the autoencoders.
+  }
+    \item{
+  Using more advanced NN topology such as a recurrent neural network (RNN) or a generative adversarial network (GAN).
   }
   \item {
-    My second point.
+     Real experimental implementation of the DNN decoders could be tested to confirm their capabilities.
   }
   \end{itemize}
 \end{frame}
 
 \section*{Acknowledgment}
-
 \begin{frame}{Acknowledgment}
   I would like to thank ...
   \begin{itemize}
-   \item{The guidance and advice from my supervisor Meryem Benammar, Ph.D;}
+   \item{The guidance and advice from my supervisor Mme. Meryem Benammar, Ph.D;}
   \item{ My colleague Rémy Zawislak who worked in the same theme and collaborated indirectly to the research;}
-   \item{Marjorie Grzeskowiak Lucas, Ph.D, who through the Institut Supérieur de l'Aéronautique et de l'Espace (ISAE-SUPAERO) enabled the confection of the project; and }
-   \item{The supervisors, the LACS member and the audience present today.}
+   \item{Mme. Marjorie Grzeskowiak Lucas, Ph.D, who through the Institut Supérieur de l'Aéronautique et de l'Espace (ISAE-SUPAERO) enabled the confection of the project; and }
+   \item{The evaluators, the LACS member and the audience.}
   \end{itemize}
-
- 
 \end{frame}
 
 \appendix

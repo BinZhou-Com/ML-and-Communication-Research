@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  22 JUN 2019 18:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.14)  25 JUN 2019 19:02
 entering extended mode
 **./Article.tex
 (Article.tex
@@ -1068,10 +1068,10 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 373--374
 File: images/MLNN_Mep_65536_ptrain_007.png Graphic file (type png)
 <use images/MLNN_Mep_65536_ptrain_007.png>
 Package pdftex.def Info: images/MLNN_Mep_65536_ptrain_007.png  used on input li
-ne 600.
+ne 604.
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 600--601
+Overfull \hbox (6.0pt too wide) in paragraph at lines 604--605
  [][] 
  []
 
@@ -1079,10 +1079,10 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 600--601
 File: images/MLNN1H_Mep_16384_ptrain_0.png Graphic file (type png)
 <use images/MLNN1H_Mep_16384_ptrain_0.png>
 Package pdftex.def Info: images/MLNN1H_Mep_16384_ptrain_0.png  used on input li
-ne 606.
+ne 610.
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 606--607
+Overfull \hbox (6.0pt too wide) in paragraph at lines 610--611
  [][] 
  []
 
@@ -1094,10 +1094,10 @@ File: images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_analysis.png Graphic f
 ile (type png)
 <use images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_analysis.png>
 Package pdftex.def Info: images/MAP_AutoencoderArray_Mep_65536_64_128_256_p_ana
-lysis.png  used on input line 621.
+lysis.png  used on input line 625.
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 621--622
+Overfull \hbox (6.0pt too wide) in paragraph at lines 625--626
  [][] 
  []
 
@@ -1107,10 +1107,10 @@ File: images/AutoencoderArray_Mep_65536_ptrain_003_logcosh.png Graphic file (ty
 pe png)
 <use images/AutoencoderArray_Mep_65536_ptrain_003_logcosh.png>
 Package pdftex.def Info: images/AutoencoderArray_Mep_65536_ptrain_003_logcosh.p
-ng  used on input line 628.
+ng  used on input line 632.
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 628--629
+Overfull \hbox (6.0pt too wide) in paragraph at lines 632--633
  [][] 
  []
 
@@ -1120,10 +1120,10 @@ File: images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128.png Gra
 phic file (type png)
 <use images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_96_64_32-128.png>
 Package pdftex.def Info: images/MAP_Autoencoder1H_Mep_131072_ptrain_0_192_128_9
-6_64_32-128.png  used on input line 642.
+6_64_32-128.png  used on input line 646.
 (pdftex.def)             Requested size: 258.0pt x 168.28023pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 642--643
+Overfull \hbox (6.0pt too wide) in paragraph at lines 646--647
  [][] 
  []
 
@@ -1163,11 +1163,11 @@ Before submitting the final camera ready copy, remember to:
 Here is how much of TeX's memory you used:
  27413 strings out of 492925
  698345 string characters out of 3134506
- 931329 words of memory out of 3000000
+ 930329 words of memory out of 3000000
  30793 multiletter control sequences out of 15000+200000
  48796 words of font info for 107 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 78i,14n,136p,1402b,837s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 78i,14n,136p,1069b,837s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C
 :/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Progra
 m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/
@@ -1188,7 +1188,7 @@ bm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Prog
 ram Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX
  2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 urw/times/utmri8a.pfb>
-Output written on Article.pdf (10 pages, 664530 bytes).
+Output written on Article.pdf (10 pages, 664287 bytes).
 PDF statistics:
  150 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
