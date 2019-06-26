@@ -4,9 +4,9 @@
 \beamer@sectionintoc {2}{Methodology}{10}{0}{2}
 \beamer@subsectionintoc {2}{1}{Reference Model}{10}{0}{2}
 \beamer@subsectionintoc {2}{2}{Design \& Architecture}{11}{0}{2}
-\beamer@sectionintoc {3}{Results \& Discussions}{17}{0}{3}
-\beamer@subsectionintoc {3}{1}{Deep Neural Network Based Decoders}{17}{0}{3}
-\beamer@subsectionintoc {3}{2}{Deep Neural Network Based Autoencoders}{19}{0}{3}
-\beamer@subsectionintoc {3}{3}{Time Analysis}{22}{0}{3}
-\beamer@sectionintoc {4}{Conclusions}{23}{0}{4}
-\beamer@sectionintoc {5}{Future Work}{24}{0}{5}
+\beamer@sectionintoc {3}{Results \& Discussions}{16}{0}{3}
+\beamer@subsectionintoc {3}{1}{Deep Neural Network Based Decoders}{16}{0}{3}
+\beamer@subsectionintoc {3}{2}{Deep Neural Network Based Autoencoders}{18}{0}{3}
+\beamer@subsectionintoc {3}{3}{Time Analysis}{21}{0}{3}
+\beamer@sectionintoc {4}{Conclusions}{22}{0}{4}
+\beamer@sectionintoc {5}{Future Work}{23}{0}{5}

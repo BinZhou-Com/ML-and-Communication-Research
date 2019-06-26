@@ -84,7 +84,7 @@
 
 \title[Machine Learning and Communication]{Machine Learning Autoencoder Applied to Communication Channels}
 
-\author{E.~Dadalto Camara Gomes\inst{1}}
+\author{E.~Dadalto Camara Gomes\inst{1} \and M.~Benammar\inst{2}}
 % - Give the names in the same order as the appear in the paper.
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
@@ -96,12 +96,12 @@
    Université de Toulouse\\
     31055, Toulouse, France\\
 Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr
-%  \and
- % \inst{2}%
- % Department of Electronics, Optronics, and Signal processing\\
- % ISAE-SUPAERO\\
- % 31055, Toulouse, France\\
- % Email: meryem.benammar@isae-supaero.fr
+  \and
+  \inst{2}%
+  Department of Electronics, Optronics, and Signal processing\\
+  ISAE-SUPAERO\\
+  31055, Toulouse, France\\
+  Email: meryem.benammar@isae-supaero.fr
  }
 % - Use the \inst command only if there are several affiliations.
 % - Keep it simple, no one is interested in your street address.
@@ -192,7 +192,6 @@ Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr
  \1 As opposite to structured algorithms, machine learning (ML) algorithms do not require rigidly designed models and can take non-linearities effortlessly into account.
 \pause
  \1  ML based communication systems could be a better representation of realistic systems and could optimize information transmission of different blocklengths.
-   \2 It translates to lower decoding latency, resulting ultimately in gain of bandwidth over standard methods.
   
 \end{outline} 
   
@@ -202,12 +201,13 @@ Email: eduardo.dadalto-camara-gomes@student.isae-supaero.fr
 \subsection{Problem Statement}
 \begin{frame}{Problem Statement}
 
-\begin{outline}
-\1 Could ML based decoders and autoencoders for a BSC perform similarly to the MAP decoder in real applications and have lower communication delay?
+\begin{block}{Hypothesis}
+Could ML based decoders and autoencoders for a BSC perform similarly to the MAP decoder in real applications and have lower communication delay?
+\end{block}
 \pause
-\1 This work aims to contribute to set up a higher standard in terms of performance in bit-error correction and demonstrate that ML based models can reduce delay for digital communication applications. 
-\end{outline}
-  
+\begin{block}{Objective}
+This work aims to contribute to set up a higher standard in terms of performance in bit-error correction and demonstrate that ML based models can reduce delay for digital communication applications. 
+\end{block}
 \end{frame}
 
 
@@ -325,13 +325,13 @@ and $\hat{\textbf{u}}^{k}$ is the output vector.} \label{fig:NN}
 \end{center}
 \end{frame}
 	
-\begin{frame}{DNN Autoencoder Design}{}
-	\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.6\textwidth]{images/DNN_autoencoder}
-    \caption{Representation of a DNN autoencoder composed of dense layers. Each block represents a DNN which together learn the channel encoding and decoding in an end-to-end manner. They also operate together in bit error correction.}\label{fig:DDNNAutoencoder}
-\end{figure}
-\end{frame}
+%%\begin{frame}{DNN Autoencoder Design}{}
+%	\begin{figure}[!ht]
+%  \centering
+%    \includegraphics[width=0.6\textwidth]{images/DNN_autoencoder}
+%%    \caption{Representation of a DNN autoencoder composed of dense layers. Each block represents a DNN which together learn the channel encoding and decoding in an end-to-end manner. They also operate together in bit error correction.}\label{fig:DDNNAutoencoder}
+%\end{figure}
+%\end{frame}
 	
 \begin{frame}{Array Autoencoder DNN Architecture and Implementation}{This design yielded best error correction results out of 80 models tried}
     \begin{table}
@@ -344,7 +344,7 @@ and $\hat{\textbf{u}}^{k}$ is the output vector.} \label{fig:NN}
  & Dense: 16, activation: Sigmoid  \\ \hline
     \multirow{2}{*}{Channel} & Lambda: $Round(\textbf{x})$, input size: $16$ \\
  & Lambda: $\textbf{x}\oplus \text{noise}$\\ \hline
- \multirow{2}{*}{Decoder} & Dense: 128, BN, input size: 16 \\
+ \multirow{2}{*}{Decoder} & Dense: 128, activation: ReLU, BN, input size: 16 \\
  & Dense: 64, activation: ReLU, BN  \\
  & Dense: 8, activation: Sigmoid  \\ \hline
     \multicolumn{2}{l}{\textbf{Total parameters: }154072}\\
@@ -536,16 +536,16 @@ We also proved that autoencoders can learn a non linear encoding function and it
   \end{itemize}
 \end{frame}
 
-\section*{Acknowledgment}
-\begin{frame}{Acknowledgment}
-  I would like to thank ...
-  \begin{itemize}
-   \item{The guidance and advice from my supervisor Mme. Meryem Benammar, Ph.D;}
-  \item{ My colleague Rémy Zawislak who worked in the same theme and collaborated indirectly to the research;}
-   \item{Mme. Marjorie Grzeskowiak Lucas, Ph.D, who through the Institut Supérieur de l'Aéronautique et de l'Espace (ISAE-SUPAERO) enabled the confection of the project; and }
-   \item{The evaluators, the LACS member and the audience.}
-  \end{itemize}
-\end{frame}
+%%\section*{Acknowledgment}
+%\begin{frame}{Acknowledgment}
+%  I would like to thank ...
+%  \begin{itemize}
+%   \item{The guidance and advice from my supervisor Mme. Meryem Benammar, Ph.D;}
+%  \item{ My colleague Rémy Zawislak who worked in the same theme and collaborated indirectly to the research;}
+%   \item{Mme. Marjorie Grzeskowiak Lucas, Ph.D, who through the Institut Supérieur de l'Aéronautique et de l'Espace (ISAE-SUPAERO) enabled the confection of the project; and }
+ %  \item{The evaluators, the LACS member and the audience.}
+ % \end{itemize}
+%\end{frame}
 
 \appendix
 \section<presentation>*{Bibliography}
