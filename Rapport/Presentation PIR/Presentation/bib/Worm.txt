@@ -1,8 +1,0 @@
-@inproceedings{JordanMA,
-author = {Hagenauer, J., Robertson, P. and Papke, L.},
-year = {1994},
-month = {10},
-pages = {21 - 29},
-title = {iterative (“Turbo”) decoding of systematic convolutional codes with the MAP and SOVA algorithms},
-doi = {ITG-Fachbericht 130}
-}
