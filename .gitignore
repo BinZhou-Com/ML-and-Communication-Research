@@ -1,2 +1,9 @@
-
+!Article.pdf
+!.gitignore
+Rapport/
+Documents/
+Bibliography/
+Codes-ISAE/
+Coursera/
+Supercomputer-ISAE
 *.pdf
