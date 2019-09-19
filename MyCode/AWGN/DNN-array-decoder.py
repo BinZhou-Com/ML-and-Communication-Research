@@ -8,9 +8,10 @@ Created on Sun Sep 15 14:01:59 2019
     Array Decoder
 '''
 # Training parameters
-#title = 'MLNN'
-#timestr = time.strftime("%Y%m%d-%H%M%S")
-#numEpochs = 2**14
+title = 'MLNN'
+timestr = time.strftime("%Y%m%d-%H%M%S")
+elevado = 20
+numEpochs = 2**elevado
 batchSize = 256
 
 u_train_labels = messages.copy()
@@ -27,8 +28,8 @@ x_val = fn.BPSK(fn.generteCodeWord(test_Size, n, u_val_labels, G))
 '''
     Sequential Model: most simple tf MLNN model
 '''
-#layerWidth = [128,64,32,k]
-#lw = str(layerWidth).replace(" ", "")
+layerWidth = [64,32,16,k]
+lw = str(layerWidth).replace(" ", "")
 train_snr = 1
 NoiseL = tf.keras.Sequential([
         # Noise Layer
