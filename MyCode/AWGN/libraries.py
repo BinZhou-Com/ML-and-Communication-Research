@@ -77,12 +77,12 @@ Gdef = np.array([[1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 G = Gdef
 
 messages, possibleCodewords = fn.possibleCodewordsG(name, G)
-
+possibleRealCodewords = fn.BPSK(possibleCodewords)
 # Channel
 CTYPE = "AWGN"
 # Error analysis parameters
-SNRdbmin = -4
-SNRdbmax = 8
+SNRdbmin = 0
+SNRdbmax = 10
 Eb_No_dB = np.linspace(SNRdbmin, SNRdbmax, 20) # signal to noise ration (SNR) in (dB)
 SNR = 10**(Eb_No_dB/10.0) # signal to noise ratio (linear)
 BER = 0.5*erfc(np.sqrt(SNR)) # analytical BER
@@ -92,5 +92,5 @@ sig = np.sqrt(1/SNR) # scaling factor
 A = 1 # dmin = 2A
 
 # Simulation
-globalReps = 1000
+globalReps = 10000
 

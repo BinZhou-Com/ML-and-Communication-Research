@@ -17,6 +17,7 @@ from tensorflow.keras import layers
 from keras import backend as K
 import os
 
+import pickle
 
 def plotit(t, u, title="Title", X="time (s)", Y="Amplitude"):
     plt.figure()
@@ -283,7 +284,28 @@ def plotAWGN(xlist, ylist, legend, colorlist, linelist, markerlist, lineWidth, m
     plt.legend(legend)
     return fig
 
+def MLNNSinglePredictionAWGN(G, Decoder, SNR, globalReps, N, n, k, lw,numEpochs, title):
+    DecoderError = np.empty([globalReps, len(SNR)])
+    for i_global in range(globalReps):
+        for i_snr in range(np.size(SNR)):
+            snr = SNR[i_snr]
+            u = generateU(N,k)
+            x = generteCodeWord(N, n, u, G)
+            xflat = np.reshape(x, [-1])
+            xBPSK = BPSK(xflat)
+            yflat = AWGN(xBPSK,snr)
+            ychannel = yflat.reshape(N,n) # noisy codewords
+            y = ychannel
+            prediction = Decoder.predict(y)
+            predictedMessages = np.round(prediction)
+            DecoderError[i_global][i_snr] = bitErrorFunction(predictedMessages, u)
 
+    avgDecoderError = np.average(DecoderError, 0)
+    filename = './Data/'+ title+'/'+ title+'_'+lw+'_Mep_'+str(numEpochs)+'.pickle'
+    with open(filename,  'wb') as f:
+        pickle.dump(avgDecoderError, f)
+    with open(filename, 'rb') as f:
+        avgMLNNError = pickle.load(f)
 
 ###################
 # DNNs
@@ -291,6 +313,15 @@ def plotAWGN(xlist, ylist, legend, colorlist, linelist, markerlist, lineWidth, m
 '''
     NN Functions
 '''
+def tensorAWGN(x):
+    train_snr = 1 # Article: Gruber - polar codes 
+    snr = K.constant(train_snr,dtype=tf.float32)
+    noise = K.random_normal_variable(shape=(func_output_shape(x),), mean=0, scale=K.sqrt(1/(2*snr)))
+    #noiseFloat = K.cast(noise, dtype=tf.float32)
+    result = tf.math.add(noise, x)
+    return result
+    
+    
 def func_output_shape(x):
     shape = x.get_shape().as_list()[1]
     return shape

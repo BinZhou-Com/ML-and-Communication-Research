@@ -4,6 +4,7 @@ Created on Sun Sep 15 14:01:42 2019
 
 @author: user
 """
+globalReps = 10000
 MAPError = np.empty([globalReps, len(SNR)])
 for i_global in range(globalReps):
     for i_snr in range(np.size(SNR)):
@@ -30,7 +31,7 @@ for i_global in range(globalReps):
         y = ychannel
         MAP = np.empty([N,k]) # decoded
         for i in range(N):
-            minDistWord = np.argmin(fn.euclidianDistance(possibleCodewords, y[i]), 0) # find word of minimum distance
+            minDistWord = np.argmin(fn.euclidianDistance(possibleRealCodewords, y[i]), 0) # find word of minimum distance
             MAP[i] = messages[minDistWord]
             
         '''
@@ -39,7 +40,7 @@ for i_global in range(globalReps):
         MAPError[i_global][i_snr] = fn.codeErrorFunction(MAP, u)
         
 '''
-    MC error treatment
+    Error treatment
 '''
 avgMAPError = np.average(MAPError, 0)
 
@@ -50,20 +51,4 @@ filename = './Data/MAP/MAP.pickle'
 with open(filename,  'wb') as f:
     pickle.dump(avgMAPError, f)
     
-    
-#%%
-markerlist = ['^', '']
-linelist = ['', '--']
-colorlist = ['k', 'k']
-fig = fn.plotAWGN([Eb_No_dB,Eb_No_dB], [avgMAPError, 
-             theoreticalErrorBPSK], 
-            ['Soft MAP Decoder', 'Uncoded BPSK'],
-            colorlist, linelist, markerlist,
-            lineWidth, markerSize)
-plt.xlim([SNRdbmin, SNRdbmax])
-plt.show()
-
-timestr = time.strftime("%Y%m%d-%H%M%S")
-fig.set_size_inches(width, height)
-fig.savefig('Results/MAP-vs-theory.png', bbox_inches='tight', dpi=300)
 
