@@ -306,6 +306,30 @@ def MLNNSinglePredictionAWGN(G, Decoder, SNR, globalReps, N, n, k, lw,numEpochs,
         pickle.dump(avgDecoderError, f)
     with open(filename, 'rb') as f:
         avgMLNNError = pickle.load(f)
+        
+        
+def NN1HSinglePredictionAWGN(G, Decoder, SNR, globalReps, N, n, k, lw,numEpochs, title, messages):
+    DecoderError = np.empty([globalReps, len(SNR)])
+    for i_global in range(globalReps):
+        for i_snr in range(np.size(SNR)):
+            snr = SNR[i_snr]
+            u = generateU(N,k)
+            x = generteCodeWord(N, n, u, G)
+            xflat = np.reshape(x, [-1])
+            xBPSK = BPSK(xflat)
+            yflat = AWGN(xBPSK,snr)
+            ychannel = yflat.reshape(N,n) # noisy codewords
+            y = ychannel
+            prediction = Decoder.predict(y)
+            predictedMessages = multipleOneshot2messages(prediction, messages)
+            DecoderError[i_global][i_snr] = bitErrorFunction(predictedMessages, u)
+
+    avgDecoderError = np.average(DecoderError, 0)
+    filename = './Data/'+ title+'/'+ title+'_'+lw+'_Mep_'+str(numEpochs)+'.pickle'
+    with open(filename,  'wb') as f:
+        pickle.dump(avgDecoderError, f)
+    with open(filename, 'rb') as f:
+        avgMLNNError = pickle.load(f)
 
 ###################
 # DNNs

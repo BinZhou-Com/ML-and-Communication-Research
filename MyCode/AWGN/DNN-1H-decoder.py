@@ -23,7 +23,7 @@ x_train_data = possibleRealCodewords.copy()
 '''
     Architecture
 '''
-#layerWidth = [128,64,32,k]
+#layerWidth = [128,64,32,256]
 #lw = str(layerWidth).replace(" ", "")
 train_snr = 1
 NoiseL = tf.keras.Sequential([
@@ -87,7 +87,7 @@ NN1H.save('Models/'+title+'/'+title+'_'+lw+'_Mep_'+str(numEpochs)+'.h5')  # crea
     Prediction
 '''
 Decoder=NN1H
-fn.NN1HSinglePredictionAWGN(G, Decoder, SNR, globalReps, N, n, k, lw,numEpochs, title)
+fn.NN1HSinglePredictionAWGN(G, Decoder, SNR, globalReps, N, n, k, lw,numEpochs, title, messages)
 
 '''
     Ploting
