@@ -21,6 +21,6 @@ with open(filename, 'rb') as f:
 '''
     MLNN Decoder
 '''
-filename = './Data/MLNN/MLNN_[128,64,32,8]_Mep_4096_.pickle'
-with open(filename, 'rb') as f:
-    avgMLNNError = pickle.load(f)
+#filename = './Data/MLNN/MLNN_[128,64,32,8]_Mep_4096_.pickle'
+#with open(filename, 'rb') as f:
+#    avgMLNNError = pickle.load(f)

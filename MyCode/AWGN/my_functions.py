@@ -330,6 +330,29 @@ def NN1HSinglePredictionAWGN(G, Decoder, SNR, globalReps, N, n, k, lw,numEpochs,
         pickle.dump(avgDecoderError, f)
     with open(filename, 'rb') as f:
         avgMLNNError = pickle.load(f)
+        
+def AutoencoderSinglePredictionAWGN(Encoder, Decoder, SNR, globalReps, N, n, k, lw,numEpochs, title):
+    globalErrorAutoencoder = np.empty([globalReps, len(SNR)])
+    for i_global in range(globalReps):
+        for i_snr in range(np.size(SNR)):
+            snr = SNR[i_snr]
+            u = generateU(N,k)
+            x = Encoder.predict(u)
+            xflat = np.reshape(x, [-1])
+            xBPSK = xflat
+            yflat = AWGN(xBPSK,snr)
+            ychannel = yflat.reshape(N,n)
+            y = ychannel # noisy codewords
+            prediction = Decoder.predict(y)
+            predictedMessages = np.round(prediction)
+            globalErrorAutoencoder[i_global][i_snr] = bitErrorFunction(predictedMessages, u)
+            
+    avgAutoencoderError = np.average(globalErrorAutoencoder, 0)
+    filename = './Data/'+ title+'/'+ title+'_'+lw+'_Mep_'+str(numEpochs)+'.pickle'
+    with open(filename,  'wb') as f:
+        pickle.dump(avgAutoencoderError, f)
+    with open(filename, 'rb') as f:
+        avgAutoencoderError = pickle.load(f)
 
 ###################
 # DNNs

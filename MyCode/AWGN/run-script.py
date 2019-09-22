@@ -135,6 +135,7 @@ runfile('C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN/DNN-array-decoder.py',
 '''
     1H Decoder batch run
 '''
+'''
 title = 'NN1H'
 directory = 'Models/'+title+'/'
 layerWidth = [128,64,32,256]
@@ -218,3 +219,54 @@ numEpochs=2**elevado
 
 runfile('C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN/DNN-1H-decoder.py', 
         wdir='C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN')
+
+'''
+############################################
+'''
+    Array Autoencoder batch run
+'''
+title = 'AAutoencoder'
+directory = 'Models/'+title+'/'
+encoderNodes = [32, 64, 128, 16]
+decoderNodes = [128, 64, 32, 8]
+lw = str(encoderNodes).replace(" ", "")+str(decoderNodes).replace(" ", "")
+elevado = 12
+numEpochs=2**elevado
+
+runfile('C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN/Array_Autoencoder.py', 
+        wdir='C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN')
+
+title = 'AAutoencoder'
+directory = 'Models/'+title+'/'
+encoderNodes = [32, 64, 128, 16]
+decoderNodes = [128, 64, 32, 8]
+lw = str(encoderNodes).replace(" ", "")+str(decoderNodes).replace(" ", "")
+elevado = 14
+numEpochs=2**elevado
+
+runfile('C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN/Array_Autoencoder.py', 
+        wdir='C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN')
+
+title = 'AAutoencoder'
+directory = 'Models/'+title+'/'
+encoderNodes = [32, 64, 128, 16]
+decoderNodes = [128, 64, 32, 8]
+lw = str(encoderNodes).replace(" ", "")+str(decoderNodes).replace(" ", "")
+elevado = 16
+numEpochs=2**elevado
+
+runfile('C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN/Array_Autoencoder.py', 
+        wdir='C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN')
+
+title = 'AAutoencoder'
+directory = 'Models/'+title+'/'
+encoderNodes = [32, 64, 128, 16]
+decoderNodes = [128, 64, 32, 8]
+lw = str(encoderNodes).replace(" ", "")+str(decoderNodes).replace(" ", "")
+elevado = 18
+numEpochs=2**elevado
+
+runfile('C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN/Array_Autoencoder.py', 
+        wdir='C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN')
+
+

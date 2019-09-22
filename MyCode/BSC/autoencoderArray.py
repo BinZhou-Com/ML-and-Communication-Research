@@ -64,9 +64,9 @@ Decoder = tf.keras.Sequential([ # Array to define layers
         # Add another: L2
         layers.Dense(DecoderNodes[1], activation='relu', name='DHL2'),
         # Add another: L3
-        #layers.Dense(DecoderNodes[2], activation='relu', name='DHL3'),
+        layers.Dense(DecoderNodes[2], activation='relu', name='DHL3'),
         # Add layer with k output units: output
-        layers.Dense(k, activation='sigmoid', name='Output')
+        layers.Dense(DecoderNodes[3], activation='sigmoid', name='Output')
         ], name = 'Decoder')
 
 Autoencoder = tf.keras.Sequential([Encoder,NoiseL, Decoder])

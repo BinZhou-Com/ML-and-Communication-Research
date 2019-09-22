@@ -92,5 +92,5 @@ sig = np.sqrt(1/SNR) # scaling factor
 A = 1 # dmin = 2A
 
 # Simulation
-globalReps = 10000
+globalReps = 100
 
