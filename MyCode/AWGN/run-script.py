@@ -269,4 +269,17 @@ numEpochs=2**elevado
 runfile('C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN/Array_Autoencoder.py', 
         wdir='C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN')
 
+#%%
+title = 'AAutoencoder'
+directory = 'Models/'+title+'/'
+encoderNodes = [256, 256, 16, 16]
+decoderNodes = [128, 64, 32, 8]
+train_snr = 1
+lw = str(encoderNodes).replace(" ", "")+str(decoderNodes).replace(" ", "")+str(train_snr)
+elevado = 18
+numEpochs=2**elevado
+
+
+runfile('C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN/Array_Autoencoder.py', 
+        wdir='C:/Users/user/Desktop/GitHub/PIR/MyCode/AWGN')
 

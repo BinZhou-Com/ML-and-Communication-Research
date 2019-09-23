@@ -362,13 +362,20 @@ def AutoencoderSinglePredictionAWGN(Encoder, Decoder, SNR, globalReps, N, n, k, 
 '''
 def tensorAWGN(x):
     train_snr = 1 # Article: Gruber - polar codes 
-    snr = K.constant(train_snr,dtype=tf.float32)
-    noise = K.random_normal_variable(shape=(func_output_shape(x),), mean=0, scale=K.sqrt(1/(2*snr)))
+    #snr = K.constant(train_snr,dtype=tf.float32)
+    noise = K.random_normal(shape=K.shape(x),mean=0.,stddev=np.sqrt(1/(2*train_snr)))
+    #noise = K.random_normal_variable(shape=(func_output_shape(x),), mean=0, scale=K.sqrt(1/(2*snr)))
     #noiseFloat = K.cast(noise, dtype=tf.float32)
     result = tf.math.add(noise, x)
     return result
     
-    
+def normalize(x):
+    xmin = K.min(x)
+    xmax = K.max(x)
+    a = K.constant(-1)
+    b = K.constant(1)
+    return a + ((x-xmin)*(b-a))/(xmax-xmin)    
+
 def func_output_shape(x):
     shape = x.get_shape().as_list()[1]
     return shape

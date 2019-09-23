@@ -14,8 +14,8 @@ timestr = time.strftime("%Y%m%d-%H%M%S")
 #numEpochs = 2**elevado
 batchSize = 256
 
-u_train_labels = messages.copy()
-x_train_data = u_train_labels
+u_train_labels = fn.BPSK(messages.copy())
+x_train_data = messages.copy()
 
 trainSize = np.size(x_train_data, 0)
 
@@ -27,7 +27,7 @@ trainSize = np.size(x_train_data, 0)
 #encoderNodes = [32, 64, 128, 16]
 #decoderNodes = [128, 64, 32, 8]
 #lw = str(encoderNodes).replace(" ", "")+str(decoderNodes).replace(" ", "")
-train_snr = 1
+#train_snr = 1
 
 Encoder = tf.keras.Sequential([
         # Input Layer
@@ -39,10 +39,13 @@ Encoder = tf.keras.Sequential([
         #layers.BatchNormalization(),
         #layers.Dropout(rate=0.1), 
         # Hidden Layer
-        layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
+        #layers.Dense(encoderNodes[2], activation='relu', name='EHL2'),
         #layers.BatchNormalization(),
         # Coded Layer
-        layers.Dense(encoderNodes[3], activation='sigmoid', name='Codedfloat')
+        layers.Dense(encoderNodes[3], activation='linear', name='Codedfloat'),
+        layers.BatchNormalization(),
+        layers.Lambda(fn.normalize, input_shape=(n,), output_shape=(n,)),
+        
         ], name='Array_Encoder')
 
 NoiseL = tf.keras.Sequential([
@@ -67,7 +70,7 @@ plot_model(AAutoencoder,to_file='GraphNN/'+title+'/'+title+'_'+lw+'_'+timestr+'.
 '''
     Overall Settings/ Compilation
 '''
-lossFunc = 'binary_crossentropy'
+lossFunc = 'mean_squared_error'
 AAutoencoder.compile(loss=lossFunc,
               optimizer='adam')
 '''
@@ -123,7 +126,7 @@ fig = fn.plotAWGN([Eb_No_dB,Eb_No_dB], [avgMAPError,
             colorlist, linelist, markerlist,
             lineWidth, markerSize)
 plt.xlim([SNRdbmin, SNRdbmax])
-plt.ylim([10**-5, 10**-1])
+#plt.ylim([10**-5, 10**-1])
 plt.show()
 
 timestr = time.strftime("%Y%m%d-%H%M%S")
